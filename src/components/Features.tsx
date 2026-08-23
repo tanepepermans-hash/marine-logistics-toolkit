@@ -30,6 +30,8 @@ const checklists = [
   "Warehouse Pickup Check",
   "Next Port Checklist",
   "Onboard Delivery Checklist",
+  "Agent Coordination Checklist",
+  "Delay / Missed Deadline Checklist",
 ];
 
 const workflows = [

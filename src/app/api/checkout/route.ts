@@ -38,7 +38,7 @@ export async function POST(request: Request) {
   params.set("mode", "payment");
   params.set("line_items[0][price]", priceId);
   params.set("line_items[0][quantity]", "1");
-  params.set("success_url", `${origin}/?checkout=success`);
+  params.set("success_url", `${origin}/download?session_id={CHECKOUT_SESSION_ID}`);
   params.set("cancel_url", `${origin}/?checkout=cancelled`);
 
   try {

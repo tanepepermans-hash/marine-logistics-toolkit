@@ -25,7 +25,12 @@ marine-logistics-toolkit/
     │   ├── privacy/page.tsx      # Placeholder legal page
     │   ├── terms/page.tsx        # Placeholder legal page
     │   ├── refunds/page.tsx      # Placeholder legal page
-    │   └── api/checkout/route.ts # Server-side Stripe Checkout Session creation
+    │   ├── download/page.tsx     # Post-purchase page — verifies payment, shows download button
+    │   └── api/
+    │       ├── checkout/route.ts # Server-side Stripe Checkout Session creation
+    │       └── download/route.ts # Re-verifies payment, streams the toolkit PDF
+    ├── lib/
+    │   └── stripe.ts             # Shared helper: verifies a Checkout Session with Stripe
     ├── components/
     │   ├── Navbar.tsx
     │   ├── Hero.tsx
@@ -51,6 +56,10 @@ marine-logistics-toolkit/
     │       └── DocumentMockup.tsx# Reusable "toolkit page" preview card
     └── config/
         └── site.ts               # Price, checkout link, contact email — see below
+
+private/
+└── toolkit/
+    └── marine-logistics-operator-toolkit.pdf   # The actual paid product (see section 4)
 ```
 
 ## 2. Run Locally
@@ -94,25 +103,87 @@ npm run lint    # ESLint
    - `NEXT_PUBLIC_STRIPE_PAYMENT_LINK` (optional, see below)
 4. Deploy. Every push to your main branch redeploys automatically.
 
-## 4. Where to Add the Stripe Checkout Link
+## 4. Connect Stripe and Get Paid
 
-Two ways to connect Stripe — pick one:
+### 4a. One-time setup in the Stripe Dashboard
 
-- **Option A — Stripe Payment Link (no code):** create a Payment Link in the
-  Stripe Dashboard for the €29 toolkit, then set
-  `NEXT_PUBLIC_STRIPE_PAYMENT_LINK` in your environment to that URL. Every
-  "Get Instant Access" / "Get Toolkit" button will link straight to it.
-- **Option B — Dynamic Checkout Session (built in, default):** leave
-  `NEXT_PUBLIC_STRIPE_PAYMENT_LINK` empty and set `STRIPE_SECRET_KEY` +
-  `STRIPE_PRICE_ID` instead. Buttons POST to `/api/checkout`
-  (`src/app/api/checkout/route.ts`), which creates a Stripe Checkout Session
-  server-side via Stripe's REST API and redirects the buyer. The secret key
-  is read only on the server and is **never** sent to the browser.
+1. Create a [Stripe account](https://dashboard.stripe.com/register) (or log
+   into your existing one). You can build and test everything below in
+   **Test mode** first — the toggle is in the top-right of the dashboard.
+2. Go to **Product catalog → + Add product**.
+   - Name: `Marine Logistics Operator Toolkit`
+   - Pricing: **One time**, amount `€29.00` (or your current price)
+   - Save the product, then open it and copy the **Price ID** — it looks
+     like `price_1AbCdEfGhIjKlMnO`.
+3. Go to **Developers → API keys** and copy the **Secret key** — it looks
+   like `sk_test_...` in test mode, `sk_live_...` once you activate live
+   payments. Never share this key or commit it to git.
+4. Later, to accept real money: click **Activate payments** in the
+   dashboard, fill in your business/bank details, then switch the dashboard
+   toggle to **Live mode** and repeat step 2–3 to get your **live** price ID
+   and secret key.
 
-All checkout wiring lives in `src/components/CheckoutButton.tsx` and
-`src/app/api/checkout/route.ts` — nothing else needs to change.
+### 4b. Wire it into the site — two options
 
-## 5. Where to Change the Product Price
+- **Option A — Dynamic Checkout Session (built in, default, recommended):**
+  set `STRIPE_SECRET_KEY` and `STRIPE_PRICE_ID` from step 4a as environment
+  variables (in `.env.local` for local dev, or Vercel → Project Settings →
+  Environment Variables for production). Every "Get Instant Access" / "Get
+  Toolkit" button then POSTs to `/api/checkout`
+  (`src/app/api/checkout/route.ts`), which creates a real Stripe Checkout
+  Session server-side and redirects the buyer to Stripe's hosted payment
+  page. The secret key is read only on the server and is **never** sent to
+  the browser.
+- **Option B — Stripe Payment Link (no code):** in the Stripe Dashboard, go
+  to **Payment links → +**, select your toolkit product, and under
+  **After payment** set the redirect URL to
+  `https://yourdomain.com/download?session_id={CHECKOUT_SESSION_ID}`
+  (Stripe fills in the `{CHECKOUT_SESSION_ID}` part automatically — type it
+  literally). Then set `NEXT_PUBLIC_STRIPE_PAYMENT_LINK` to that Payment
+  Link URL and every button links straight to it instead of using
+  `/api/checkout`.
+
+### 4c. Test before going live
+
+With Stripe still in **Test mode**, run the site and click "Get Instant
+Access". On Stripe's checkout page, pay with the test card
+`4242 4242 4242 4242`, any future expiry date, any CVC. You should land on
+`/download` with a working download button. Only switch to your **live**
+keys once this works end-to-end.
+
+## 5. How Buyers Receive the Toolkit After Paying
+
+This is wired up already — you only need to do the Stripe setup above and
+make sure the real PDF file exists at
+`private/toolkit/marine-logistics-operator-toolkit.pdf`.
+
+1. Stripe redirects a paying customer to
+   `/download?session_id=...` (`src/app/download/page.tsx`).
+2. That page calls `verifyCheckoutSession()` (`src/lib/stripe.ts`), which
+   asks Stripe's API to confirm the session is real and `payment_status`
+   is `paid`. If it isn't, the buyer sees a friendly "we couldn't confirm
+   this order" message with your support email — never a download link.
+3. If the payment is confirmed, the page shows a **Download Toolkit (PDF)**
+   button pointing at `/api/download?session_id=...`
+   (`src/app/api/download/route.ts`), which re-verifies the session again
+   and streams the PDF from `private/toolkit/`.
+4. The real file lives **outside** `public/`, so it is never reachable by
+   guessing or sharing a direct URL — only through this verified route.
+
+**Important:** the actual toolkit PDF is committed to this repository at
+`private/toolkit/marine-logistics-operator-toolkit.pdf` so it deploys
+together with the app (Vercel needs the file present to serve it). Make
+sure this GitHub repository stays **private** — anyone with read access to
+the repo can see the paid product. If you'd rather keep the file out of
+git entirely, swap the `fs.readFile` call in
+`src/app/api/download/route.ts` for a fetch from a storage service (Vercel
+Blob, S3, etc.) instead.
+
+To replace the toolkit content itself, generate a new PDF and overwrite
+`private/toolkit/marine-logistics-operator-toolkit.pdf` — nothing else
+needs to change.
+
+## 6. Where to Change the Product Price
 
 Edit `src/config/site.ts`:
 
@@ -128,7 +199,12 @@ export const siteConfig = {
 Every price shown on the site (nav, hero, pricing card, final CTA) reads from
 this single `siteConfig.price` value.
 
-## 6. Where to Change Text / Images
+> **Note:** `siteConfig.price` only controls the number displayed on the
+> page. The amount actually charged is whatever price your `STRIPE_PRICE_ID`
+> points to in the Stripe Dashboard (see section 4) — if you change one,
+> change the other to match.
+
+## 7. Where to Change Text / Images
 
 - **All copy** lives directly in each section's component under
   `src/components/` as plain strings or small arrays at the top of the file
@@ -152,3 +228,7 @@ this single `siteConfig.price` value.
   intentional and should stay — see `src/components/TrustSection.tsx`.
 - Legal pages (`/privacy`, `/terms`, `/refunds`) contain placeholder copy —
   replace with reviewed legal text before taking real payments.
+- The toolkit PDF (`private/toolkit/marine-logistics-operator-toolkit.pdf`)
+  is a real first edition: 30 email templates, 12 checklists, 6 shipment
+  problem workflows, 6 AI operator prompts, and the bonus emergency
+  checklist. Regenerate or replace it any time — see section 5.
