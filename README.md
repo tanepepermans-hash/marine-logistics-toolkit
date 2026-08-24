@@ -28,7 +28,8 @@ marine-logistics-toolkit/
     │   ├── download/page.tsx     # Post-purchase page — verifies payment, shows download button
     │   └── api/
     │       ├── checkout/route.ts # Server-side Stripe Checkout Session creation
-    │       └── download/route.ts # Re-verifies payment, streams the toolkit PDF
+    │       ├── download/route.ts # Re-verifies payment, streams the right tier's file
+    │       └── lead/route.ts     # Free-checklist email capture — forwards to your webhook
     ├── lib/
     │   └── stripe.ts             # Shared helper: verifies a Checkout Session with Stripe
     ├── components/
@@ -48,6 +49,7 @@ marine-logistics-toolkit/
     │   ├── Footer.tsx
     │   ├── LegalPage.tsx         # Shared layout for /privacy, /terms, /refunds
     │   ├── CheckoutButton.tsx    # Client component that drives checkout
+    │   ├── LeadMagnetForm.tsx    # Email capture form (embedded in Bonus.tsx)
     │   └── ui/
     │       ├── Container.tsx
     │       ├── SectionBadge.tsx
@@ -57,16 +59,21 @@ marine-logistics-toolkit/
     └── config/
         └── site.ts               # Prices (both tiers), checkout links, contact email
 
+public/
+└── downloads/
+    └── emergency-vessel-shipment-checklist.pdf   # FREE lead magnet (see section 8) — publicly served
+
 private/
 └── toolkit/
     ├── marine-logistics-operator-toolkit.pdf           # Standard tier deliverable
     └── marine-logistics-operator-toolkit-premium.zip   # Premium tier deliverable (see section 5)
 
 scripts/
-└── toolkit-content/       # Regenerates the files in private/toolkit/ — see its own README
-    ├── build_pdf.py         # All toolkit copy + PDF layout (Standard and Premium)
-    ├── build_docx.py        # Editable Word doc of all templates (Premium only)
-    └── build_xlsx.py        # Editable Excel shipment tracker (Premium only)
+└── toolkit-content/       # Regenerates the files above — see its own README
+    ├── build_pdf.py           # All toolkit copy + PDF layout (Standard and Premium)
+    ├── build_docx.py          # Editable Word doc of all templates (Premium only)
+    ├── build_xlsx.py          # Editable Excel shipment tracker (Premium only)
+    └── build_lead_magnet.py   # The free public checklist PDF
 ```
 
 ## 2. Run Locally
@@ -240,6 +247,40 @@ from these two values.
   Next.js `<Image>` tag pointing at `/your-image.png`.
 - **Colors/branding:** the full palette (navy, ocean-blue, mist grey) and
   shadows/animations are defined once in `tailwind.config.ts`.
+
+## 8. Free Lead Magnet (Email Capture)
+
+The Bonus section gives away the Emergency Vessel Shipment Checklist free
+in exchange for an email address — this is the "give something away before
+asking for €29" strategy that most competing template sellers don't do.
+
+**How it works:**
+
+1. A visitor enters their email in `LeadMagnetForm.tsx` (embedded in
+   `Bonus.tsx`).
+2. It POSTs to `/api/lead` (`src/app/api/lead/route.ts`), which validates
+   the address and forwards it to whatever webhook URL you configure.
+3. The checklist (`public/downloads/emergency-vessel-shipment-checklist.pdf`)
+   opens in a new tab immediately — this happens even if you haven't
+   configured a webhook yet, so development/testing isn't blocked.
+
+**To actually capture the emails**, set `LEAD_WEBHOOK_URL` in your
+environment to a webhook from whatever tool you want to collect leads in.
+All of these accept a plain incoming webhook, so no code changes are
+needed — just paste the URL:
+
+- **Zapier / Make**: create a "Catch Hook" / webhook trigger, it gives you
+  a URL — connect it to add the email to Mailchimp, a Google Sheet, etc.
+- **Mailchimp / ConvertKit / Beehiiv**: each has an option to add
+  subscribers via an incoming webhook or a "Zapier" integration.
+- **A Google Sheet**: use a free service like Sheet.best or a Google Apps
+  Script web app as the webhook target.
+
+The checklist PDF is intentionally free/public (`public/downloads/`, not
+`private/toolkit/`) — unlike the paid tiers, nothing gates it. To change
+the checklist itself, edit `BONUS_CHECKLIST` in
+`scripts/toolkit-content/build_pdf.py` and rerun
+`scripts/toolkit-content/build_lead_magnet.py`.
 
 ## Notes
 

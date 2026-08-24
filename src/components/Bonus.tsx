@@ -10,6 +10,7 @@ import {
 import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 import SectionBadge from "@/components/ui/SectionBadge";
+import LeadMagnetForm from "@/components/LeadMagnetForm";
 
 const checks = [
   { icon: Anchor, label: "Vessel information" },
@@ -74,9 +75,7 @@ export default function Bonus() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-5 rounded-lg bg-ocean-500/[0.07] px-3.5 py-2.5 text-center text-[11px] font-semibold uppercase tracking-wide text-ocean-700">
-                Included free with the toolkit
-              </div>
+              <LeadMagnetForm />
             </div>
           </Reveal>
         </div>

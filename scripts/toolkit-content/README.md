@@ -1,11 +1,12 @@
 # Toolkit Content Generator
 
-These scripts generate the actual paid product files that live in
-`private/toolkit/` — they are **not** part of the Next.js app and don't run
-at build/deploy time. Run them locally whenever you want to edit the
-toolkit's content (templates, checklists, workflows, prompts, tracker).
+These scripts generate the actual product files served by the app —
+`private/toolkit/` (paid) and `public/downloads/` (the free lead magnet).
+They are **not** part of the Next.js app and don't run at build/deploy
+time. Run them locally whenever you want to edit the content (templates,
+checklists, workflows, prompts, tracker).
 
-All three use only the Python standard library — no `pip install` needed.
+All four use only the Python standard library — no `pip install` needed.
 
 ## Files
 
@@ -19,6 +20,9 @@ All three use only the Python standard library — no `pip install` needed.
   `build_pdf.py`.
 - `build_xlsx.py` — builds the Shipment Tracker Excel file (Premium only),
   also hand-built as OOXML.
+- `build_lead_magnet.py` — builds the free, public one-page checklist PDF
+  given away in exchange for an email (see README section 8), reusing the
+  same `BONUS_CHECKLIST` content and icons as `build_pdf.py`.
 
 ## Regenerating everything
 
@@ -53,6 +57,14 @@ with zipfile.ZipFile('marine-logistics-operator-toolkit-premium.zip', 'w', zipfi
 # 5. Copy the two deliverables into the app
 cp Marine-Logistics-Operator-Toolkit.pdf ../../private/toolkit/marine-logistics-operator-toolkit.pdf
 cp marine-logistics-operator-toolkit-premium.zip ../../private/toolkit/marine-logistics-operator-toolkit-premium.zip
+
+# 6. Regenerate + copy the free lead magnet (only needed if you edited
+#    BONUS_CHECKLIST in build_pdf.py)
+python3 build_lead_magnet.py
+"$CHROME" --headless --disable-gpu --no-sandbox \
+  --print-to-pdf=emergency-vessel-shipment-checklist.pdf \
+  --no-pdf-header-footer lead-magnet.html
+cp emergency-vessel-shipment-checklist.pdf ../../public/downloads/emergency-vessel-shipment-checklist.pdf
 ```
 
 > **Why hand-built OOXML instead of python-docx/openpyxl/LibreOffice?** In
