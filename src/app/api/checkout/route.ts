@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { siteConfig } from "@/config/site";
+import { siteConfig, type TierId } from "@/config/site";
 
 // ---------------------------------------------------------------------------
 // Stripe Checkout Session creation — SERVER SIDE ONLY.
@@ -9,24 +9,39 @@ import { siteConfig } from "@/config/site";
 // environment only (see .env.example) and is never exposed to the client.
 //
 // To activate:
-//   1. Create a one-time Price for the toolkit in the Stripe Dashboard.
-//   2. Set STRIPE_SECRET_KEY and STRIPE_PRICE_ID in your environment
+//   1. Create one-time Prices for both tiers in the Stripe Dashboard.
+//   2. Set STRIPE_SECRET_KEY, STRIPE_PRICE_ID_STANDARD and
+//      STRIPE_PRICE_ID_PREMIUM in your environment
 //      (Vercel: Project Settings -> Environment Variables).
-//   3. That's it — the "Get Instant Access" buttons already POST here.
+//   3. That's it — every CTA button already POSTs { tier } here.
 //
-// If NEXT_PUBLIC_STRIPE_PAYMENT_LINK is set instead, the front-end buttons
-// skip this route entirely and link straight to the Payment Link.
+// If NEXT_PUBLIC_STRIPE_PAYMENT_LINK_STANDARD/_PREMIUM are set instead, the
+// front-end buttons skip this route entirely and link straight to the
+// matching Payment Link.
 // ---------------------------------------------------------------------------
+
+const PRICE_ID_ENV: Record<TierId, string | undefined> = {
+  standard: process.env.STRIPE_PRICE_ID_STANDARD,
+  premium: process.env.STRIPE_PRICE_ID_PREMIUM,
+};
 
 export async function POST(request: Request) {
   const secretKey = process.env.STRIPE_SECRET_KEY;
-  const priceId = process.env.STRIPE_PRICE_ID;
+
+  let tier: TierId = "standard";
+  try {
+    const body = await request.json();
+    if (body?.tier === "premium") tier = "premium";
+  } catch {
+    // no/invalid body -> default to "standard"
+  }
+
+  const priceId = PRICE_ID_ENV[tier];
 
   if (!secretKey || !priceId) {
     return NextResponse.json(
       {
-        error:
-          "Stripe is not configured yet. Set STRIPE_SECRET_KEY and STRIPE_PRICE_ID in your environment (see .env.example), or set NEXT_PUBLIC_STRIPE_PAYMENT_LINK to use a Payment Link instead.",
+        error: `Stripe is not configured yet for the ${tier} tier. Set STRIPE_SECRET_KEY and STRIPE_PRICE_ID_${tier.toUpperCase()} in your environment (see .env.example), or set a NEXT_PUBLIC_STRIPE_PAYMENT_LINK_${tier.toUpperCase()} to use a Payment Link instead.`,
       },
       { status: 501 },
     );
@@ -38,6 +53,7 @@ export async function POST(request: Request) {
   params.set("mode", "payment");
   params.set("line_items[0][price]", priceId);
   params.set("line_items[0][quantity]", "1");
+  params.set("metadata[tier]", tier);
   params.set("success_url", `${origin}/download?session_id={CHECKOUT_SESSION_ID}`);
   params.set("cancel_url", `${origin}/?checkout=cancelled`);
 

@@ -35,13 +35,17 @@ export default async function DownloadPage({
               </h1>
               <p className="mt-3 text-sm leading-relaxed text-mist-300">
                 {result.customerEmail ? `A receipt was sent to ${result.customerEmail}. ` : ""}
-                Your Marine Logistics Operator Toolkit is ready to download below.
+                Your{" "}
+                {result.tier === "premium"
+                  ? "Marine Logistics Operator Toolkit — Premium (PDF + editable Word templates + Excel shipment tracker)"
+                  : "Marine Logistics Operator Toolkit"}{" "}
+                is ready to download below.
               </p>
               <a
                 href={`/api/download?session_id=${encodeURIComponent(sessionId)}`}
                 className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-ocean-400 to-ocean-600 px-6 py-3.5 text-sm font-semibold text-white shadow-glow transition-transform hover:scale-[1.02]"
               >
-                Download Toolkit (PDF)
+                {result.tier === "premium" ? "Download Premium Bundle (.zip)" : "Download Toolkit (PDF)"}
               </a>
               <p className="mt-4 text-xs text-mist-500">
                 Trouble downloading? Contact{" "}

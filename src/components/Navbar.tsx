@@ -65,7 +65,7 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden lg:block">
-          <CheckoutButton label={`Get Toolkit — ${siteConfig.currencySymbol}${siteConfig.price}`} size="md" showArrow={false} />
+          <CheckoutButton label={`Get Toolkit — ${siteConfig.currencySymbol}${siteConfig.tiers.standard.price}`} size="md" showArrow={false} />
         </div>
 
         <button
@@ -94,7 +94,7 @@ export default function Navbar() {
             ))}
             <div className="mt-3 px-3">
               <CheckoutButton
-                label={`Get Toolkit — ${siteConfig.currencySymbol}${siteConfig.price}`}
+                label={`Get Toolkit — ${siteConfig.currencySymbol}${siteConfig.tiers.standard.price}`}
                 size="md"
                 showArrow={false}
                 className="w-full"

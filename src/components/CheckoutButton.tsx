@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { ArrowRight, Loader2 } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { siteConfig, type TierId } from "@/config/site";
 
 type CheckoutButtonProps = {
   label: string;
+  tier?: TierId;
   variant?: "primary" | "secondary" | "dark";
   size?: "md" | "lg";
   className?: string;
@@ -27,6 +28,7 @@ const sizeClasses: Record<NonNullable<CheckoutButtonProps["size"]>, string> = {
 
 export default function CheckoutButton({
   label,
+  tier = "standard",
   variant = "primary",
   size = "lg",
   className = "",
@@ -35,18 +37,23 @@ export default function CheckoutButton({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const hasPaymentLink = siteConfig.stripePaymentLink.length > 0;
+  const paymentLink = siteConfig.stripePaymentLinks[tier];
+  const hasPaymentLink = paymentLink.length > 0;
 
   async function handleClick() {
     if (hasPaymentLink) {
-      window.location.href = siteConfig.stripePaymentLink;
+      window.location.href = paymentLink;
       return;
     }
 
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch("/api/checkout", { method: "POST" });
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tier }),
+      });
       const data = await res.json();
 
       if (!res.ok || !data.url) {

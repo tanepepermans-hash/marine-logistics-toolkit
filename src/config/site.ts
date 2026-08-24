@@ -4,15 +4,14 @@
 // else in the codebase should need to change.
 // ---------------------------------------------------------------------------
 
+export type TierId = "standard" | "premium";
+
 export const siteConfig = {
   name: "Marine Logistics Operator Toolkit",
   shortName: "Operator Toolkit",
   tagline:
     "The practical toolkit for junior marine logistics operators — with ready-to-use email templates, operational checklists, AI prompts and shipment workflows.",
 
-  // <-- CHANGE PRODUCT PRICE HERE (used everywhere on the site)
-  price: 29,
-  originalPrice: 49,
   currency: "EUR" as const,
   currencySymbol: "€",
 
@@ -23,24 +22,53 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://marinelogisticstoolkit.com",
 
   // ---------------------------------------------------------------------
+  // PRICING TIERS
+  // ---------------------------------------------------------------------
+  // <-- CHANGE PRODUCT PRICES HERE (used everywhere on the site)
+  // "standard" is the toolkit alone. "premium" adds the editable Word
+  // templates, the Excel shipment tracker and 5 extra advanced templates —
+  // see scripts/toolkit-content/ for that content.
+  tiers: {
+    standard: {
+      id: "standard" as TierId,
+      name: "Standard",
+      price: 29,
+      originalPrice: 49,
+    },
+    premium: {
+      id: "premium" as TierId,
+      name: "Premium",
+      price: 59,
+      originalPrice: 89,
+    },
+  },
+
+  // ---------------------------------------------------------------------
   // STRIPE CHECKOUT
   // ---------------------------------------------------------------------
   // Two supported modes — pick whichever fits your setup:
   //
-  // 1) Stripe Payment Link (no server code needed): set
-  //    NEXT_PUBLIC_STRIPE_PAYMENT_LINK in your environment to a URL like
-  //    https://buy.stripe.com/xxxxxxxx and every CTA button will link to it
-  //    directly.
+  // 1) Stripe Payment Links (no server code needed): set
+  //    NEXT_PUBLIC_STRIPE_PAYMENT_LINK_STANDARD / _PREMIUM in your
+  //    environment to URLs like https://buy.stripe.com/xxxxxxxx and the
+  //    matching CTA buttons will link to them directly. Remember to set
+  //    each Payment Link's "After payment" redirect to
+  //    {yourdomain}/download?session_id={CHECKOUT_SESSION_ID} in the
+  //    Stripe Dashboard so the download page still works.
   //
-  // 2) Dynamic Checkout Session (this repo's default): leave the payment
-  //    link empty and set STRIPE_SECRET_KEY + STRIPE_PRICE_ID (server-side
-  //    only, see .env.example). CTA buttons will POST to /api/checkout,
-  //    which creates a Stripe Checkout Session and redirects the buyer.
+  // 2) Dynamic Checkout Session (this repo's default): leave both payment
+  //    links empty and set STRIPE_SECRET_KEY + STRIPE_PRICE_ID_STANDARD +
+  //    STRIPE_PRICE_ID_PREMIUM (server-side only, see .env.example). CTA
+  //    buttons POST { tier } to /api/checkout, which creates a Stripe
+  //    Checkout Session for the right price and redirects the buyer.
   //    See src/app/api/checkout/route.ts.
   //
   // The secret key is read only inside the server route and is never sent
   // to the browser.
-  stripePaymentLink: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK ?? "",
+  stripePaymentLinks: {
+    standard: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_STANDARD ?? "",
+    premium: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_PREMIUM ?? "",
+  },
 
   social: {
     twitter: "",

@@ -1,21 +1,31 @@
 import { NextResponse } from "next/server";
 import fs from "node:fs/promises";
 import path from "node:path";
+import type { TierId } from "@/config/site";
 import { verifyCheckoutSession } from "@/lib/stripe";
 
 // ---------------------------------------------------------------------------
-// Streams the toolkit PDF — but only after re-verifying the Stripe Checkout
-// Session server-side. The real file lives in /private/toolkit (outside
-// /public), so it is never reachable by guessing a URL — only through this
-// route, and only for a session Stripe confirms as paid.
+// Streams the toolkit file for the buyer's tier — but only after
+// re-verifying the Stripe Checkout Session server-side. The real files live
+// in /private/toolkit (outside /public), so they are never reachable by
+// guessing a URL — only through this route, and only for a session Stripe
+// confirms as paid.
 // ---------------------------------------------------------------------------
 
-const TOOLKIT_FILE = path.join(
-  process.cwd(),
-  "private",
-  "toolkit",
-  "marine-logistics-operator-toolkit.pdf",
-);
+const TOOLKIT_DIR = path.join(process.cwd(), "private", "toolkit");
+
+const FILES: Record<TierId, { path: string; filename: string; contentType: string }> = {
+  standard: {
+    path: path.join(TOOLKIT_DIR, "marine-logistics-operator-toolkit.pdf"),
+    filename: "Marine-Logistics-Operator-Toolkit.pdf",
+    contentType: "application/pdf",
+  },
+  premium: {
+    path: path.join(TOOLKIT_DIR, "marine-logistics-operator-toolkit-premium.zip"),
+    filename: "Marine-Logistics-Operator-Toolkit-Premium.zip",
+    contentType: "application/zip",
+  },
+};
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -26,12 +36,14 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: result.reason }, { status: 403 });
   }
 
+  const { path: filePath, filename, contentType } = FILES[result.tier];
+
   try {
-    const file = await fs.readFile(TOOLKIT_FILE);
+    const file = await fs.readFile(filePath);
     return new NextResponse(new Uint8Array(file), {
       headers: {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": 'attachment; filename="Marine-Logistics-Operator-Toolkit.pdf"',
+        "Content-Type": contentType,
+        "Content-Disposition": `attachment; filename="${filename}"`,
         "Cache-Control": "no-store",
       },
     });

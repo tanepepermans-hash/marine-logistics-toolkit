@@ -31,7 +31,10 @@ export default function Hero() {
           </p>
 
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <CheckoutButton label={`Get Instant Access — ${siteConfig.currencySymbol}${siteConfig.price}`} size="lg" />
+            <CheckoutButton
+              label={`Get Instant Access — ${siteConfig.currencySymbol}${siteConfig.tiers.standard.price}`}
+              size="lg"
+            />
             <a
               href="#whats-included"
               className="inline-flex items-center justify-center rounded-full border border-white/15 px-7 py-4 text-base font-semibold text-white transition-colors hover:border-white/30 hover:bg-white/5"

@@ -19,7 +19,7 @@ export default function FinalCTA() {
           </p>
           <div className="mt-10 flex justify-center">
             <CheckoutButton
-              label={`Get the Marine Logistics Operator Toolkit — ${siteConfig.currencySymbol}${siteConfig.price}`}
+              label={`Get the Marine Logistics Operator Toolkit — ${siteConfig.currencySymbol}${siteConfig.tiers.standard.price}`}
               size="lg"
             />
           </div>
