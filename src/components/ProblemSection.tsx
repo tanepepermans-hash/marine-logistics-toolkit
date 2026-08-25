@@ -1,11 +1,11 @@
 import {
   AlertTriangle,
+  Ban,
   CalendarX,
   Clock,
   FileWarning,
   MapPin,
   PackageX,
-  PlaneOff,
   Warehouse,
 } from "lucide-react";
 import Container from "@/components/ui/Container";
@@ -18,7 +18,7 @@ const situations = [
   { icon: FileWarning, text: "Agent needs documents urgently" },
   { icon: AlertTriangle, text: "Shipment contains potential DG" },
   { icon: PackageX, text: "Supplier has not released cargo" },
-  { icon: PlaneOff, text: "Airline rejects the booking" },
+  { icon: Ban, text: "Airline rejects the booking" },
   { icon: MapPin, text: "Vessel changes port" },
   { icon: CalendarX, text: "Shipment misses the deadline" },
 ];

@@ -57,7 +57,7 @@ export default function QuizHubPage() {
         </span>
         <div>
           <h1 className="text-2xl font-extrabold text-white">Quiz Modes</h1>
-          <p className="text-sm text-mist-400">Pick a mode to practice until it's memorized.</p>
+          <p className="text-sm text-mist-400">Pick a mode to practice until it&apos;s memorized.</p>
         </div>
       </div>
 
@@ -115,7 +115,7 @@ export default function QuizHubPage() {
         >
           <div>
             <h2 className="font-semibold text-white">Practice Mistakes</h2>
-            <p className="mt-1 text-sm text-mist-400">Spaced-repetition review of questions you've missed.</p>
+            <p className="mt-1 text-sm text-mist-400">Spaced-repetition review of questions you&apos;ve missed.</p>
           </div>
           <RotateCcw size={20} className="text-hazard-orange" />
         </Link>
