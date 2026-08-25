@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/site";
 const navLinks = [
   { label: "Product", href: "#product" },
   { label: "What's Included", href: "#whats-included" },
+  { label: "DG Training", href: "#dg-training-academy" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "FAQ", href: "#faq" },
 ];

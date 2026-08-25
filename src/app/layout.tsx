@@ -16,13 +16,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: "Marine Logistics Operator Toolkit | Vessel Logistics Templates & Checklists",
   description:
-    "Practical marine logistics toolkit with email templates, operational checklists, AI prompts and vessel shipment workflows for trainees and junior operators.",
+    "Practical marine logistics toolkit with email templates, operational checklists, AI prompts and vessel shipment workflows for trainees and junior operators — plus a standalone Dangerous Goods (DG) Training Academy quiz app.",
   keywords: [
     "marine logistics toolkit",
     "vessel logistics checklist",
     "freight forwarding templates",
     "shipping coordinator resources",
     "logistics operator training",
+    "dangerous goods training app",
+    "DG training quiz",
+    "IATA DGR practice questions",
+    "hazard label training",
   ],
   authors: [{ name: siteConfig.name }],
   openGraph: {

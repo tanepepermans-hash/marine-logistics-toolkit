@@ -7,6 +7,7 @@ import HowItWorks from "@/components/HowItWorks";
 import Audience from "@/components/Audience";
 import ProductPreview from "@/components/ProductPreview";
 import Bonus from "@/components/Bonus";
+import DgTraining from "@/components/DgTraining";
 import Pricing from "@/components/Pricing";
 import TrustSection from "@/components/TrustSection";
 import FAQ from "@/components/FAQ";
@@ -26,6 +27,7 @@ export default function Home() {
         <Audience />
         <ProductPreview />
         <Bonus />
+        <DgTraining />
         <Pricing />
         <TrustSection />
         <FAQ />

@@ -23,7 +23,12 @@ const faqs = [
   {
     question: "Does this replace dangerous goods training?",
     answer:
-      "No. The DG section is an operational pre-check and does not replace formal DG training or certification.",
+      "No. The toolkit's DG pre-check, and the separate DG Training Academy quiz app, are both operational/educational aids — neither replaces formal, accredited DG certification or your company's DG procedures.",
+  },
+  {
+    question: "Can I get DG Training Academy without the rest of the toolkit?",
+    answer:
+      "Yes — it's sold on its own for operators who just want the DG quiz app, or bundled with Toolkit Premium at a discount if you want both.",
   },
   {
     question: "Can experienced operators use it?",
