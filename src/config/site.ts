@@ -19,7 +19,7 @@ export const siteConfig = {
   contactEmail: "support@marinelogisticstoolkit.com",
 
   // Canonical production URL, used for metadata / Open Graph / sitemap.
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://marinelogisticstoolkit.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://marinelogisticstoolkit.com",
 
   // ---------------------------------------------------------------------
   // PRICING TIERS
