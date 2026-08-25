@@ -118,11 +118,6 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
-
-      <div className="text-center text-xs text-mist-500">
-        This app is a training and learning tool. It is not a substitute for the current official IATA DGR, ADR,
-        IMDG Code or your company&apos;s Dangerous Goods procedures.
-      </div>
     </div>
   );
 }
