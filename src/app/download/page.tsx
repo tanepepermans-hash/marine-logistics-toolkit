@@ -1,13 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AlertTriangle, CheckCircle2 } from "lucide-react";
+import { AlertTriangle, CheckCircle2, ShieldAlert } from "lucide-react";
 import Container from "@/components/ui/Container";
 import { verifyCheckoutSession } from "@/lib/stripe";
-import { siteConfig } from "@/config/site";
+import { siteConfig, tierHasToolkitFile, tierUnlocksDg, type TierId } from "@/config/site";
 
 export const metadata: Metadata = {
   title: `Your Download | ${siteConfig.name}`,
   robots: { index: false, follow: false },
+};
+
+const PRODUCT_NAMES: Record<TierId, string> = {
+  standard: "Marine Logistics Operator Toolkit",
+  premium: "Marine Logistics Operator Toolkit — Premium (PDF + editable Word templates + Excel shipment tracker)",
+  dg: "DG Training Academy",
+  bundle: "Everything Bundle (Toolkit Premium + DG Training Academy)",
 };
 
 // Stripe redirects buyers here after checkout (success_url in
@@ -35,20 +42,31 @@ export default async function DownloadPage({
               </h1>
               <p className="mt-3 text-sm leading-relaxed text-mist-300">
                 {result.customerEmail ? `A receipt was sent to ${result.customerEmail}. ` : ""}
-                Your{" "}
-                {result.tier === "premium"
-                  ? "Marine Logistics Operator Toolkit — Premium (PDF + editable Word templates + Excel shipment tracker)"
-                  : "Marine Logistics Operator Toolkit"}{" "}
-                is ready to download below.
+                Your {PRODUCT_NAMES[result.tier]} is ready below.
               </p>
-              <a
-                href={`/api/download?session_id=${encodeURIComponent(sessionId)}`}
-                className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-ocean-400 to-ocean-600 px-6 py-3.5 text-sm font-semibold text-white shadow-glow transition-transform hover:scale-[1.02]"
-              >
-                {result.tier === "premium" ? "Download Premium Bundle (.zip)" : "Download Toolkit (PDF)"}
-              </a>
+
+              <div className="mt-8 flex flex-col gap-3">
+                {tierHasToolkitFile(result.tier) && (
+                  <a
+                    href={`/api/download?session_id=${encodeURIComponent(sessionId)}`}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-ocean-400 to-ocean-600 px-6 py-3.5 text-sm font-semibold text-white shadow-glow transition-transform hover:scale-[1.02]"
+                  >
+                    {result.tier === "standard" ? "Download Toolkit (PDF)" : "Download Premium Bundle (.zip)"}
+                  </a>
+                )}
+                {tierUnlocksDg(result.tier) && (
+                  <a
+                    href={`/dg-training?claim=${encodeURIComponent(sessionId)}`}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-amber-300 to-amber-500 px-6 py-3.5 text-sm font-semibold text-amber-950 shadow-glow transition-transform hover:scale-[1.02]"
+                  >
+                    <ShieldAlert className="h-4 w-4" aria-hidden />
+                    Open DG Training Academy
+                  </a>
+                )}
+              </div>
+
               <p className="mt-4 text-xs text-mist-500">
-                Trouble downloading? Contact{" "}
+                Trouble accessing your order? Contact{" "}
                 <a className="underline" href={`mailto:${siteConfig.contactEmail}`}>
                   {siteConfig.contactEmail}
                 </a>

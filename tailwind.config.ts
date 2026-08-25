@@ -31,6 +31,15 @@ const config: Config = {
           400: "#8797ac",
           500: "#64748b",
         },
+        hazard: {
+          orange: "#f97316",
+          red: "#ef4444",
+          reddeep: "#dc2626",
+          amber: "#f59e0b",
+          yellow: "#eab308",
+          green: "#16a34a",
+          blue: "#2563eb",
+        },
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],

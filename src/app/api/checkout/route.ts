@@ -9,21 +9,24 @@ import { siteConfig, type TierId } from "@/config/site";
 // environment only (see .env.example) and is never exposed to the client.
 //
 // To activate:
-//   1. Create one-time Prices for both tiers in the Stripe Dashboard.
-//   2. Set STRIPE_SECRET_KEY, STRIPE_PRICE_ID_STANDARD and
-//      STRIPE_PRICE_ID_PREMIUM in your environment
-//      (Vercel: Project Settings -> Environment Variables).
+//   1. Create one-time Prices for all four tiers in the Stripe Dashboard
+//      (standard, premium, dg, bundle — see src/config/site.ts).
+//   2. Set STRIPE_SECRET_KEY and STRIPE_PRICE_ID_{STANDARD,PREMIUM,DG,BUNDLE}
+//      in your environment (Vercel: Project Settings -> Environment Variables).
 //   3. That's it — every CTA button already POSTs { tier } here.
 //
-// If NEXT_PUBLIC_STRIPE_PAYMENT_LINK_STANDARD/_PREMIUM are set instead, the
-// front-end buttons skip this route entirely and link straight to the
-// matching Payment Link.
+// If the matching NEXT_PUBLIC_STRIPE_PAYMENT_LINK_* env var is set instead,
+// the front-end buttons skip this route entirely and link straight to that
+// Payment Link.
 // ---------------------------------------------------------------------------
 
 const PRICE_ID_ENV: Record<TierId, string | undefined> = {
   standard: process.env.STRIPE_PRICE_ID_STANDARD,
   premium: process.env.STRIPE_PRICE_ID_PREMIUM,
+  dg: process.env.STRIPE_PRICE_ID_DG,
+  bundle: process.env.STRIPE_PRICE_ID_BUNDLE,
 };
+const VALID_TIERS: TierId[] = ["standard", "premium", "dg", "bundle"];
 
 export async function POST(request: Request) {
   const secretKey = process.env.STRIPE_SECRET_KEY;
@@ -31,7 +34,7 @@ export async function POST(request: Request) {
   let tier: TierId = "standard";
   try {
     const body = await request.json();
-    if (body?.tier === "premium") tier = "premium";
+    if (VALID_TIERS.includes(body?.tier)) tier = body.tier;
   } catch {
     // no/invalid body -> default to "standard"
   }

@@ -4,7 +4,7 @@
 // else in the codebase should need to change.
 // ---------------------------------------------------------------------------
 
-export type TierId = "standard" | "premium";
+export type TierId = "standard" | "premium" | "dg" | "bundle";
 
 export const siteConfig = {
   name: "Marine Logistics Operator Toolkit",
@@ -27,7 +27,9 @@ export const siteConfig = {
   // <-- CHANGE PRODUCT PRICES HERE (used everywhere on the site)
   // "standard" is the toolkit alone. "premium" adds the editable Word
   // templates, the Excel shipment tracker and 5 extra advanced templates —
-  // see scripts/toolkit-content/ for that content.
+  // see scripts/toolkit-content/ for that content. "dg" is the DG Training
+  // Academy (/dg-training) sold on its own. "bundle" is Toolkit Premium +
+  // DG Training Academy together at a discount.
   tiers: {
     standard: {
       id: "standard" as TierId,
@@ -40,6 +42,19 @@ export const siteConfig = {
       name: "Premium",
       price: 59,
       originalPrice: 89,
+    },
+    dg: {
+      id: "dg" as TierId,
+      name: "DG Training Academy",
+      price: 19,
+      originalPrice: 29,
+    },
+    bundle: {
+      id: "bundle" as TierId,
+      name: "Everything Bundle",
+      price: 69,
+      // Premium (59) + DG Training Academy (19) bought separately = 78.
+      originalPrice: 78,
     },
   },
 
@@ -68,6 +83,8 @@ export const siteConfig = {
   stripePaymentLinks: {
     standard: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_STANDARD ?? "",
     premium: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_PREMIUM ?? "",
+    dg: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_DG ?? "",
+    bundle: process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK_BUNDLE ?? "",
   },
 
   social: {
@@ -78,4 +95,13 @@ export const siteConfig = {
 
 export function formatPrice(amount: number): string {
   return `${siteConfig.currencySymbol}${amount}`;
+}
+
+// Which tiers grant access to the DG Training Academy (/dg-training premium
+// features), and which tiers include a downloadable toolkit file.
+export function tierUnlocksDg(tier: TierId): boolean {
+  return tier === "dg" || tier === "bundle";
+}
+export function tierHasToolkitFile(tier: TierId): boolean {
+  return tier === "standard" || tier === "premium" || tier === "bundle";
 }
