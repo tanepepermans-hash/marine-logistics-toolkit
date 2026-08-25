@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Eye, Hash, Layers, Package, Scale, Zap, GraduationCap, RotateCcw } from "lucide-react";
+import PremiumGate from "@/dg/components/PremiumGate";
 
 const MODES = [
   {
@@ -48,6 +49,7 @@ const MODES = [
 
 export default function QuizHubPage() {
   return (
+    <PremiumGate title="Quiz practice">
     <div className="space-y-8">
       <div className="flex items-center gap-3">
         <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-hazard-orange/15 text-hazard-orange">
@@ -119,5 +121,6 @@ export default function QuizHubPage() {
         </Link>
       </div>
     </div>
+    </PremiumGate>
   );
 }

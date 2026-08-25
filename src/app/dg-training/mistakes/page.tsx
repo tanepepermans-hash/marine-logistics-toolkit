@@ -5,6 +5,7 @@ import { CheckCircle2, RotateCcw } from "lucide-react";
 import { useDg } from "@/dg/lib/DgStateProvider";
 import { QUESTIONS_BY_ID } from "@/dg/data/questions";
 import MistakeReview from "@/dg/components/MistakeReview";
+import PremiumGate from "@/dg/components/PremiumGate";
 
 export default function MistakesPage() {
   const { state, loaded } = useDg();
@@ -16,6 +17,7 @@ export default function MistakesPage() {
   const mistakes = Object.values(state.mistakes).sort((a, b) => b.wrongCount - a.wrongCount || b.lastSeenAt - a.lastSeenAt);
 
   return (
+    <PremiumGate title="Mistake tracking">
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
@@ -57,5 +59,6 @@ export default function MistakesPage() {
         </div>
       )}
     </div>
+    </PremiumGate>
   );
 }

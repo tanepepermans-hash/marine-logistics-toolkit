@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CalendarCheck, Flame, Sparkles } from "lucide-react";
 import { useDg } from "@/dg/lib/DgStateProvider";
 import { hasDoneDailyChallengeToday } from "@/dg/lib/quizEngine";
+import PremiumGate from "@/dg/components/PremiumGate";
 
 export default function DailyChallengePage() {
   const { state, loaded } = useDg();
@@ -15,6 +16,7 @@ export default function DailyChallengePage() {
   const doneToday = hasDoneDailyChallengeToday(state);
 
   return (
+    <PremiumGate title="Daily Challenge">
     <div className="mx-auto max-w-xl">
       <div className="rounded-3xl border border-white/10 bg-navy-800/70 p-8 text-center shadow-premium">
         <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-hazard-orange/15 text-hazard-orange">
@@ -49,5 +51,6 @@ export default function DailyChallengePage() {
         )}
       </div>
     </div>
+    </PremiumGate>
   );
 }

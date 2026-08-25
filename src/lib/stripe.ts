@@ -52,16 +52,26 @@ export async function verifyCheckoutSession(sessionId: string): Promise<VerifyRe
 // dynamic Checkout Session flow); fall back to matching the purchased
 // Price ID against STRIPE_PRICE_ID_PREMIUM so Stripe Payment Links — which
 // don't carry our metadata — still resolve to the right tier.
+const VALID_TIERS: TierId[] = ["standard", "premium", "dg", "bundle"];
+
 function resolveTier(session: {
   metadata?: { tier?: string };
   line_items?: { data?: { price?: { id?: string } }[] };
 }): TierId {
-  if (session.metadata?.tier === "premium") return "premium";
-  if (session.metadata?.tier === "standard") return "standard";
+  const metaTier = session.metadata?.tier;
+  if (metaTier && VALID_TIERS.includes(metaTier as TierId)) return metaTier as TierId;
 
+  // Payment Links don't carry our metadata — fall back to matching the
+  // purchased Price ID against each tier's configured price.
   const purchasedPriceId = session.line_items?.data?.[0]?.price?.id;
-  if (purchasedPriceId && purchasedPriceId === process.env.STRIPE_PRICE_ID_PREMIUM) {
-    return "premium";
+  const priceIdByTier: Record<TierId, string | undefined> = {
+    standard: process.env.STRIPE_PRICE_ID_STANDARD,
+    premium: process.env.STRIPE_PRICE_ID_PREMIUM,
+    dg: process.env.STRIPE_PRICE_ID_DG,
+    bundle: process.env.STRIPE_PRICE_ID_BUNDLE,
+  };
+  for (const tier of VALID_TIERS) {
+    if (purchasedPriceId && purchasedPriceId === priceIdByTier[tier]) return tier;
   }
   return "standard";
 }

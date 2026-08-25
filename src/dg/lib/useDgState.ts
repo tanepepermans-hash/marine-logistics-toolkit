@@ -2,7 +2,15 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { DgClassId, Question, QuizMode } from "@/dg/types";
-import { defaultDgState, loadDgState, resetDgState, saveDgState, type DgState } from "@/dg/lib/storage";
+import {
+  defaultDgState,
+  isPremiumUnlocked,
+  loadDgState,
+  resetDgState,
+  saveDgState,
+  setPremiumUnlocked,
+  type DgState,
+} from "@/dg/lib/storage";
 import { applyAnswer, applyQuizCompletion, completeDailyChallenge } from "@/dg/lib/quizEngine";
 
 export interface AnswerFeedback {
@@ -15,10 +23,15 @@ export interface AnswerFeedback {
 export function useDgState() {
   const [state, setState] = useState<DgState>(() => defaultDgState());
   const [loaded, setLoaded] = useState(false);
+  const [premium, setPremium] = useState(false);
+  const [claiming, setClaiming] = useState(false);
+  const [claimError, setClaimError] = useState<string | null>(null);
   const hasLoaded = useRef(false);
+  const hasClaimed = useRef(false);
 
   useEffect(() => {
     setState(loadDgState());
+    setPremium(isPremiumUnlocked());
     setLoaded(true);
     hasLoaded.current = true;
   }, []);
@@ -27,6 +40,35 @@ export function useDgState() {
     if (!hasLoaded.current) return;
     saveDgState(state);
   }, [state]);
+
+  // A buyer of the "dg" or "bundle" tier lands here from /download with
+  // ?claim=<stripe session id>. Verify it once, unlock premium, then strip
+  // the param from the URL so refreshing/sharing the link can't re-trigger it.
+  useEffect(() => {
+    if (!loaded || hasClaimed.current) return;
+    const url = new URL(window.location.href);
+    const claimId = url.searchParams.get("claim");
+    if (!claimId) return;
+    hasClaimed.current = true;
+    setClaiming(true);
+    setClaimError(null);
+    fetch(`/api/dg-unlock?session_id=${encodeURIComponent(claimId)}`)
+      .then((res) => res.json())
+      .then((data: { unlocked?: boolean; error?: string }) => {
+        if (data.unlocked) {
+          setPremiumUnlocked();
+          setPremium(true);
+        } else {
+          setClaimError(data.error ?? "This link couldn't be verified.");
+        }
+      })
+      .catch(() => setClaimError("Could not reach the server to verify this link. Please try again."))
+      .finally(() => {
+        setClaiming(false);
+        url.searchParams.delete("claim");
+        window.history.replaceState({}, "", url.pathname + url.search + url.hash);
+      });
+  }, [loaded]);
 
   const answerQuestion = useCallback((question: Question, selectedIndex: number): AnswerFeedback => {
     const correct = selectedIndex === question.correctIndex;
@@ -67,5 +109,5 @@ export function useDgState() {
     setState(resetDgState());
   }, []);
 
-  return { state, loaded, answerQuestion, completeQuiz, completeDaily, resetProgress };
+  return { state, loaded, premium, claiming, claimError, answerQuestion, completeQuiz, completeDaily, resetProgress };
 }

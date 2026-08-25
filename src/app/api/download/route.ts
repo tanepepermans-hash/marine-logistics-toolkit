@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { TierId } from "@/config/site";
+import { tierHasToolkitFile, type TierId } from "@/config/site";
 import { verifyCheckoutSession } from "@/lib/stripe";
 
 // ---------------------------------------------------------------------------
@@ -14,13 +14,21 @@ import { verifyCheckoutSession } from "@/lib/stripe";
 
 const TOOLKIT_DIR = path.join(process.cwd(), "private", "toolkit");
 
-const FILES: Record<TierId, { path: string; filename: string; contentType: string }> = {
+// "dg" has no downloadable file — it unlocks the /dg-training app instead
+// (see /api/dg-unlock). "bundle" includes the same Premium toolkit file
+// plus DG Training access.
+const FILES: Partial<Record<TierId, { path: string; filename: string; contentType: string }>> = {
   standard: {
     path: path.join(TOOLKIT_DIR, "marine-logistics-operator-toolkit.pdf"),
     filename: "Marine-Logistics-Operator-Toolkit.pdf",
     contentType: "application/pdf",
   },
   premium: {
+    path: path.join(TOOLKIT_DIR, "marine-logistics-operator-toolkit-premium.zip"),
+    filename: "Marine-Logistics-Operator-Toolkit-Premium.zip",
+    contentType: "application/zip",
+  },
+  bundle: {
     path: path.join(TOOLKIT_DIR, "marine-logistics-operator-toolkit-premium.zip"),
     filename: "Marine-Logistics-Operator-Toolkit-Premium.zip",
     contentType: "application/zip",
@@ -35,8 +43,14 @@ export async function GET(request: Request) {
   if (!result.ok) {
     return NextResponse.json({ error: result.reason }, { status: 403 });
   }
+  if (!tierHasToolkitFile(result.tier)) {
+    return NextResponse.json(
+      { error: "This order doesn't include a downloadable file. Open the DG Training Academy from your order page instead." },
+      { status: 400 },
+    );
+  }
 
-  const { path: filePath, filename, contentType } = FILES[result.tier];
+  const { path: filePath, filename, contentType } = FILES[result.tier]!;
 
   try {
     const file = await fs.readFile(filePath);

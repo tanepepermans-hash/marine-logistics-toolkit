@@ -2,10 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Lock } from "lucide-react";
 import { NAV_ITEMS } from "@/dg/components/nav";
+import { useDg } from "@/dg/lib/DgStateProvider";
 
 export default function BottomNav() {
   const pathname = usePathname();
+  const { premium } = useDg();
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-navy-900/95 backdrop-blur lg:hidden">
@@ -21,7 +24,12 @@ export default function BottomNav() {
                 active ? "text-hazard-orange" : "text-mist-400"
               }`}
             >
-              <Icon size={19} />
+              <span className="relative">
+                <Icon size={19} />
+                {item.premium && !premium && (
+                  <Lock size={9} className="absolute -right-1.5 -top-1 text-hazard-amber" />
+                )}
+              </span>
               <span className="whitespace-nowrap">{item.label}</span>
             </Link>
           );

@@ -10,6 +10,7 @@ import { useDg } from "@/dg/lib/DgStateProvider";
 import { buildQuiz } from "@/dg/lib/quizEngine";
 import QuizCard from "@/dg/components/QuizCard";
 import ResultScreen from "@/dg/components/ResultScreen";
+import PremiumGate from "@/dg/components/PremiumGate";
 
 const MODE_TITLES: Record<QuizMode, string> = {
   symbol: "Identify the Symbol",
@@ -193,8 +194,10 @@ function QuizPlayInner() {
 
 export default function QuizPlayPage() {
   return (
-    <Suspense fallback={<div className="py-20 text-center text-mist-400">Loading quiz…</div>}>
-      <QuizPlayInner />
-    </Suspense>
+    <PremiumGate title="Quiz practice">
+      <Suspense fallback={<div className="py-20 text-center text-mist-400">Loading quiz…</div>}>
+        <QuizPlayInner />
+      </Suspense>
+    </PremiumGate>
   );
 }

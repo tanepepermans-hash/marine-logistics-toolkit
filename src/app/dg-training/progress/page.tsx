@@ -6,6 +6,7 @@ import { DG_CLASS_GROUPS } from "@/dg/data/classes";
 import { getOverallAccuracy } from "@/dg/lib/quizEngine";
 import ProgressBar from "@/dg/components/ProgressBar";
 import XPIndicator from "@/dg/components/XPIndicator";
+import PremiumGate from "@/dg/components/PremiumGate";
 
 function barColor(pct: number) {
   if (pct >= 80) return "bg-hazard-green";
@@ -40,6 +41,7 @@ export default function ProgressPage() {
   const weakest = attempted.length > 0 ? [...attempted].sort((a, b) => a.pct - b.pct)[0] : null;
 
   return (
+    <PremiumGate title="Progress tracking">
     <div className="space-y-8">
       <div className="flex items-center gap-3">
         <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-hazard-orange/15 text-hazard-orange">
@@ -99,5 +101,6 @@ export default function ProgressPage() {
         </div>
       )}
     </div>
+    </PremiumGate>
   );
 }

@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShieldAlert } from "lucide-react";
+import { Lock, ShieldAlert, Sparkles } from "lucide-react";
 import { NAV_ITEMS } from "@/dg/components/nav";
 import XPIndicator from "@/dg/components/XPIndicator";
+import { useDg } from "@/dg/lib/DgStateProvider";
 
 interface SidebarProps {
   xp: number;
@@ -13,6 +14,7 @@ interface SidebarProps {
 
 export default function Sidebar({ xp, streak }: SidebarProps) {
   const pathname = usePathname();
+  const { premium } = useDg();
 
   return (
     <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-white/10 bg-navy-900/95 p-4 lg:flex">
@@ -39,7 +41,8 @@ export default function Sidebar({ xp, streak }: SidebarProps) {
               }`}
             >
               <Icon size={18} />
-              {item.label}
+              <span className="flex-1">{item.label}</span>
+              {item.premium && !premium && <Lock size={13} className="text-mist-500" />}
             </Link>
           );
         })}
@@ -53,6 +56,18 @@ export default function Sidebar({ xp, streak }: SidebarProps) {
           </div>
         )}
         <XPIndicator xp={xp} compact />
+        {premium ? (
+          <div className="flex items-center justify-center gap-1.5 rounded-xl bg-hazard-green/10 px-3 py-2 text-xs font-semibold text-hazard-green">
+            <Sparkles size={13} /> Premium unlocked
+          </div>
+        ) : (
+          <Link
+            href="/dg-training/quiz"
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-hazard-amber/30 bg-hazard-amber/10 px-3 py-2 text-xs font-semibold text-hazard-amber hover:bg-hazard-amber/15"
+          >
+            <Lock size={13} /> Unlock Premium
+          </Link>
+        )}
       </div>
     </aside>
   );
