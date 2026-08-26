@@ -1,5 +1,6 @@
 import {
   LayoutDashboard,
+  Map,
   BookOpen,
   Brain,
   Boxes,
@@ -20,6 +21,7 @@ export interface NavItem {
 
 export const NAV_ITEMS: NavItem[] = [
   { href: "/dg-training", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/dg-training/course", label: "Course Path", icon: Map },
   { href: "/dg-training/learn", label: "Learn", icon: BookOpen },
   { href: "/dg-training/quiz", label: "Quiz", icon: Brain, premium: true },
   { href: "/dg-training/classes", label: "DG Classes", icon: Boxes },

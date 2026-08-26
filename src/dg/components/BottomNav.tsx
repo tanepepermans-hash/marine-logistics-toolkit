@@ -11,7 +11,7 @@ export default function BottomNav() {
   const { premium } = useDg();
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-navy-900/95 backdrop-blur lg:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-navy-900/95 backdrop-blur print:hidden lg:hidden">
       <div className="flex overflow-x-auto px-1 py-1.5">
         {NAV_ITEMS.map((item) => {
           const active = item.href === "/dg-training" ? pathname === item.href : pathname?.startsWith(item.href);

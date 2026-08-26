@@ -17,7 +17,7 @@ export default function Sidebar({ xp, streak }: SidebarProps) {
   const { premium } = useDg();
 
   return (
-    <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-white/10 bg-navy-900/95 p-4 lg:flex">
+    <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-white/10 bg-navy-900/95 p-4 print:hidden lg:flex">
       <Link href="/dg-training" className="flex items-center gap-2 px-2 py-3">
         <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-hazard-orange/15 text-hazard-orange">
           <ShieldAlert size={20} />

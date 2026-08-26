@@ -75,7 +75,8 @@ export type QuizCategory =
   | "cargo"
   | "unnumber"
   | "packing-group"
-  | "iata";
+  | "iata"
+  | "scenario";
 
 export interface Question {
   id: string;
@@ -95,6 +96,7 @@ export type QuizMode =
   | "cargo"
   | "unnumber"
   | "packing-group"
+  | "scenario"
   | "visual"
   | "mixed"
   | "daily"

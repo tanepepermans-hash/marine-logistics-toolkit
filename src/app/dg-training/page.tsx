@@ -7,6 +7,7 @@ import {
   Boxes,
   Flame,
   ListChecks,
+  Map,
   Percent,
   RotateCcw,
   Sparkles,
@@ -72,8 +73,14 @@ export default function DashboardPage() {
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-2">
             <Link
-              href="/dg-training/learn"
+              href="/dg-training/course"
               className="flex items-center justify-between rounded-2xl bg-hazard-orange px-5 py-4 font-semibold text-white shadow-premium transition-transform hover:-translate-y-0.5"
+            >
+              Course Path <Map size={18} />
+            </Link>
+            <Link
+              href="/dg-training/learn"
+              className="flex items-center justify-between rounded-2xl bg-white/10 px-5 py-4 font-semibold text-white transition-transform hover:-translate-y-0.5 hover:bg-white/15"
             >
               Continue Learning <BookOpen size={18} />
             </Link>

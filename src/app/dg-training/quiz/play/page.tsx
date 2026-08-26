@@ -18,6 +18,7 @@ const MODE_TITLES: Record<QuizMode, string> = {
   cargo: "Match the Cargo",
   unnumber: "Match the UN Number",
   "packing-group": "Packing Group Quiz",
+  scenario: "Scenario Practice",
   visual: "Visual Recognition",
   mixed: "Mixed Exam",
   daily: "Daily DG Challenge",
@@ -30,6 +31,7 @@ const VALID_MODES: QuizMode[] = [
   "cargo",
   "unnumber",
   "packing-group",
+  "scenario",
   "visual",
   "mixed",
   "daily",
@@ -45,6 +47,13 @@ function QuizPlayInner() {
   const classIdParam = searchParams.get("classId");
   const classId: DgClassId | undefined =
     classIdParam && ALL_CLASS_IDS.includes(classIdParam as DgClassId) ? (classIdParam as DgClassId) : undefined;
+  const classIdsParam = searchParams.get("classIds");
+  const classIds: DgClassId[] | undefined = classIdsParam
+    ? classIdsParam
+        .split(",")
+        .map((id) => id.trim())
+        .filter((id): id is DgClassId => ALL_CLASS_IDS.includes(id as DgClassId))
+    : undefined;
 
   const { state, loaded, answerQuestion, completeQuiz, completeDaily } = useDg();
 
@@ -63,12 +72,12 @@ function QuizPlayInner() {
   useEffect(() => {
     if (!loaded || built.current) return;
     built.current = true;
-    setQuestions(buildQuiz({ mode, count, classId, state }));
+    setQuestions(buildQuiz({ mode, count, classId, classIds, state }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded]);
 
   function regenerate() {
-    setQuestions(buildQuiz({ mode, count, classId, state }));
+    setQuestions(buildQuiz({ mode, count, classId, classIds, state }));
     setIndex(0);
     setSelectedIndex(null);
     setRevealed(false);

@@ -129,3 +129,27 @@ export function setPremiumUnlocked(): void {
     // (and re-set) next time the buyer opens their ?claim= link.
   }
 }
+
+// -----------------------------------------------------------------------
+// The display name printed on the Course Path completion certificate.
+// There are no accounts, so this is just remembered locally per browser.
+// -----------------------------------------------------------------------
+const CERTIFICATE_NAME_KEY = "dg-training:certificate-name:v1";
+
+export function getCertificateName(): string {
+  if (typeof window === "undefined") return "";
+  try {
+    return window.localStorage.getItem(CERTIFICATE_NAME_KEY) ?? "";
+  } catch {
+    return "";
+  }
+}
+
+export function setCertificateName(name: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(CERTIFICATE_NAME_KEY, name);
+  } catch {
+    // localStorage unavailable — the name simply won't be remembered.
+  }
+}

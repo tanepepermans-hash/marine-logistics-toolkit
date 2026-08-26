@@ -26,20 +26,24 @@ export function useDgState() {
   const [premium, setPremium] = useState(false);
   const [claiming, setClaiming] = useState(false);
   const [claimError, setClaimError] = useState<string | null>(null);
-  const hasLoaded = useRef(false);
   const hasClaimed = useRef(false);
 
   useEffect(() => {
     setState(loadDgState());
     setPremium(isPremiumUnlocked());
     setLoaded(true);
-    hasLoaded.current = true;
   }, []);
 
+  // Gated on the `loaded` *state* (not a ref) so this can't fire with a
+  // stale default `state` closure before the load effect's setState above
+  // has actually committed — a ref flips synchronously and would let this
+  // run once, on mount, with the pre-load default value and clobber
+  // whatever was already saved. Gating on state respects render ordering:
+  // this effect's first run still sees loaded=false from that same commit.
   useEffect(() => {
-    if (!hasLoaded.current) return;
+    if (!loaded) return;
     saveDgState(state);
-  }, [state]);
+  }, [state, loaded]);
 
   // A buyer of the "dg" or "bundle" tier lands here from /download with
   // ?claim=<stripe session id>. Verify it once, unlock premium, then strip

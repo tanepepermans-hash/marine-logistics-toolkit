@@ -1,5 +1,7 @@
 import type { DgClassId, Question, QuizMode } from "@/dg/types";
 import { QUESTIONS, QUESTIONS_BY_ID } from "@/dg/data/questions";
+import type { CourseModule } from "@/dg/data/curriculum";
+import { CERTIFICATE_MIN_QUESTIONS, CERTIFICATE_PASS_RATIO } from "@/dg/data/curriculum";
 import {
   type DgState,
   type MistakeEntry,
@@ -72,10 +74,12 @@ export interface BuildQuizParams {
   mode: QuizMode;
   count: number;
   classId?: DgClassId;
+  /** Filter to any of several classes at once — used by Course Path modules that span more than one class. */
+  classIds?: DgClassId[];
   state: DgState;
 }
 
-export function buildQuiz({ mode, count, classId, state }: BuildQuizParams): Question[] {
+export function buildQuiz({ mode, count, classId, classIds, state }: BuildQuizParams): Question[] {
   if (mode === "mistakes") {
     return selectMistakeQuestions(state, count);
   }
@@ -84,13 +88,24 @@ export function buildQuiz({ mode, count, classId, state }: BuildQuizParams): Que
 
   if (mode === "visual" || mode === "symbol") {
     pool = pool.filter((q) => q.category === "symbol");
-  } else if (mode === "class" || mode === "cargo" || mode === "unnumber" || mode === "packing-group") {
+  } else if (
+    mode === "class" ||
+    mode === "cargo" ||
+    mode === "unnumber" ||
+    mode === "packing-group" ||
+    mode === "scenario"
+  ) {
     pool = pool.filter((q) => q.category === mode);
   }
   // "mixed" and "daily" use the full pool across all categories.
 
   if (classId) {
     pool = pool.filter((q) => q.classId === classId || q.showLabelFor === classId);
+  } else if (classIds && classIds.length > 0) {
+    const set = new Set(classIds);
+    pool = pool.filter(
+      (q) => (q.classId && set.has(q.classId)) || (q.showLabelFor && set.has(q.showLabelFor))
+    );
   }
 
   return shuffle(pool).slice(0, count);
@@ -231,4 +246,46 @@ export function completeDailyChallenge(state: DgState, score: number, total: num
 
 export function hasDoneDailyChallengeToday(state: DgState): boolean {
   return state.dailyChallenge.lastCompletedDate === todayKey();
+}
+
+// -----------------------------------------------------------------------
+// Course Path progress — derived entirely from existing state (classStats
+// and quizHistory), so it needs no new storage fields and works instantly
+// for anyone who already has progress from Learn/Quiz.
+// -----------------------------------------------------------------------
+
+/** A module made of specific classes is done once every one of them is mastered. */
+export function isClassModuleComplete(state: DgState, module: CourseModule): boolean {
+  if (module.classIds.length === 0) return false;
+  return module.classIds.every((id) => isClassMastered(state, id));
+}
+
+export function getClassModuleProgress(state: DgState, module: CourseModule): { done: number; total: number; pct: number } {
+  const total = module.classIds.length;
+  const done = module.classIds.filter((id) => isClassMastered(state, id)).length;
+  return { done, total, pct: total === 0 ? 0 : Math.round((done / total) * 100) };
+}
+
+/** The scenario module is done once the best "scenario" mode attempt clears the pass ratio. */
+export function isScenarioModuleComplete(state: DgState): boolean {
+  return state.quizHistory.some(
+    (h) => h.mode === "scenario" && h.total > 0 && h.score / h.total >= CERTIFICATE_PASS_RATIO
+  );
+}
+
+export function isModuleComplete(state: DgState, module: CourseModule): boolean {
+  return module.classIds.length > 0 ? isClassModuleComplete(state, module) : isScenarioModuleComplete(state);
+}
+
+/** Has the operator passed a full-length mixed exam at the certificate threshold? */
+export function hasPassedCertificateExam(state: DgState): boolean {
+  return state.quizHistory.some(
+    (h) => h.mode === "mixed" && h.total >= CERTIFICATE_MIN_QUESTIONS && h.score / h.total >= CERTIFICATE_PASS_RATIO
+  );
+}
+
+export function bestCertificateAttempt(state: DgState): { score: number; total: number; date: number } | null {
+  const attempts = state.quizHistory.filter((h) => h.mode === "mixed" && h.total >= CERTIFICATE_MIN_QUESTIONS);
+  if (attempts.length === 0) return null;
+  return attempts.reduce((best, h) => (h.score / h.total > best.score / best.total ? h : best));
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Eye, Hash, Layers, Package, Scale, Zap, GraduationCap, RotateCcw } from "lucide-react";
+import { Eye, Hash, Layers, Package, Scale, Zap, GraduationCap, RotateCcw, ClipboardList } from "lucide-react";
 import PremiumGate from "@/dg/components/PremiumGate";
 
 const MODES = [
@@ -44,6 +44,13 @@ const MODES = [
     desc: "Fast flashcard-style label memorization drill.",
     count: 15,
     icon: Zap,
+  },
+  {
+    mode: "scenario",
+    title: "Scenario Practice",
+    desc: "Real operational situations — decide what a junior operator should do next.",
+    count: 10,
+    icon: ClipboardList,
   },
 ] as const;
 
