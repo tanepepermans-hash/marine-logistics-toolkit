@@ -10,6 +10,7 @@ import Bonus from "@/components/Bonus";
 import DgTraining from "@/components/DgTraining";
 import Pricing from "@/components/Pricing";
 import TrustSection from "@/components/TrustSection";
+import FounderNote from "@/components/FounderNote";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
@@ -30,6 +31,7 @@ export default function Home() {
         <DgTraining />
         <Pricing />
         <TrustSection />
+        <FounderNote />
         <FAQ />
         <FinalCTA />
       </main>
