@@ -120,7 +120,7 @@ def build():
     parts.append(
         para(
             run(
-                "35 ready-to-send templates across 13 categories. Replace anything in [brackets] with your "
+                "57 ready-to-send templates across 18 categories. Replace anything in [brackets] with your "
                 "shipment's real details, then copy straight into your email client.",
                 size=19,
                 color=MIST,

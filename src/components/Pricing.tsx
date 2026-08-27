@@ -7,10 +7,12 @@ import { siteConfig } from "@/config/site";
 
 const standardIncludes = [
   "Marine Logistics Operator Toolkit (PDF)",
-  "30 professional email templates",
-  "12 operational checklists",
-  "6 shipment problem workflows",
-  "6 AI Operator prompts",
+  "Quick-Start Guide for your first month",
+  "49 professional email templates",
+  "19 operational checklists",
+  "10 shipment problem workflows",
+  "12 AI Operator prompts",
+  "Glossary & Incoterms reference",
   "Emergency Vessel Shipment Checklist",
   "Instant digital access",
   "One-time payment",
@@ -18,9 +20,9 @@ const standardIncludes = [
 
 const premiumIncludes = [
   "Everything in Standard",
-  "5 extra Advanced Operator templates",
+  "8 extra Advanced Operator templates",
   "Claims & Damage checklist",
-  "Editable Word doc — all 35 templates",
+  "Editable Word doc — all 57 templates",
   "Editable Excel shipment tracker",
   "Priority email support",
 ];

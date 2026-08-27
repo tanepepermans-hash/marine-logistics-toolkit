@@ -15,7 +15,9 @@ EMAIL_CATEGORIES = [
 
 Could you please arrange pickup for the shipment below?
 
-Shipper: [Shipper Name / Address]
+Shipper: [Shipper Name]
+Pickup address: [Full Pickup Address]
+Delivery address: [Full Delivery Address]
 Ready date: [Date]
 Pieces / Weight / Dimensions: [Pieces] / [Weight] kg / [L x W x H cm]
 Reference: [Shipment Ref]
@@ -32,7 +34,9 @@ Thanks,
 
 We need a same-day pickup for the shipment below — please treat as priority.
 
-Shipper: [Shipper Name / Address]
+Shipper: [Shipper Name]
+Pickup address: [Full Pickup Address]
+Delivery address: [Full Delivery Address]
 Cargo ready from: [Time]
 Latest pickup time: [Time] (vessel/flight cut-off is [Cut-off Time])
 Pieces / Weight: [Pieces] / [Weight] kg
@@ -51,7 +55,9 @@ Thanks,
 
 This pickup location requires a booked appointment slot. Details below:
 
-Shipper: [Shipper Name / Address]
+Shipper: [Shipper Name]
+Pickup address: [Full Pickup Address]
+Delivery address: [Full Delivery Address]
 Site contact: [Name / Phone]
 Access notes: [Loading dock / forklift required / ID needed, etc.]
 Requested window: [Date, time window]
@@ -557,6 +563,376 @@ Best regards,
             },
         ],
     },
+    {
+        "name": "Booking Amendments & Changes",
+        "templates": [
+            {
+                "title": "Amend Booking – Change in Pieces / Weight",
+                "subject": "Booking Amendment – Ref [Shipment Ref]",
+                "body": """Hi [Contact Name],
+
+We need to amend the booking below — the piece count/weight has changed
+since the original request:
+
+Reference / Booking number: [Shipment Ref]
+Original: [Pieces] / [Weight] kg
+Updated: [New Pieces] / [New Weight] kg
+Reason for change: [Reason]
+
+Could you confirm whether this affects the rate, space or cut-off, and
+reconfirm the booking once updated?
+
+Thanks,
+[Your Name]""",
+            },
+            {
+                "title": "Amend Booking – Change in Ready Date",
+                "subject": "Booking Amendment – New Ready Date – Ref [Shipment Ref]",
+                "body": """Hi [Contact Name],
+
+The cargo ready date for the booking below has changed:
+
+Reference: [Shipment Ref]
+Original ready date: [Date]
+New ready date: [Date]
+Reason: [Delay at supplier / production / other]
+
+Please confirm whether the current vessel/flight booking still holds, or
+if we need to rebook onto a later option.
+
+Thanks,
+[Your Name]""",
+            },
+            {
+                "title": "Booking Cancellation Request",
+                "subject": "Booking Cancellation – Ref [Shipment Ref]",
+                "body": """Hi [Contact Name],
+
+Please cancel the booking below:
+
+Reference / Booking number: [Shipment Ref]
+Reason for cancellation: [Reason]
+
+Could you confirm the cancellation and let us know if any cancellation fee
+applies, so we can inform the customer if needed?
+
+Thanks,
+[Your Name]""",
+            },
+            {
+                "title": "Change of Consignee / Delivery Address",
+                "subject": "Delivery Address Change – Ref [Shipment Ref]",
+                "body": """Hi [Contact Name],
+
+The delivery details for the shipment below have changed:
+
+Reference: [Shipment Ref]
+Original consignee / delivery address: [Original Details]
+New consignee / delivery address: [New Full Address]
+Effective from: [Date, or "immediately"]
+
+Please confirm this change is reflected in your system before the cargo
+moves, and flag if it affects customs or delivery documents already
+issued.
+
+Thanks,
+[Your Name]""",
+            },
+        ],
+    },
+    {
+        "name": "Rate & Quote Negotiation",
+        "templates": [
+            {
+                "title": "Initial Rate Request to Carrier",
+                "subject": "Rate Request – [Origin] to [Destination]",
+                "body": """Hi [Carrier / Agent Contact],
+
+Could you provide a rate for the following lane?
+
+Origin / Destination: [Origin] to [Destination]
+Mode: [Sea FCL / Sea LCL / Air / Road]
+Cargo: [Pieces] / [Weight] kg / [Commodity]
+Frequency: [One-off / recurring — volume per month if recurring]
+Target ready date: [Date]
+
+Please include transit time, all-in cost (with surcharges) and validity
+of the rate.
+
+Thanks,
+[Your Name]""",
+            },
+            {
+                "title": "Rate Counter-Offer",
+                "subject": "Re: Rate Offer – [Origin] to [Destination]",
+                "body": """Hi [Carrier / Agent Contact],
+
+Thanks for the rate on [Origin] to [Destination]. It's a little above what
+we need to remain competitive for the customer — would you be able to
+improve on [Quoted Rate] given [reason: volume commitment / recurring
+lane / flexible dates]?
+
+We'd like to confirm today if we can align on pricing.
+
+Thanks,
+[Your Name]""",
+            },
+            {
+                "title": "Rate Confirmation to Customer",
+                "subject": "Rate Confirmation – [Origin] to [Destination]",
+                "body": """Hi [Customer Name],
+
+Confirming the rate for your shipment:
+
+Origin / Destination: [Origin] to [Destination]
+Rate: [Amount] (all-in / excluding [exclusions, if any])
+Transit time: [Days]
+Validity: [Date]
+
+Let me know if you'd like to proceed and I'll get the booking confirmed.
+
+Best regards,
+[Your Name]""",
+            },
+        ],
+    },
+    {
+        "name": "Customs Query & Clearance",
+        "templates": [
+            {
+                "title": "Customs Query – Additional Documents Requested",
+                "subject": "Customs Query – Documents Needed – Ref [Shipment Ref]",
+                "body": """Hi [Contact Name],
+
+Customs has requested additional documentation before this shipment can
+clear:
+
+Reference: [Shipment Ref]
+Documents requested: [e.g. certificate of origin, license, revised invoice]
+Reason given: [Reason, if provided]
+Deadline: [Date/Time]
+
+Could you provide these as soon as possible to avoid storage/demurrage
+charges building up?
+
+Thanks,
+[Your Name]""",
+            },
+            {
+                "title": "Customs Hold Notification to Customer",
+                "subject": "Customs Hold – Ref [Shipment Ref]",
+                "body": """Hi [Customer Name],
+
+Your shipment has been placed on hold by customs:
+
+Reference: [Shipment Ref]
+Reason for hold: [Reason, as far as known]
+What's needed to release it: [Documents / inspection / payment]
+Estimated impact on delivery: [Timeframe]
+
+We're actively working with our broker to resolve this and will update
+you as soon as there's movement.
+
+Best regards,
+[Your Name]""",
+            },
+            {
+                "title": "HS Code Confirmation Request",
+                "subject": "HS Code Confirmation Needed – Ref [Shipment Ref]",
+                "body": """Hi [Shipper / Customer Contact],
+
+To complete the customs declaration for [Shipment Ref], could you confirm
+the HS code for:
+
+Commodity: [Description]
+Suggested HS code (if any): [Code]
+
+If you're not sure, a detailed product description and intended use will
+help our broker classify it correctly.
+
+Thanks,
+[Your Name]""",
+            },
+        ],
+    },
+    {
+        "name": "New Shipment Kickoff",
+        "templates": [
+            {
+                "title": "New Shipment – Request Full Instructions from Customer",
+                "subject": "New Shipment – Details Needed to Get Started",
+                "body": """Hi [Customer Name],
+
+Thanks for the new booking — to get this moving, could you confirm:
+
+Origin / Destination: [Origin] to [Destination]
+Cargo: [Pieces] / [Weight] kg / [Dimensions] / [Commodity]
+Ready date: [Date]
+DG status: [Yes/No — details if yes]
+Incoterm: [e.g. FOB, CIF, DAP]
+Any deadline we should be aware of: [Date, if applicable]
+
+Once I have these, I'll come back with routing options and a firm
+timeline.
+
+Best regards,
+[Your Name]""",
+            },
+            {
+                "title": "Internal Handover – New Shipment from Sales",
+                "subject": "New Shipment Handover – Ref [Shipment Ref]",
+                "body": """Hi [Ops Colleague],
+
+Handing over a new shipment that's just been confirmed:
+
+Customer: [Customer Name]
+Reference: [Shipment Ref]
+Route: [Origin] to [Destination]
+Agreed rate / terms: [Summary]
+Anything the customer specifically asked for: [Notes]
+
+Let me know if you need anything further from the sales side to get this
+booked.
+
+Thanks,
+[Your Name]""",
+            },
+            {
+                "title": "Welcome / Onboarding Email to New Customer",
+                "subject": "Welcome — How We'll Work Together",
+                "body": """Hi [Customer Name],
+
+Welcome on board — I'll be your main point of contact for shipments going
+forward. A few quick things to make this run smoothly:
+
+- Send booking requests to: [email/contact]
+- For anything urgent, reach me directly at: [phone/email]
+- Please always confirm dangerous goods status upfront — it saves delays
+  later
+- I'll send a pre-alert and POD for every shipment automatically
+
+Looking forward to working together — let me know if you have any
+questions before your first booking.
+
+Best regards,
+[Your Name]""",
+            },
+        ],
+    },
+    {
+        "name": "Weather / Force Majeure Delay",
+        "templates": [
+            {
+                "title": "Weather Delay Notification to Customer",
+                "subject": "Weather Delay – Ref [Shipment Ref]",
+                "body": """Hi [Customer Name],
+
+Your shipment is affected by weather-related disruption:
+
+Reference: [Shipment Ref]
+Disruption: [e.g. storm, port closure, flight grounding]
+Original ETA: [Date] — Revised ETA: [Date, or "to be confirmed"]
+
+This is outside the carrier's control, but we're monitoring closely and
+will update you as soon as vessels/flights resume normal schedules.
+
+Best regards,
+[Your Name]""",
+            },
+            {
+                "title": "Force Majeure Notice",
+                "subject": "Force Majeure Notice – Ref [Shipment Ref]",
+                "body": """Hi [Customer Name],
+
+We're issuing this as a formal force majeure notice affecting your
+shipment:
+
+Reference: [Shipment Ref]
+Event: [e.g. natural disaster, strike, war-risk closure]
+Source confirming the event: [Carrier / port authority / news source]
+Expected impact: [Delay / rerouting / cost impact]
+
+We will keep you updated as the situation develops and will propose
+alternatives as soon as they become available.
+
+Best regards,
+[Your Name]""",
+            },
+            {
+                "title": "Port Congestion / Strike Notification",
+                "subject": "Port Congestion Notice – [Port Name]",
+                "body": """Hi [Customer Name],
+
+[Port Name] is currently experiencing [congestion / industrial action],
+affecting vessels calling this week, including your shipment [Shipment
+Ref].
+
+Expected impact: [Delay estimate]
+Alternative being considered: [e.g. nearby port, different vessel]
+
+We'll confirm the best path forward as soon as we have firmer information
+from the carrier/terminal.
+
+Best regards,
+[Your Name]""",
+            },
+        ],
+    },
+    {
+        "name": "Shift / Team Handover",
+        "templates": [
+            {
+                "title": "End-of-Shift Handover – Open Items",
+                "subject": "Shift Handover – [Date]",
+                "body": """Hi [Colleague],
+
+Handing over the following open items before I sign off:
+
+1. [Shipment Ref] — [Status] — [What still needs to happen, by when]
+2. [Shipment Ref] — [Status] — [What still needs to happen, by when]
+3. [Shipment Ref] — [Status] — [What still needs to happen, by when]
+
+Nothing else urgent outstanding. Call me if anything time-critical comes
+up before [time].
+
+Thanks,
+[Your Name]""",
+            },
+            {
+                "title": "Handover – Colleague Out of Office",
+                "subject": "Covering [Colleague Name] – [Date range]",
+                "body": """Hi team,
+
+I'll be covering [Colleague Name]'s shipments while they're out
+([Date] to [Date]). Please send anything related to their accounts
+directly to me at [email/phone] during this period.
+
+Open/urgent items I'm already aware of:
+- [Shipment Ref] — [What needs attention]
+
+Thanks for flagging anything I might have missed.
+
+[Your Name]""",
+            },
+            {
+                "title": "Weekly Status Summary to Manager",
+                "subject": "Weekly Shipment Summary – Week of [Date]",
+                "body": """Hi [Manager Name],
+
+Quick summary of this week's shipments:
+
+Total shipments handled: [Number]
+On-time / delayed: [Number] / [Number]
+Open issues needing attention: [Shipment Ref] — [Brief description]
+Anything I need support on: [Notes, or "nothing at the moment"]
+
+Let me know if you'd like more detail on anything specific.
+
+Thanks,
+[Your Name]""",
+            },
+        ],
+    },
 ]
 
 CHECKLISTS = [
@@ -706,6 +1082,89 @@ CHECKLISTS = [
             "Confirm the recovery plan with all parties involved",
         ],
     },
+    {
+        "name": "FCL Sea Freight Booking Checklist",
+        "items": [
+            "Confirm origin and destination ports",
+            "Confirm container type and quantity (e.g. 1x40'HC)",
+            "Confirm cargo weight and whether it's within container payload limits",
+            "Confirm VGM (Verified Gross Mass) process and deadline",
+            "Confirm empty container pickup location and date",
+            "Confirm loading location, address and access requirements",
+            "Confirm gate-in cut-off and document cut-off dates",
+            "Confirm DG status and documents if applicable",
+            "Confirm seal number is recorded once container is sealed",
+        ],
+    },
+    {
+        "name": "LCL Sea Freight Checklist",
+        "items": [
+            "Confirm CBM (volume) and weight, and which is used for pricing",
+            "Confirm CFS (container freight station) cut-off date",
+            "Confirm palletization and packaging suitable for consolidation",
+            "Confirm cargo marks and labels are clear and match documents",
+            "Confirm co-loader/consolidator handling the shipment",
+            "Confirm DG status — many consolidators restrict or exclude DG in LCL",
+            "Confirm destination CFS and deconsolidation process for the consignee",
+        ],
+    },
+    {
+        "name": "Road Freight (FTL/LTL) Checklist",
+        "items": [
+            "Confirm exact pickup and delivery addresses, including any access restrictions",
+            "Confirm loading/unloading time windows and appointment requirements",
+            "Confirm vehicle type required (e.g. tail-lift, curtain-side, refrigerated)",
+            "Confirm driver has all required references, IDs and permits",
+            "Confirm cargo securing/packaging is suitable for road transport",
+            "Confirm border/customs requirements if crossing into another country",
+            "Confirm contact person and phone number at both pickup and delivery",
+        ],
+    },
+    {
+        "name": "New Operator First-Week Checklist",
+        "items": [
+            "Get access to the booking/TMS system and carrier portals",
+            "Save key contacts: main carriers, agents, customs broker, warehouse",
+            "Review the toolkit's email templates and bookmark the ones used daily",
+            "Shadow a colleague on at least one urgent/time-critical shipment",
+            "Confirm who to escalate to for DG questions and for customer complaints",
+            "Learn the company's standard cut-off times per trade lane/mode",
+            "Confirm where shipment documents and past correspondence are filed",
+        ],
+    },
+    {
+        "name": "Shift Handover Checklist",
+        "items": [
+            "List every shipment with an open action, not just problem shipments",
+            "State the next required action and who owns it, in plain terms",
+            "Flag anything with a deadline in the next 24 hours",
+            "Confirm the customer has (or hasn't) been informed of any issue",
+            "Share where documents or correspondence for open items are saved",
+            "Confirm how to reach you if something urgent comes up after handover",
+        ],
+    },
+    {
+        "name": "Rate Quote Sanity-Check Checklist",
+        "items": [
+            "Confirm the quote is all-in (no hidden surcharges like BAF, CAF, THC)",
+            "Confirm the quote's validity period and whether rates can change after booking",
+            "Confirm which party pays destination charges (per the quoted Incoterm)",
+            "Compare against at least one other quote if time and margin allow",
+            "Confirm transit time matches what the customer was promised",
+            "Confirm the quote covers the actual cargo profile (weight, DG, dimensions)",
+        ],
+    },
+    {
+        "name": "End-of-Shipment Closeout Checklist",
+        "items": [
+            "Confirm POD has been received and filed",
+            "Confirm all invoices (ours and carrier's) have been reconciled",
+            "Confirm no outstanding claims, damage or disputes remain open",
+            "Archive all shipment documents in the correct customer/reference folder",
+            "Note any lessons learned for next time (delay causes, what worked well)",
+            "Confirm the customer received final confirmation that the shipment is complete",
+        ],
+    },
 ]
 
 WORKFLOWS = [
@@ -773,6 +1232,39 @@ WORKFLOWS = [
             "Check whether next-port or next-vessel rebooking is a better option than waiting",
             "Confirm any storage or demurrage cost this may create",
             "Inform the customer of the situation and the recommended path forward",
+        ],
+    },
+    {
+        "trigger": "Customer Disputes the Invoice or Rate",
+        "steps": [
+            "Pull the original quote/rate confirmation and compare it line by line to the invoice",
+            "Identify exactly which charge is disputed and why",
+            "Check if the disputed charge was clearly communicated upfront (e.g. a surcharge)",
+            "If the charge is valid, explain it clearly with the supporting quote/document",
+            "If the charge is an error, correct the invoice and apologize for the mistake",
+            "Document the resolution so the same dispute doesn't recur on future shipments",
+        ],
+    },
+    {
+        "trigger": "Cargo Fails Customs Inspection",
+        "steps": [
+            "Get the exact reason for the failed inspection from the broker or customs directly",
+            "Determine if it's a documentation issue, a physical cargo issue, or a compliance issue",
+            "Contact the shipper/customer immediately if additional documents or corrections are needed",
+            "Confirm the revised timeline and any storage/demurrage cost building up",
+            "Escalate to a customs specialist or legal advisor if the issue is regulatory, not just paperwork",
+            "Keep the customer updated at each step, even if there's no resolution yet",
+        ],
+    },
+    {
+        "trigger": "Driver or Trucker No-Show",
+        "steps": [
+            "Confirm the booking was actually received and confirmed by the trucking company",
+            "Call the driver and dispatcher directly rather than waiting on email",
+            "Check if a replacement driver/vehicle can be arranged from the same or another carrier",
+            "Recalculate whether the original cut-off is still achievable with a new pickup time",
+            "Inform the customer proactively if the delay is likely to affect their deadline",
+            "Follow up afterward on why the no-show happened, especially with a repeat carrier",
         ],
     },
 ]
@@ -866,6 +1358,152 @@ Based on what is provided, list exactly what information is still missing
 before this shipment can be booked or moved with confidence, grouped by
 category (cargo details, documentation, customs, DG, deadline).""",
     },
+    {
+        "title": "Rate Negotiation Draft",
+        "prompt": """You are a marine logistics operator negotiating a better rate with a
+carrier or agent.
+
+Negotiation data:
+- Lane: [Origin] to [Destination]
+- Quoted rate: [Amount]
+- Target rate: [Amount, if you have one in mind]
+- Leverage: [Volume commitment / recurring lane / flexible dates / other]
+
+Write a short, professional email that pushes for a better rate using the
+leverage above, without sounding confrontational, and proposes a clear
+next step (e.g. confirming today if the rate is matched).""",
+    },
+    {
+        "title": "Claims / Insurance Letter Draft",
+        "prompt": """You are drafting a formal cargo damage or loss claim on behalf of a
+customer.
+
+Claim data:
+- Reference: [Shipment Ref]
+- Description of damage/loss: [Description]
+- When and where discovered: [Details]
+- Estimated value affected: [Amount]
+- Supporting documents available: [Photos / survey report / invoice, etc.]
+
+Write a clear, formal claim letter to the carrier or insurer stating the
+facts, the documents attached, and the outcome being requested (repair,
+replacement, or compensation).""",
+    },
+    {
+        "title": "Shift Handover Summary Generator",
+        "prompt": """You are a marine logistics operator writing a handover summary at the
+end of your shift.
+
+Open items:
+- [List each shipment reference, its current status, and what still needs
+  to happen, in rough notes]
+
+Turn these rough notes into a clear, numbered handover summary that a
+colleague could act on immediately without needing to ask follow-up
+questions, ordered by urgency.""",
+    },
+    {
+        "title": "SOP / Process Documentation Generator",
+        "prompt": """You are documenting a recurring operational process so any operator on
+the team can follow it consistently.
+
+Process to document: [e.g. "how we handle a missed vessel cut-off", "how
+we pre-alert a new customer"]
+Rough steps as currently done: [Describe the steps informally, in any order]
+
+Turn this into a clear, numbered Standard Operating Procedure with a short
+purpose statement at the top, so a new team member could follow it without
+additional explanation.""",
+    },
+    {
+        "title": "Customer Service Recovery Message",
+        "prompt": """You are writing to a customer after something went wrong on their
+shipment, to rebuild trust and keep the relationship strong.
+
+Situation:
+- What went wrong: [Description]
+- Root cause: [Cause, in plain terms]
+- What's being done to fix it: [Concrete action]
+- What's being done to prevent it happening again: [Concrete action, if any]
+
+Write an honest, empathetic email that takes ownership without being
+overly apologetic, explains the fix clearly, and ends with a concrete next
+step and timeline.""",
+    },
+]
+
+# ---------------------------------------------------------------------------
+# QUICK-START GUIDE — a suggested order to use the toolkit in, aimed at
+# someone brand new to the role. Rendered with the same step-list style as
+# the workflows section.
+# ---------------------------------------------------------------------------
+QUICK_START = [
+    {
+        "phase": "Day 1 — Get Set Up",
+        "steps": [
+            "Get access to the booking/TMS system, carrier portals and shared inboxes",
+            "Save this toolkit and bookmark the Email Templates and Checklists sections",
+            "Learn who to go to for DG questions, customs issues and customer complaints",
+            "Work through the New Operator First-Week Checklist in Section 2",
+        ],
+    },
+    {
+        "phase": "Week 1 — Handle Real Shipments",
+        "steps": [
+            "Use the Pickup Request and Pre-Alert templates on your first live shipments",
+            "Run the Cargo Readiness Checklist before confirming any booking",
+            "Ask a colleague to review your first few customer-facing emails before sending",
+            "Try the Missing-Information Checklist AI prompt on a shipment with incomplete details",
+        ],
+    },
+    {
+        "phase": "Weeks 2–4 — Handle the Harder Cases",
+        "steps": [
+            "Use the Shipment Problem Workflows the first time something goes wrong",
+            "Send your first Delay Notification or Weather Delay email using a template as a base",
+            "Start using the Shift Handover Checklist at the end of each working day",
+            "If you have DG Training Academy access, start the Course Path alongside your day-to-day work",
+        ],
+    },
+]
+
+# ---------------------------------------------------------------------------
+# GLOSSARY & INCOTERMS REFERENCE — plain-language definitions of the
+# abbreviations and terms used throughout this toolkit.
+# ---------------------------------------------------------------------------
+GLOSSARY = [
+    ("POD", "Proof of Delivery — signed confirmation that cargo was delivered to the consignee."),
+    ("ETD / ETA", "Estimated Time of Departure / Estimated Time of Arrival."),
+    ("B/L (Bill of Lading)", "The transport document and title document for a sea shipment."),
+    ("AWB (Air Waybill)", "The transport document for an air shipment — unlike a B/L, it is not a title document."),
+    ("CMR", "The transport document and contract used for international road freight in Europe."),
+    ("FCL / LCL", "Full Container Load / Less than Container Load — a container booked exclusively, versus shared space."),
+    ("CFS", "Container Freight Station — the facility where LCL cargo is consolidated or deconsolidated."),
+    ("VGM", "Verified Gross Mass — the legally required, verified weight of a loaded container before it can be loaded on a vessel."),
+    ("HS Code", "Harmonized System code — the international product classification used for customs declarations."),
+    ("EORI", "Economic Operators Registration and Identification — an EU customs ID number for businesses."),
+    ("DG", "Dangerous Goods — cargo classified as hazardous under the IMDG Code, IATA DGR or ADR."),
+    ("MSDS / SDS", "(Material) Safety Data Sheet — a document describing a substance's hazards and safe handling."),
+    ("Demurrage", "Charges for keeping a container at the port/terminal beyond the free time allowed."),
+    ("Detention", "Charges for keeping a carrier's container or equipment outside the port beyond the free time allowed."),
+    ("Consignee", "The party to whom cargo is being shipped and delivered."),
+    ("Shipper", "The party sending the cargo — often the exporter or seller."),
+    ("Pre-Alert", "Advance notification sent to a consignee or agent with shipment and document details before arrival."),
+    ("Cut-off", "The latest time cargo or documents must be submitted to make a specific vessel or flight."),
+    ("TEU", "Twenty-foot Equivalent Unit — the standard unit used for counting container capacity."),
+    ("Force Majeure", "Unforeseeable circumstances outside a party's control that prevent a contract from being fulfilled."),
+]
+
+INCOTERMS = [
+    ("EXW — Ex Works", "Seller makes the goods available at their own premises; the buyer takes on all risk and cost from that point."),
+    ("FCA — Free Carrier", "Seller delivers the goods to a carrier nominated by the buyer at a named place."),
+    ("FOB — Free On Board", "Seller delivers the goods on board the vessel; risk transfers to the buyer once loaded."),
+    ("CFR — Cost and Freight", "Seller pays the cost and freight to the destination port; risk transfers once the goods are loaded."),
+    ("CIF — Cost, Insurance and Freight", "Same as CFR, but the seller must also provide minimum cargo insurance."),
+    ("CPT — Carriage Paid To", "Seller pays carriage to the named destination; risk transfers to the buyer at the first carrier."),
+    ("CIP — Carriage and Insurance Paid To", "Same as CPT, but the seller must also provide cargo insurance."),
+    ("DAP — Delivered At Place", "Seller delivers the goods, ready for unloading, at the named destination; the buyer handles import clearance."),
+    ("DDP — Delivered Duty Paid", "Seller delivers the goods cleared for import at the named destination — the maximum obligation for a seller."),
 ]
 
 BONUS_CHECKLIST = [
@@ -995,6 +1633,67 @@ commitments required? Happy to discuss further by call if useful.
 Thanks,
 [Your Name]""",
         },
+        {
+            "title": "Formal Force Majeure Declaration",
+            "subject": "Formal Force Majeure Declaration – Ref [Shipment Ref]",
+            "body": """Dear [Customer / Partner Name],
+
+This letter serves as formal notice of a force majeure event affecting the
+performance of our obligations under [Contract / Booking Reference].
+
+Event: [Description of the event — natural disaster, war-risk closure, strike, etc.]
+Date event began: [Date]
+Source confirming the event: [Carrier / port authority / government notice]
+Obligations affected: [Which deliveries/deadlines are impacted]
+Expected duration: [Best estimate, or "unknown at this time"]
+
+We will continue to perform all obligations not affected by this event and
+will notify you promptly once the situation is resolved or materially
+changes. Please contact us with any questions regarding this notice.
+
+Regards,
+[Your Name / Company]""",
+        },
+        {
+            "title": "Volume RFQ to Multiple Carriers",
+            "subject": "Request for Quotation – [Origin] to [Destination] – [Annual Volume]",
+            "body": """Dear [Carrier Contact],
+
+We are consolidating our freight spend on the lane below and would like to
+invite you to quote:
+
+Origin / Destination: [Origin] to [Destination]
+Mode: [Sea FCL / Sea LCL / Air / Road]
+Estimated annual volume: [Volume — TEU / kg / shipments]
+Typical cargo profile: [Weight, dimensions, DG status]
+Required transit time: [Days]
+Contract period: [e.g. 12 months]
+
+Please submit your best all-in rate, transit time and any volume
+incentives by [Date]. We plan to award this lane by [Date].
+
+Regards,
+[Your Name]""",
+        },
+        {
+            "title": "New Client Onboarding & Credit Terms",
+            "subject": "Onboarding — Account Setup for [Customer Name]",
+            "body": """Dear [Customer Contact],
+
+Welcome — to get your account fully set up, we'll need the following:
+
+Company registration / VAT details: [Details]
+Billing contact and invoice email: [Details]
+Requested payment terms: [e.g. Net 30]
+Standard operating locations: [Origins/destinations you'll ship from/to]
+Any standing instructions: [e.g. always insure cargo, always use carrier X]
+
+Once confirmed, I'll set up your account and send our standard booking
+process so your team knows exactly how to reach us for each shipment.
+
+Best regards,
+[Your Name]""",
+        },
     ],
 }
 
@@ -1025,6 +1724,12 @@ EMAIL_CATEGORY_ICONS = {
     "DG Information Requests": "alert-triangle",
     "Airfreight Quotation Requests": "plane",
     "Agent Coordination": "users",
+    "Booking Amendments & Changes": "calendar",
+    "Rate & Quote Negotiation": "compass",
+    "Customs Query & Clearance": "shield-check",
+    "New Shipment Kickoff": "package",
+    "Weather / Force Majeure Delay": "calendar-x",
+    "Shift / Team Handover": "users",
     "Advanced Operator Templates": "star",
 }
 
@@ -1041,6 +1746,13 @@ CHECKLIST_ICONS = {
     "Onboard Delivery Checklist": "ship",
     "Agent Coordination Checklist": "users",
     "Delay / Missed Deadline Checklist": "calendar-x",
+    "FCL Sea Freight Booking Checklist": "ship",
+    "LCL Sea Freight Checklist": "package",
+    "Road Freight (FTL/LTL) Checklist": "truck",
+    "New Operator First-Week Checklist": "compass",
+    "Shift Handover Checklist": "users",
+    "Rate Quote Sanity-Check Checklist": "file-text",
+    "End-of-Shipment Closeout Checklist": "check-square",
     "Claims & Damage Checklist": "file-warning",
 }
 
@@ -1051,6 +1763,9 @@ WORKFLOW_ICONS = {
     "Documents Are Missing": "file-warning",
     "Vessel Changes Port": "map-pin",
     "Cargo Cannot Be Delivered Onboard": "ship",
+    "Customer Disputes the Invoice or Rate": "file-warning",
+    "Cargo Fails Customs Inspection": "shield-check",
+    "Driver or Trucker No-Show": "truck",
 }
 
 BONUS_ICONS = {
@@ -1253,8 +1968,8 @@ def render_route_graphic():
 
 
 def render_cover(premium=False):
-    email_count = 35 if premium else 30
-    checklist_count = 13 if premium else 12
+    email_count = 57 if premium else 49
+    checklist_count = 20 if premium else 19
     badge = (
         f'<div style="position:relative;display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#f6c453,#e08a1e);'
         f'color:#2b1a03;font-size:8.5pt;font-weight:800;letter-spacing:1px;text-transform:uppercase;border-radius:999px;padding:5px 13px;margin-bottom:14px;">'
@@ -1274,8 +1989,8 @@ def render_cover(premium=False):
   <div class="stats">
     <div class="stat"><b>{email_count}</b><span>Email Templates</span></div>
     <div class="stat"><b>{checklist_count}</b><span>Checklists</span></div>
-    <div class="stat"><b>6</b><span>Workflows</span></div>
-    <div class="stat"><b>6</b><span>AI Prompts</span></div>
+    <div class="stat"><b>10</b><span>Workflows</span></div>
+    <div class="stat"><b>12</b><span>AI Prompts</span></div>
   </div>
   <div class="footer-note">Marine Logistics Operator Toolkit — Edition 1.0 &nbsp;·&nbsp; Educational &amp; operational reference. Not a substitute for formal DG, customs or regulatory training.</div>
 </div>
@@ -1284,16 +1999,18 @@ def render_cover(premium=False):
 
 def render_intro(premium=False):
     rows = [
-        ("1", "mail", "Email Templates", "35 templates across 13 categories" if premium else "30 templates across 12 categories"),
-        ("2", "list-checks", "Operational Checklists", "13 checklists" if premium else "12 checklists"),
-        ("3", "workflow", "Shipment Problem Workflows", "6 workflows"),
-        ("4", "sparkles", "AI Operator Prompts", "6 ready-to-use prompts"),
+        ("1", "compass", "Quick-Start Guide", "Your first month, phase by phase"),
+        ("2", "mail", "Email Templates", "57 templates across 18 categories" if premium else "49 templates across 17 categories"),
+        ("3", "list-checks", "Operational Checklists", "20 checklists" if premium else "19 checklists"),
+        ("4", "workflow", "Shipment Problem Workflows", "10 workflows"),
+        ("5", "sparkles", "AI Operator Prompts", "12 ready-to-use prompts"),
+        ("6", "search", "Glossary & Incoterms Reference", "20 terms + 9 Incoterms explained"),
     ]
     if premium:
-        rows.append(("5", "star", "Premium Bonus: Advanced Operator Templates", "5 templates + claims checklist"))
-        rows.append(("6", "gift", "Bonus: Emergency Vessel Shipment Checklist", "1-page reference"))
+        rows.append(("7", "star", "Premium Bonus: Advanced Operator Templates", "8 templates + claims checklist"))
+        rows.append(("8", "gift", "Bonus: Emergency Vessel Shipment Checklist", "1-page reference"))
     else:
-        rows.append(("5", "gift", "Bonus: Emergency Vessel Shipment Checklist", "1-page reference"))
+        rows.append(("7", "gift", "Bonus: Emergency Vessel Shipment Checklist", "1-page reference"))
     toc = "".join(
         f'<div class="toc-row">{icon_badge(ic, size=26, icon_size=13, tone="tint")}'
         f'<div class="t">{esc(t)}</div><div class="d">{esc(d)}</div></div>'
@@ -1322,8 +2039,34 @@ def render_section_head(eyebrow, title, desc, icon_name):
 """
 
 
+def render_quickstart():
+    body = render_section_head("Section 1", "Quick-Start Guide", "New to the role? Here's a suggested order to work through the toolkit over your first month.", "compass")
+    for q in QUICK_START:
+        steps = "".join(
+            f'<div class="wf-step"><div class="wf-num">{i+1}</div><div>{esc(s)}</div></div>'
+            for i, s in enumerate(q["steps"])
+        )
+        body += f'<div class="workflow"><h3>{esc(q["phase"])}</h3>{steps}</div>'
+    return f'<div class="section-break">{body}</div>'
+
+
+def render_reference():
+    body = render_section_head("Section 6", "Glossary & Incoterms Reference", "Plain-language definitions for the abbreviations and terms used throughout this toolkit.", "search")
+    glossary_rows = "".join(
+        f'<div class="toc-row"><div class="t">{esc(term)}</div><div class="d">{esc(definition)}</div></div>'
+        for term, definition in GLOSSARY
+    )
+    body += f'<div class="cat-title">Glossary</div><div class="toc">{glossary_rows}</div>'
+    incoterms_rows = "".join(
+        f'<div class="toc-row"><div class="t">{esc(term)}</div><div class="d">{esc(definition)}</div></div>'
+        for term, definition in INCOTERMS
+    )
+    body += f'<div class="cat-title" style="margin-top:26px;">Incoterms 2020 — Quick Reference</div><div class="toc">{incoterms_rows}</div>'
+    return f'<div class="section-break">{body}</div>'
+
+
 def render_emails():
-    body = render_section_head("Section 1", "30 Professional Email Templates", "Ready-to-send templates for the messages operators write every day. Replace anything in [brackets] with your shipment's real details.", "mail")
+    body = render_section_head("Section 2", "49 Professional Email Templates", "Ready-to-send templates for the messages operators write every day. Replace anything in [brackets] with your shipment's real details.", "mail")
     for cat in EMAIL_CATEGORIES:
         cat_icon = icon_badge(EMAIL_CATEGORY_ICONS.get(cat["name"], "mail"), size=22, icon_size=11, tone="tint")
         body += f'<div class="cat-title">{cat_icon}{esc(cat["name"])}</div>'
@@ -1339,7 +2082,7 @@ def render_emails():
 
 
 def render_checklists():
-    body = render_section_head("Section 2", "12 Operational Checklists", "Step-by-step checklists to verify cargo, documents and vessel requirements before you commit to a plan.", "list-checks")
+    body = render_section_head("Section 3", "19 Operational Checklists", "Step-by-step checklists to verify cargo, documents and vessel requirements before you commit to a plan.", "list-checks")
     for c in CHECKLISTS:
         rows = "".join(f'<div class="check-row"><div class="box"></div><div>{esc(item)}</div></div>' for item in c["items"])
         h_icon = icon_badge(CHECKLIST_ICONS.get(c["name"], "list-checks"), size=22, icon_size=11, tone="tint")
@@ -1348,7 +2091,7 @@ def render_checklists():
 
 
 def render_workflows():
-    body = render_section_head("Section 3", "6 Shipment Problem Workflows", "Decision paths for the situations that derail an otherwise smooth shipment.", "workflow")
+    body = render_section_head("Section 4", "10 Shipment Problem Workflows", "Decision paths for the situations that derail an otherwise smooth shipment.", "workflow")
     for w in WORKFLOWS:
         steps = "".join(
             f'<div class="wf-step"><div class="wf-num">{i+1}</div><div>{esc(s)}</div></div>'
@@ -1360,7 +2103,7 @@ def render_workflows():
 
 
 def render_prompts():
-    body = render_section_head("Section 4", "6 AI Operator Prompts", "Paste your shipment details into any AI assistant along with the prompt below to get a usable draft in seconds.", "sparkles")
+    body = render_section_head("Section 5", "12 AI Operator Prompts", "Paste your shipment details into any AI assistant along with the prompt below to get a usable draft in seconds.", "sparkles")
     for p in AI_PROMPTS:
         h_icon = icon_badge("sparkles", size=22, icon_size=11, tone="navy")
         body += f"""
@@ -1427,7 +2170,7 @@ def render_premium_bonus():
     cat = PREMIUM_EMAIL_CATEGORY
     body = render_section_head(
         "Premium Bonus",
-        "5 Advanced Operator Templates",
+        "8 Advanced Operator Templates",
         "Extra templates for the less everyday, higher-stakes situations — included with Premium.",
         "star",
     )
@@ -1457,10 +2200,12 @@ def build(premium=False):
 </head><body>
 {render_cover(premium)}
 {render_intro(premium)}
+{render_quickstart()}
 {render_emails()}
 {render_checklists()}
 {render_workflows()}
 {render_prompts()}
+{render_reference()}
 {premium_section}
 {render_bonus()}
 {render_back()}

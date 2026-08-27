@@ -17,6 +17,12 @@ const emailTemplates = [
   "DG information requests",
   "Airfreight quotation requests",
   "Agent coordination",
+  "Booking amendments & changes",
+  "Rate & quote negotiation",
+  "Customs query & clearance",
+  "New shipment kickoff",
+  "Weather / force majeure delay",
+  "Shift / team handover",
 ];
 
 const checklists = [
@@ -32,6 +38,13 @@ const checklists = [
   "Onboard Delivery Checklist",
   "Agent Coordination Checklist",
   "Delay / Missed Deadline Checklist",
+  "FCL Sea Freight Booking Checklist",
+  "LCL Sea Freight Checklist",
+  "Road Freight (FTL/LTL) Checklist",
+  "New Operator First-Week Checklist",
+  "Shift Handover Checklist",
+  "Rate Quote Sanity-Check Checklist",
+  "End-of-Shipment Closeout Checklist",
 ];
 
 const workflows = [
@@ -41,6 +54,9 @@ const workflows = [
   "Documents are missing",
   "Vessel changes port",
   "Cargo cannot be delivered onboard",
+  "Customer disputes the invoice or rate",
+  "Cargo fails customs inspection",
+  "Driver or trucker no-show",
 ];
 
 const aiOutputs = [
@@ -50,6 +66,8 @@ const aiOutputs = [
   "Risk assessments",
   "Backup solutions",
   "Missing-information checklists",
+  "Rate negotiation drafts",
+  "Claims & insurance letters",
 ];
 
 type FeatureCard = {
@@ -62,19 +80,19 @@ type FeatureCard = {
 const cards: FeatureCard[] = [
   {
     icon: Mail,
-    title: "30 Professional Email Templates",
+    title: "49 Professional Email Templates",
     description: "Ready-to-send templates for the messages operators write every day.",
     items: emailTemplates,
   },
   {
     icon: ListChecks,
-    title: "12 Operational Checklists",
+    title: "19 Operational Checklists",
     description: "Step-by-step checklists to verify cargo, documents and vessel requirements.",
     items: checklists,
   },
   {
     icon: Workflow,
-    title: "Shipment Problem Workflows",
+    title: "10 Shipment Problem Workflows",
     description: "Decision paths for the situations that derail an otherwise smooth shipment.",
     items: workflows,
   },

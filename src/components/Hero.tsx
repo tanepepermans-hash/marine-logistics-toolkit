@@ -6,8 +6,8 @@ import ProductMockup from "@/components/ui/ProductMockup";
 import { siteConfig } from "@/config/site";
 
 const trustBadges = [
-  { icon: Mail, label: "30 Email Templates" },
-  { icon: ListChecks, label: "12 Checklists" },
+  { icon: Mail, label: "49 Email Templates" },
+  { icon: ListChecks, label: "19 Checklists" },
   { icon: Sparkles, label: "AI Operator Prompts" },
   { icon: FileText, label: "Practical Shipment Workflows" },
 ];
