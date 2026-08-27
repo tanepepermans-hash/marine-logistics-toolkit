@@ -30,7 +30,11 @@ export function useDgState() {
 
   useEffect(() => {
     setState(loadDgState());
-    setPremium(isPremiumUnlocked());
+    // NEXT_PUBLIC_DEMO_MODE is only ever set on a separate, unlisted demo
+    // deployment (see README) used to show the product internally without
+    // a real purchase — it is never set on the production deployment, so
+    // this has no effect on real customers.
+    setPremium(process.env.NEXT_PUBLIC_DEMO_MODE === "true" || isPremiumUnlocked());
     setLoaded(true);
   }, []);
 

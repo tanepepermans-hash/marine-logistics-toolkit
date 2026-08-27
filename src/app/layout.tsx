@@ -44,16 +44,23 @@ export const metadata: Metadata = {
     description:
       "Email templates, checklists, AI prompts and workflows for marine logistics operators.",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots:
+    process.env.NEXT_PUBLIC_DEMO_MODE === "true"
+      ? { index: false, follow: false }
+      : { index: true, follow: true },
 };
+
+const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={inter.variable}>
       <body className="min-h-screen bg-navy-900 font-sans text-mist-100 antialiased">
+        {isDemoMode && (
+          <div className="sticky top-0 z-[60] bg-amber-400 px-4 py-1.5 text-center text-xs font-semibold text-navy-950">
+            Internal demo — everything is unlocked for preview. Not for sale on this URL.
+          </div>
+        )}
         {children}
       </body>
     </html>
