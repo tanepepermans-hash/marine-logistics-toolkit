@@ -51,8 +51,7 @@ export default function PrivacyPolicyPage() {
         <strong>Your rights.</strong> Under GDPR, you can ask us to access, correct or delete your
         personal data, or object to how we use it, by emailing us at the address below. If you
         believe we have not handled your data properly, you also have the right to complain to
-        your national data protection authority (in the Netherlands: the Autoriteit
-        Persoonsgegevens).
+        your own country&apos;s data protection authority.
       </p>
       <p>
         <strong>Cookies.</strong> This site does not use advertising or tracking cookies. Any

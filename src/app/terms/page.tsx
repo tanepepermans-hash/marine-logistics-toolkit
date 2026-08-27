@@ -13,8 +13,8 @@ function SellerIdentity() {
   return (
     <p className="rounded-xl border border-amber-400/30 bg-amber-400/10 p-4 text-navy-800">
       <strong>Seller.</strong> {siteConfig.name} is operated by [YOUR REGISTERED BUSINESS NAME],
-      registered with the Dutch Chamber of Commerce (KvK) under number [KVK NUMBER], located at
-      [BUSINESS ADDRESS]. VAT/BTW number: [VAT NUMBER, if applicable].
+      registered in [COUNTRY OF REGISTRATION] under company number [REGISTRATION NUMBER], located
+      at [BUSINESS ADDRESS]. VAT number: [VAT NUMBER, if applicable].
     </p>
   );
 }
@@ -68,9 +68,9 @@ export default function TermsPage() {
         under applicable consumer protection law.
       </p>
       <p>
-        <strong>Governing law.</strong> These terms are governed by Dutch law, without prejudice
-        to any mandatory consumer protection rules of your own country of residence if you are an
-        EU consumer.
+        <strong>Governing law.</strong> These terms are governed by the law of [COUNTRY OF
+        REGISTRATION], without prejudice to any mandatory consumer protection rules of your own
+        country of residence if you are an EU consumer.
       </p>
       <p>
         <strong>Contact.</strong> Questions about these terms can be sent to{" "}
