@@ -41,6 +41,13 @@ export default function Footer() {
           with qualified professionals. &copy; {new Date().getFullYear()} {siteConfig.name}. All
           rights reserved.
         </p>
+
+        {/* Legal disclosure required for an EU commercial website ("informatieplicht") —
+            fill in your real registered business details before going live. */}
+        <p className="mx-auto mt-4 max-w-2xl text-center text-xs leading-relaxed text-mist-500 sm:mx-0 sm:text-left">
+          [YOUR REGISTERED BUSINESS NAME] &middot; KvK [KVK NUMBER] &middot; [BUSINESS ADDRESS]
+          {" "}&middot; VAT/BTW [VAT NUMBER, if applicable]
+        </p>
       </Container>
     </footer>
   );

@@ -60,6 +60,18 @@ export async function POST(request: Request) {
   params.set("success_url", `${origin}/download?session_id={CHECKOUT_SESSION_ID}`);
   params.set("cancel_url", `${origin}/?checkout=cancelled`);
 
+  // EU consumers have a 14-day right of withdrawal by default. For an
+  // instantly-delivered digital product, that right can only be waived if
+  // the buyer gives explicit, informed consent *before* paying — this is
+  // exactly that consent step, shown as a required checkbox on the Stripe
+  // Checkout page itself (linking to the Terms of Service URL configured
+  // in the Stripe Dashboard under Settings -> Business -> Public details).
+  params.set("consent_collection[terms_of_service]", "required");
+  params.set(
+    "custom_text[terms_of_service_acceptance][message]",
+    "I understand I'll get instant access to the digital toolkit, and that this means I give up my 14-day right of withdrawal, per the Terms & Refund Policy.",
+  );
+
   try {
     const stripeResponse = await fetch("https://api.stripe.com/v1/checkout/sessions", {
       method: "POST",
