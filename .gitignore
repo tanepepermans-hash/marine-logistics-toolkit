@@ -32,3 +32,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# toolkit content build scratch output (regenerate via scripts/toolkit-content/README.md;
+# only the final deliverables in private/toolkit/ are committed)
+scripts/toolkit-content/__pycache__/
+scripts/toolkit-content/*.html
+scripts/toolkit-content/Marine-Logistics-Operator-Toolkit*.pdf
+scripts/toolkit-content/Marine-Logistics-Operator-Toolkit*.docx
+scripts/toolkit-content/Marine-Logistics-Shipment-Tracker.xlsx
+scripts/toolkit-content/marine-logistics-operator-toolkit-premium.zip
+scripts/toolkit-content/emergency-vessel-shipment-checklist.pdf
+scripts/toolkit-content/lead-magnet.html
