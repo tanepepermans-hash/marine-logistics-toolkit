@@ -7,7 +7,7 @@ import { siteConfig } from "@/config/site";
 
 const highlights = [
   { icon: Brain, label: "All 9 UN hazard classes, every division" },
-  { icon: ShieldAlert, label: "87 practice questions, 6 quiz modes + Mixed Exam" },
+  { icon: ShieldAlert, label: "162 practice questions, 7 quiz modes + a guided Course Path" },
   { icon: RotateCcw, label: "Missed questions come back more often (spaced repetition)" },
   { icon: TrendingUp, label: "XP, levels, streaks & per-class accuracy tracking" },
 ];
