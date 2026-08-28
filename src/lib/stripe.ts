@@ -9,6 +9,13 @@ type VerifyResult =
   | { ok: true; customerEmail: string | null; tier: TierId }
   | { ok: false; reason: string };
 
+// How long a download/unlock link keeps working after purchase. This is
+// the main defense against a buyer's link being posted publicly and reused
+// indefinitely — a buyer who already unlocked DG Training in their own
+// browser keeps that access forever (see setPremiumUnlocked), this only
+// stops the *link itself* from granting fresh access after it's gone stale.
+const LINK_EXPIRY_DAYS = 30;
+
 export async function verifyCheckoutSession(sessionId: string): Promise<VerifyResult> {
   const secretKey = process.env.STRIPE_SECRET_KEY;
 
@@ -36,6 +43,18 @@ export async function verifyCheckoutSession(sessionId: string): Promise<VerifyRe
 
     if (session.payment_status !== "paid") {
       return { ok: false, reason: "This order has not completed payment yet." };
+    }
+
+    // session.created is a Unix timestamp (seconds) — always present on a
+    // Checkout Session, no `expand` needed.
+    const ageMs = Date.now() - session.created * 1000;
+    const expiryMs = LINK_EXPIRY_DAYS * 24 * 60 * 60 * 1000;
+    if (ageMs > expiryMs) {
+      return {
+        ok: false,
+        reason:
+          "This download link has expired for security reasons. Contact support with your order email and we'll send you a fresh one.",
+      };
     }
 
     return {

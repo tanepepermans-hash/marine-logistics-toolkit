@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { tierHasToolkitFile, type TierId } from "@/config/site";
 import { verifyCheckoutSession } from "@/lib/stripe";
+import { watermarkPdf, watermarkZipPdf } from "@/lib/watermark";
 
 // ---------------------------------------------------------------------------
 // Streams the toolkit file for the buyer's tier — but only after
@@ -54,7 +55,24 @@ export async function GET(request: Request) {
 
   try {
     const file = await fs.readFile(filePath);
-    return new NextResponse(new Uint8Array(file), {
+
+    // Stamp the buyer's email into the delivered file so a copy that leaks
+    // publicly can be traced back to the order it came from. Falls back to
+    // the unwatermarked file if anything goes wrong (a corrupt PDF should
+    // never block a paying customer from getting their download).
+    let outFile: Uint8Array = new Uint8Array(file);
+    if (result.customerEmail) {
+      try {
+        outFile =
+          contentType === "application/zip"
+            ? await watermarkZipPdf(file, result.customerEmail)
+            : await watermarkPdf(outFile, result.customerEmail);
+      } catch {
+        outFile = new Uint8Array(file);
+      }
+    }
+
+    return new NextResponse(outFile, {
       headers: {
         "Content-Type": contentType,
         "Content-Disposition": `attachment; filename="${filename}"`,
