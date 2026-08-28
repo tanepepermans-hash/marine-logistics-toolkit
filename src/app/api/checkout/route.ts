@@ -50,7 +50,15 @@ export async function POST(request: Request) {
     );
   }
 
-  const origin = request.headers.get("origin") ?? siteConfig.url;
+  // The Origin header is attacker-controllable on a direct API request (no
+  // browser required) — trusting it blindly for success_url/cancel_url
+  // would let anyone build a real Stripe Checkout link for this store that
+  // redirects a paying customer to an attacker's domain afterward. Only
+  // ever redirect back to this deployment's own known URL.
+  const requestOrigin = request.headers.get("origin");
+  const allowedOrigins = new Set([siteConfig.url]);
+  if (process.env.VERCEL_URL) allowedOrigins.add(`https://${process.env.VERCEL_URL}`);
+  const origin = requestOrigin && allowedOrigins.has(requestOrigin) ? requestOrigin : siteConfig.url;
 
   const params = new URLSearchParams();
   params.set("mode", "payment");
