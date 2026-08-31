@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AlertTriangle, CheckCircle2, ShieldAlert } from "lucide-react";
 import Container from "@/components/ui/Container";
-import { verifyCheckoutSession } from "@/lib/stripe";
+import { verifyPurchase } from "@/lib/payments";
 import { siteConfig, tierHasToolkitFile, tierUnlocksDg, type TierId } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -17,16 +17,17 @@ const PRODUCT_NAMES: Record<TierId, string> = {
   bundle: "Everything Bundle (Toolkit Premium + DG Training Academy)",
 };
 
-// Stripe redirects buyers here after checkout (success_url in
-// src/app/api/checkout/route.ts). The session is re-verified server-side
-// before showing a download link — this page is never publicly linked.
+// The payment provider (Stripe or Lemon Squeezy, see src/lib/payments.ts)
+// redirects buyers here after checkout. The order is re-verified
+// server-side before showing a download link — this page is never publicly
+// linked.
 export default async function DownloadPage({
   searchParams,
 }: {
   searchParams: { session_id?: string };
 }) {
   const sessionId = searchParams.session_id ?? "";
-  const result = await verifyCheckoutSession(sessionId);
+  const result = await verifyPurchase(sessionId);
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-navy-900 px-6 py-20">
