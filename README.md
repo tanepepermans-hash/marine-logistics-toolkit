@@ -29,6 +29,7 @@ marine-logistics-toolkit/
     │   └── api/
     │       ├── checkout/route.ts # Server-side Stripe Checkout Session creation
     │       ├── download/route.ts # Re-verifies payment, streams the right tier's file
+    │       ├── webhooks/stripe/route.ts # Verifies Stripe webhook signatures, records paid orders
     │       └── lead/route.ts     # Free-checklist email capture — forwards to your webhook
     ├── lib/
     │   └── stripe.ts             # Shared helper: verifies a Checkout Session with Stripe
@@ -166,6 +167,31 @@ test card `4242 4242 4242 4242`, any future expiry date, any CVC. You
 should land on `/download` with a working download button for the tier you
 bought. Only switch to your **live** keys once this works end-to-end for
 both tiers.
+
+### 4d. (Recommended) Set up the webhook
+
+`/download` and `/dg-unlock` already re-verify each order directly against
+Stripe, so buyers get their purchase without this — but it's the only
+record of an order that doesn't depend on the buyer's browser making it
+back to your site (they could close the tab right after paying), and it's
+what picks up delayed payment methods that settle *after* the checkout
+redirect (e.g. bank debits).
+
+1. In the Stripe Dashboard, go to **Developers → Webhooks → + Add
+   endpoint** and set the URL to `https://yourdomain.com/api/webhooks/stripe`.
+2. Select at least `checkout.session.completed`,
+   `checkout.session.async_payment_succeeded`, and
+   `checkout.session.async_payment_failed`.
+3. Copy the endpoint's **Signing secret** (`whsec_...`) into
+   `STRIPE_WEBHOOK_SECRET`.
+4. Optional: set `ORDER_WEBHOOK_URL` to forward each paid order (session
+   id, tier, email, amount) to Zapier/Make/a Google Sheet/etc. — same
+   pattern as `LEAD_WEBHOOK_URL` in section 8. Without it, orders are still
+   verified and fulfilled, just not logged anywhere beyond Stripe itself.
+
+For local testing, install the [Stripe CLI](https://docs.stripe.com/stripe-cli)
+and run `stripe listen --forward-to localhost:3000/api/webhooks/stripe` — it
+prints a temporary `whsec_...` to use in `.env.local` while testing.
 
 ## 5. How Buyers Receive the Toolkit After Paying
 

@@ -32,12 +32,21 @@ export async function POST(request: Request) {
   const secretKey = process.env.STRIPE_SECRET_KEY;
 
   let tier: TierId = "standard";
+  let idempotencyKey = "";
   try {
     const body = await request.json();
     if (VALID_TIERS.includes(body?.tier)) tier = body.tier;
+    if (typeof body?.idempotencyKey === "string" && body.idempotencyKey.length > 0) {
+      idempotencyKey = body.idempotencyKey;
+    }
   } catch {
     // no/invalid body -> default to "standard"
   }
+  // Falls back to a fresh key if the client didn't send one, which still
+  // makes this one request idempotent against Stripe-side transport
+  // retries — it just can't dedupe a second, separate request the way a
+  // client-supplied key (reused across retries of the same attempt) can.
+  if (!idempotencyKey) idempotencyKey = crypto.randomUUID();
 
   const priceId = PRICE_ID_ENV[tier];
 
@@ -86,6 +95,10 @@ export async function POST(request: Request) {
       headers: {
         Authorization: `Bearer ${secretKey}`,
         "Content-Type": "application/x-www-form-urlencoded",
+        // Prevents a duplicate Checkout Session (and a confused buyer facing
+        // two orders) if the client retries with the same key — see
+        // idempotencyKey handling above.
+        "Idempotency-Key": idempotencyKey,
       },
       body: params.toString(),
       cache: "no-store",
