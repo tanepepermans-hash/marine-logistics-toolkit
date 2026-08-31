@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { siteConfig, type TierId } from "@/config/site";
+import { cleanEnv } from "@/lib/env";
 
 // ---------------------------------------------------------------------------
 // Stripe Checkout Session creation — SERVER SIDE ONLY.
@@ -21,15 +22,15 @@ import { siteConfig, type TierId } from "@/config/site";
 // ---------------------------------------------------------------------------
 
 const PRICE_ID_ENV: Record<TierId, string | undefined> = {
-  standard: process.env.STRIPE_PRICE_ID_STANDARD,
-  premium: process.env.STRIPE_PRICE_ID_PREMIUM,
-  dg: process.env.STRIPE_PRICE_ID_DG,
-  bundle: process.env.STRIPE_PRICE_ID_BUNDLE,
+  standard: cleanEnv("STRIPE_PRICE_ID_STANDARD"),
+  premium: cleanEnv("STRIPE_PRICE_ID_PREMIUM"),
+  dg: cleanEnv("STRIPE_PRICE_ID_DG"),
+  bundle: cleanEnv("STRIPE_PRICE_ID_BUNDLE"),
 };
 const VALID_TIERS: TierId[] = ["standard", "premium", "dg", "bundle"];
 
 export async function POST(request: Request) {
-  const secretKey = process.env.STRIPE_SECRET_KEY;
+  const secretKey = cleanEnv("STRIPE_SECRET_KEY");
 
   let tier: TierId = "standard";
   let idempotencyKey = "";
@@ -120,7 +121,8 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ url: session.url });
-  } catch {
+  } catch (err) {
+    console.error("Failed to create Stripe Checkout Session:", err);
     return NextResponse.json(
       { error: "Could not reach Stripe. Please try again." },
       { status: 502 },

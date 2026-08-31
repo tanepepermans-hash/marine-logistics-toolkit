@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { cleanEnv } from "@/lib/env";
 
 // ---------------------------------------------------------------------------
 // Stripe webhook — the authoritative record of a completed order.
@@ -21,8 +22,8 @@ import Stripe from "stripe";
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
-  const secretKey = process.env.STRIPE_SECRET_KEY;
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  const secretKey = cleanEnv("STRIPE_SECRET_KEY");
+  const webhookSecret = cleanEnv("STRIPE_WEBHOOK_SECRET");
 
   if (!secretKey || !webhookSecret) {
     console.warn("STRIPE_WEBHOOK_SECRET is not set — webhook ignored.");
