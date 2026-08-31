@@ -77,6 +77,12 @@ export async function POST(request: Request) {
   params.set("success_url", `${origin}/download?session_id={CHECKOUT_SESSION_ID}`);
   params.set("cancel_url", `${origin}/?checkout=cancelled`);
 
+  // Managed Payments (a newer, opt-in-by-default Stripe account setting)
+  // is incompatible with the custom_text below — Stripe would otherwise
+  // reject session creation outright. Disabling it for this session keeps
+  // our own EU consent wording, which Managed Payments doesn't support.
+  params.set("managed_payments[enabled]", "false");
+
   // EU consumers have a 14-day right of withdrawal by default. For an
   // instantly-delivered digital product, that right can only be waived if
   // the buyer gives explicit, informed consent *before* paying — this is
