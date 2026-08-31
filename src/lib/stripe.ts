@@ -76,7 +76,11 @@ const PRICE_ID_ENV: Record<TierId, string | undefined> = {
   bundle: process.env.STRIPE_PRICE_ID_BUNDLE,
 };
 
-export async function createStripeCheckoutUrl(tier: TierId, origin: string): Promise<CreateCheckoutResult> {
+export async function createStripeCheckoutUrl(
+  tier: TierId,
+  origin: string,
+  idempotencyKey?: string,
+): Promise<CreateCheckoutResult> {
   const secretKey = process.env.STRIPE_SECRET_KEY;
   const priceId = PRICE_ID_ENV[tier];
 
@@ -119,6 +123,10 @@ export async function createStripeCheckoutUrl(tier: TierId, origin: string): Pro
       headers: {
         Authorization: `Bearer ${secretKey}`,
         "Content-Type": "application/x-www-form-urlencoded",
+        // Prevents a duplicate Checkout Session (and a confused buyer facing
+        // two orders) if the client retries the same request, e.g. a
+        // double-click on "Buy" before the first request has responded.
+        ...(idempotencyKey ? { "Idempotency-Key": idempotencyKey } : {}),
       },
       body: params.toString(),
       cache: "no-store",

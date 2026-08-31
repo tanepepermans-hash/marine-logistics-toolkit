@@ -14,8 +14,10 @@ export type { VerifyResult, CreateCheckoutResult } from "@/lib/stripe";
 // provider is active.
 const PROVIDER = process.env.PAYMENT_PROVIDER === "lemonsqueezy" ? "lemonsqueezy" : "stripe";
 
-export function createCheckoutUrl(tier: TierId, origin: string) {
-  return PROVIDER === "lemonsqueezy" ? createLemonSqueezyCheckoutUrl(tier, origin) : createStripeCheckoutUrl(tier, origin);
+export function createCheckoutUrl(tier: TierId, origin: string, idempotencyKey?: string) {
+  return PROVIDER === "lemonsqueezy"
+    ? createLemonSqueezyCheckoutUrl(tier, origin)
+    : createStripeCheckoutUrl(tier, origin, idempotencyKey);
 }
 
 export function verifyPurchase(id: string) {

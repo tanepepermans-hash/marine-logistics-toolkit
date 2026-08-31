@@ -42,12 +42,12 @@ export default function Footer() {
           rights reserved.
         </p>
 
-        {/* Legal disclosure required for an EU commercial website ("informatieplicht") —
-            fill in your real registered business details before going live. */}
-        <p className="mx-auto mt-4 max-w-2xl text-center text-xs leading-relaxed text-mist-500 sm:mx-0 sm:text-left">
-          [YOUR REGISTERED BUSINESS NAME] &middot; Company no. [REGISTRATION NUMBER] &middot;
-          [BUSINESS ADDRESS] &middot; VAT [VAT NUMBER, if applicable]
-        </p>
+        {/* TODO: EU commercial websites must disclose the operating business's legal
+            name, registration number, address and VAT number ("informatieplicht").
+            Re-add that line here, filled in with real details, before relying on
+            this site for live sales — see siteConfig.business once it's populated
+            in src/config/site.ts. Left blank rather than showing placeholder text
+            to real visitors. */}
       </Container>
     </footer>
   );
