@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { clientIp, isRateLimited } from "@/lib/rateLimit";
 
 // ---------------------------------------------------------------------------
 // Lead capture for the free "Emergency Vessel Shipment Checklist" — the
@@ -17,6 +18,12 @@ import { NextResponse } from "next/server";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(request: Request) {
+  // 5 submissions per minute per IP — plenty for a real visitor, tight
+  // enough to blunt a script spamming this route with junk emails.
+  if (isRateLimited(`lead:${clientIp(request)}`, 5, 60_000)) {
+    return NextResponse.json({ error: "Too many requests. Please wait a moment and try again." }, { status: 429 });
+  }
+
   let email = "";
   try {
     const body = await request.json();

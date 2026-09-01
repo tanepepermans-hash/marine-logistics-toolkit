@@ -10,15 +10,18 @@ import { siteConfig } from "@/config/site";
 const faqs = [
   {
     question: "Is this a logistics course?",
-    answer: "No. It is a practical reference toolkit designed to be used during daily operations.",
+    answer:
+      "No. It is a practical reference toolkit designed to be used during daily operations — you open it when you're handling a shipment, not to study a curriculum beforehand.",
   },
   {
     question: "Is it suitable for beginners?",
-    answer: "Yes. It is primarily designed for trainees and junior operators.",
+    answer:
+      "Yes. It is primarily designed for trainees and junior operators who need clear templates and checklists rather than a full theory course — you can start using it on your first day.",
   },
   {
-    question: "What format will I receive?",
-    answer: "Digital downloadable resources.",
+    question: "What format will I receive, and how do I access it?",
+    answer:
+      "Standard is a single PDF; Premium adds an editable Word doc and Excel tracker in a .zip. You get instant access after payment on your download page — no account or app install needed, and it works on any device.",
   },
   {
     question: "Does this replace dangerous goods training?",
