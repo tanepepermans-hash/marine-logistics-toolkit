@@ -50,7 +50,7 @@ export default function PremiumGate({ children, title, description }: PremiumGat
         </Link>
       </div>
 
-      <p className="mt-5 text-xs text-mist-500">
+      <p className="mt-5 text-xs text-mist-400">
         Already bought it? Reopen the &ldquo;Open DG Training Academy&rdquo; link from your order confirmation page.
       </p>
     </div>

@@ -34,7 +34,7 @@ export default function Footer() {
           </nav>
         </div>
 
-        <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-mist-500 sm:mx-0 sm:text-left">
+        <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-mist-400 sm:mx-0 sm:text-left">
           {siteConfig.name} is an independent educational and operational reference product. It is
           not affiliated with any carrier, port authority, customs body or regulatory
           organization. Dangerous goods, customs and regulatory decisions must always be verified

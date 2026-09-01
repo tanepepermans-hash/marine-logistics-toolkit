@@ -70,7 +70,7 @@ export default function ResultScreen({ score, total, entries, xpEarned, perfect,
           )}
           <Link
             href="/dg-training/quiz"
-            className="rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-hazard-reddeep"
+            className="rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-navy-950 transition-colors hover:bg-hazard-reddeep"
           >
             Back to Quiz Hub
           </Link>

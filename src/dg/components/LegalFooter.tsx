@@ -2,7 +2,7 @@ import { TriangleAlert } from "lucide-react";
 
 export default function LegalFooter() {
   return (
-    <div className="mt-10 flex items-start gap-2.5 rounded-xl border border-white/10 bg-navy-950/40 px-4 py-3 text-xs leading-relaxed text-mist-500">
+    <div className="mt-10 flex items-start gap-2.5 rounded-xl border border-white/10 bg-navy-950/40 px-4 py-3 text-xs leading-relaxed text-mist-400">
       <TriangleAlert size={14} className="mt-0.5 shrink-0 text-hazard-amber" />
       <p>
         <span className="font-semibold text-mist-400">Training tool only — not an official DG certification.</span>{" "}

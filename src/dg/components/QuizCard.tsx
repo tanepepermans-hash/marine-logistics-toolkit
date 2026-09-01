@@ -42,7 +42,7 @@ export default function QuizCard({
         </span>
         <span className="uppercase tracking-wide">{question.difficulty}</span>
       </div>
-      <ProgressBar value={progressPct} />
+      <ProgressBar value={progressPct} label={`Question ${questionNumber} of ${totalQuestions}`} />
 
       {question.showLabelFor && (
         <div className="mt-6 flex justify-center">

@@ -9,6 +9,7 @@ type Status = "idle" | "loading" | "success" | "error";
 
 export default function LeadMagnetForm() {
   const [email, setEmail] = useState("");
+  const [company, setCompany] = useState(""); // honeypot — real visitors never see or fill this
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
 
@@ -21,7 +22,7 @@ export default function LeadMagnetForm() {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, company }),
       });
       const data = await res.json();
 
@@ -54,6 +55,18 @@ export default function LeadMagnetForm() {
 
   return (
     <form onSubmit={handleSubmit} className="mt-5">
+      {/* Honeypot — hidden from real visitors via CSS, invisible to
+          screen readers, but bots that fill every field trip it. */}
+      <input
+        type="text"
+        name="company"
+        value={company}
+        onChange={(e) => setCompany(e.target.value)}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute left-[-9999px] h-0 w-0 opacity-0"
+      />
       <label htmlFor="lead-email" className="text-xs font-semibold uppercase tracking-wide text-ocean-700">
         Get this checklist free
       </label>

@@ -68,7 +68,7 @@ export default function LearnPage() {
                                 <span className="text-[11px] text-mist-400">{acc.pct}% accuracy ({acc.total} answered)</span>
                               )}
                             </div>
-                            <h3 className="mt-1 text-lg font-bold uppercase tracking-tight text-white">{item.name}</h3>
+                            <h2 className="mt-1 text-lg font-bold uppercase tracking-tight text-white">{item.name}</h2>
                             <p className="mt-2 text-sm text-mist-300">{item.meaning}</p>
 
                             <div className="mt-3">
@@ -96,7 +96,7 @@ export default function LearnPage() {
                               </Link>
                               <Link
                                 href={`/dg-training/quiz/play?mode=mixed&classId=${item.id}&count=8`}
-                                className="rounded-full bg-hazard-orange px-4 py-2 text-xs font-semibold text-white hover:bg-hazard-reddeep"
+                                className="rounded-full bg-hazard-orange px-4 py-2 text-xs font-semibold text-navy-950 hover:bg-hazard-reddeep"
                               >
                                 Test Me
                               </Link>

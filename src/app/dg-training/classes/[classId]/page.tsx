@@ -61,14 +61,18 @@ export default function ClassDetailPage() {
                 <span>Your accuracy on this class</span>
                 <span>{acc.pct}% ({acc.correct}/{acc.total})</span>
               </div>
-              <ProgressBar value={acc.pct} colorClass={mastered ? "bg-hazard-green" : "bg-hazard-orange"} />
+              <ProgressBar
+                value={acc.pct}
+                label={`Your accuracy on this class, ${acc.pct}% (${acc.correct} of ${acc.total})`}
+                colorClass={mastered ? "bg-hazard-green" : "bg-hazard-orange"}
+              />
             </div>
           )}
 
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href={`/dg-training/quiz/play?mode=mixed&classId=${dgClass.id}&count=8`}
-              className="rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-white hover:bg-hazard-reddeep"
+              className="rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-navy-950 hover:bg-hazard-reddeep"
             >
               Test Me
             </Link>
