@@ -97,7 +97,7 @@ export default function QuizHubPage() {
             <Link
               key={n}
               href={`/dg-training/quiz/play?mode=mixed&count=${n}`}
-              className="rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-white hover:bg-hazard-reddeep"
+              className="rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-navy-950 hover:bg-hazard-reddeep"
             >
               {n} Questions
             </Link>

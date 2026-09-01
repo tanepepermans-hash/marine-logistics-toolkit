@@ -34,7 +34,7 @@ export default function MistakesPage() {
         {mistakes.length > 0 && (
           <Link
             href="/dg-training/quiz/play?mode=mistakes&count=10"
-            className="rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-white hover:bg-hazard-reddeep"
+            className="rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-navy-950 hover:bg-hazard-reddeep"
           >
             Practice My Mistakes
           </Link>
@@ -45,7 +45,7 @@ export default function MistakesPage() {
         <div className="rounded-2xl border border-white/10 bg-navy-800/70 p-10 text-center">
           <CheckCircle2 size={32} className="mx-auto text-hazard-green" />
           <p className="mt-3 text-mist-200">No mistakes saved right now. Keep quizzing — anything you miss will land here.</p>
-          <Link href="/dg-training/quiz" className="mt-4 inline-block rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-white">
+          <Link href="/dg-training/quiz" className="mt-4 inline-block rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-navy-950">
             Go to Quiz Hub
           </Link>
         </div>
