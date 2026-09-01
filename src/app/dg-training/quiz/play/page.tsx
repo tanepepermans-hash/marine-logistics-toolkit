@@ -134,7 +134,7 @@ function QuizPlayInner() {
             ? "No mistakes saved yet — great job! Take a quiz and anything you miss will show up here for practice."
             : "No questions available for this selection."}
         </p>
-        <Link href="/dg-training/quiz" className="mt-4 inline-block rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-white">
+        <Link href="/dg-training/quiz" className="mt-4 inline-block rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-navy-950">
           Back to Quiz Hub
         </Link>
       </div>
@@ -191,7 +191,7 @@ function QuizPlayInner() {
           </div>
           <button
             onClick={handleContinue}
-            className="w-full rounded-full bg-hazard-orange px-6 py-3 text-sm font-semibold text-white hover:bg-hazard-reddeep sm:w-auto"
+            className="w-full rounded-full bg-hazard-orange px-6 py-3 text-sm font-semibold text-navy-950 hover:bg-hazard-reddeep sm:w-auto"
           >
             {index + 1 < questions.length ? "Continue" : "See Results"}
           </button>

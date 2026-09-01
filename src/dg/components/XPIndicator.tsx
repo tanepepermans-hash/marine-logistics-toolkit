@@ -35,7 +35,11 @@ export default function XPIndicator({ xp, compact = false }: XPIndicatorProps) {
         {next && <div className="text-xs text-mist-400">{xpToNext} XP to Lv.{next.level}</div>}
       </div>
       <div className="mt-3">
-        <ProgressBar value={progressPct} colorClass="bg-gradient-to-r from-hazard-amber to-hazard-orange" />
+        <ProgressBar
+          value={progressPct}
+          label={next ? `Level ${level.level} progress, ${xpToNext} XP to level ${next.level}` : `Level ${level.level} progress, max level reached`}
+          colorClass="bg-gradient-to-r from-hazard-amber to-hazard-orange"
+        />
       </div>
     </div>
   );

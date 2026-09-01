@@ -21,7 +21,7 @@ export default function Footer() {
             <span className="text-sm font-semibold text-white">{siteConfig.name}</span>
           </div>
 
-          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          <nav aria-label="Footer" className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {links.map((link) => (
               <a
                 key={link.label}
@@ -34,7 +34,7 @@ export default function Footer() {
           </nav>
         </div>
 
-        <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-mist-500 sm:mx-0 sm:text-left">
+        <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-mist-400 sm:mx-0 sm:text-left">
           {siteConfig.name} is an independent educational and operational reference product. It is
           not affiliated with any carrier, port authority, customs body or regulatory
           organization. Dangerous goods, customs and regulatory decisions must always be verified
@@ -44,7 +44,7 @@ export default function Footer() {
 
         {/* Legal disclosure required for an EU commercial website ("informatieplicht") —
             fill in your real registered business details before going live. */}
-        <p className="mx-auto mt-4 max-w-2xl text-center text-xs leading-relaxed text-mist-500 sm:mx-0 sm:text-left">
+        <p className="mx-auto mt-4 max-w-2xl text-center text-xs leading-relaxed text-mist-400 sm:mx-0 sm:text-left">
           [YOUR REGISTERED BUSINESS NAME] &middot; Company no. [REGISTRATION NUMBER] &middot;
           [BUSINESS ADDRESS] &middot; VAT [VAT NUMBER, if applicable]
         </p>

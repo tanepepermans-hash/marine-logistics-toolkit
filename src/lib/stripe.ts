@@ -1,4 +1,5 @@
 import type { TierId } from "@/config/site";
+import { cleanEnv } from "@/lib/env";
 
 // Server-only helper — verifies a completed Stripe Checkout Session directly
 // against Stripe's REST API. Used by the /download page and /api/download
@@ -17,7 +18,7 @@ type VerifyResult =
 const LINK_EXPIRY_DAYS = 30;
 
 export async function verifyCheckoutSession(sessionId: string): Promise<VerifyResult> {
-  const secretKey = process.env.STRIPE_SECRET_KEY;
+  const secretKey = cleanEnv("STRIPE_SECRET_KEY");
 
   if (!secretKey) {
     return { ok: false, reason: "Stripe is not configured on this site yet." };
@@ -84,10 +85,10 @@ function resolveTier(session: {
   // purchased Price ID against each tier's configured price.
   const purchasedPriceId = session.line_items?.data?.[0]?.price?.id;
   const priceIdByTier: Record<TierId, string | undefined> = {
-    standard: process.env.STRIPE_PRICE_ID_STANDARD,
-    premium: process.env.STRIPE_PRICE_ID_PREMIUM,
-    dg: process.env.STRIPE_PRICE_ID_DG,
-    bundle: process.env.STRIPE_PRICE_ID_BUNDLE,
+    standard: cleanEnv("STRIPE_PRICE_ID_STANDARD"),
+    premium: cleanEnv("STRIPE_PRICE_ID_PREMIUM"),
+    dg: cleanEnv("STRIPE_PRICE_ID_DG"),
+    bundle: cleanEnv("STRIPE_PRICE_ID_BUNDLE"),
   };
   for (const tier of VALID_TIERS) {
     if (purchasedPriceId && purchasedPriceId === priceIdByTier[tier]) return tier;

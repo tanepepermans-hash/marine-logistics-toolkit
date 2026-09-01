@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { clientIp, isRateLimited } from "@/lib/rateLimit";
 
 // ---------------------------------------------------------------------------
 // Lead capture for the free "Emergency Vessel Shipment Checklist" — the
@@ -17,12 +18,28 @@ import { NextResponse } from "next/server";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(request: Request) {
+  // 5 submissions per minute per IP — plenty for a real visitor, tight
+  // enough to blunt a script spamming this route with junk emails.
+  if (isRateLimited(`lead:${clientIp(request)}`, 5, 60_000)) {
+    return NextResponse.json({ error: "Too many requests. Please wait a moment and try again." }, { status: 429 });
+  }
+
   let email = "";
+  let honeypot = "";
   try {
     const body = await request.json();
     email = typeof body?.email === "string" ? body.email.trim() : "";
+    honeypot = typeof body?.company === "string" ? body.company.trim() : "";
   } catch {
     // fall through to validation error below
+  }
+
+  // A field real visitors never see or fill (hidden via CSS in
+  // LeadMagnetForm.tsx) — a bot that fills every field trips it. Report
+  // success without actually forwarding anything, so the bot doesn't learn
+  // it was caught and keep adapting.
+  if (honeypot) {
+    return NextResponse.json({ ok: true });
   }
 
   if (!EMAIL_RE.test(email)) {

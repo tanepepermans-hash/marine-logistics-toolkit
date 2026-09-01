@@ -58,7 +58,9 @@ export default function TermsPage() {
       <p>
         <strong>Price and payment.</strong> All prices are shown in EUR and, where applicable,
         include VAT calculated for your country as required under EU digital-goods VAT rules.
-        Payment is processed securely by Stripe; we never see or store your full card details.
+        The price shown at checkout is the total price you pay — as a digital product delivered
+        instantly, there is no shipping, handling, or any other additional cost. Payment is
+        processed securely by Stripe; we never see or store your full card details.
       </p>
       <p>
         <strong>Liability.</strong> The toolkit and DG Training content are provided &quot;as

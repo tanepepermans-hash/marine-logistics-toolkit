@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { siteConfig, type TierId } from "@/config/site";
+import { cleanEnv } from "@/lib/env";
+import { clientIp, isRateLimited } from "@/lib/rateLimit";
 
 // ---------------------------------------------------------------------------
 // Stripe Checkout Session creation — SERVER SIDE ONLY.
@@ -21,23 +23,39 @@ import { siteConfig, type TierId } from "@/config/site";
 // ---------------------------------------------------------------------------
 
 const PRICE_ID_ENV: Record<TierId, string | undefined> = {
-  standard: process.env.STRIPE_PRICE_ID_STANDARD,
-  premium: process.env.STRIPE_PRICE_ID_PREMIUM,
-  dg: process.env.STRIPE_PRICE_ID_DG,
-  bundle: process.env.STRIPE_PRICE_ID_BUNDLE,
+  standard: cleanEnv("STRIPE_PRICE_ID_STANDARD"),
+  premium: cleanEnv("STRIPE_PRICE_ID_PREMIUM"),
+  dg: cleanEnv("STRIPE_PRICE_ID_DG"),
+  bundle: cleanEnv("STRIPE_PRICE_ID_BUNDLE"),
 };
 const VALID_TIERS: TierId[] = ["standard", "premium", "dg", "bundle"];
 
 export async function POST(request: Request) {
-  const secretKey = process.env.STRIPE_SECRET_KEY;
+  // 10 session-creation attempts per minute per IP — generous for a real
+  // buyer clicking around tiers, tight enough to blunt a script hammering
+  // this route to burn through Stripe API quota.
+  if (isRateLimited(`checkout:${clientIp(request)}`, 10, 60_000)) {
+    return NextResponse.json({ error: "Too many requests. Please wait a moment and try again." }, { status: 429 });
+  }
+
+  const secretKey = cleanEnv("STRIPE_SECRET_KEY");
 
   let tier: TierId = "standard";
+  let idempotencyKey = "";
   try {
     const body = await request.json();
     if (VALID_TIERS.includes(body?.tier)) tier = body.tier;
+    if (typeof body?.idempotencyKey === "string" && body.idempotencyKey.length > 0) {
+      idempotencyKey = body.idempotencyKey;
+    }
   } catch {
     // no/invalid body -> default to "standard"
   }
+  // Falls back to a fresh key if the client didn't send one, which still
+  // makes this one request idempotent against Stripe-side transport
+  // retries — it just can't dedupe a second, separate request the way a
+  // client-supplied key (reused across retries of the same attempt) can.
+  if (!idempotencyKey) idempotencyKey = crypto.randomUUID();
 
   const priceId = PRICE_ID_ENV[tier];
 
@@ -68,6 +86,12 @@ export async function POST(request: Request) {
   params.set("success_url", `${origin}/download?session_id={CHECKOUT_SESSION_ID}`);
   params.set("cancel_url", `${origin}/?checkout=cancelled`);
 
+  // Managed Payments (a newer, opt-in-by-default Stripe account setting)
+  // is incompatible with the custom_text below — Stripe would otherwise
+  // reject session creation outright. Disabling it for this session keeps
+  // our own EU consent wording, which Managed Payments doesn't support.
+  params.set("managed_payments[enabled]", "false");
+
   // EU consumers have a 14-day right of withdrawal by default. For an
   // instantly-delivered digital product, that right can only be waived if
   // the buyer gives explicit, informed consent *before* paying — this is
@@ -86,6 +110,10 @@ export async function POST(request: Request) {
       headers: {
         Authorization: `Bearer ${secretKey}`,
         "Content-Type": "application/x-www-form-urlencoded",
+        // Prevents a duplicate Checkout Session (and a confused buyer facing
+        // two orders) if the client retries with the same key — see
+        // idempotencyKey handling above.
+        "Idempotency-Key": idempotencyKey,
       },
       body: params.toString(),
       cache: "no-store",
@@ -101,7 +129,8 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ url: session.url });
-  } catch {
+  } catch (err) {
+    console.error("Failed to create Stripe Checkout Session:", err);
     return NextResponse.json(
       { error: "Could not reach Stripe. Please try again." },
       { status: 502 },
