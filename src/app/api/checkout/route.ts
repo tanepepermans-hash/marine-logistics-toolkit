@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { siteConfig, type TierId } from "@/config/site";
 import { cleanEnv } from "@/lib/env";
+import { clientIp, isRateLimited } from "@/lib/rateLimit";
 
 // ---------------------------------------------------------------------------
 // Stripe Checkout Session creation — SERVER SIDE ONLY.
@@ -30,6 +31,13 @@ const PRICE_ID_ENV: Record<TierId, string | undefined> = {
 const VALID_TIERS: TierId[] = ["standard", "premium", "dg", "bundle"];
 
 export async function POST(request: Request) {
+  // 10 session-creation attempts per minute per IP — generous for a real
+  // buyer clicking around tiers, tight enough to blunt a script hammering
+  // this route to burn through Stripe API quota.
+  if (isRateLimited(`checkout:${clientIp(request)}`, 10, 60_000)) {
+    return NextResponse.json({ error: "Too many requests. Please wait a moment and try again." }, { status: 429 });
+  }
+
   const secretKey = cleanEnv("STRIPE_SECRET_KEY");
 
   let tier: TierId = "standard";
