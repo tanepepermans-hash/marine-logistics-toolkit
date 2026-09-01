@@ -21,7 +21,7 @@ export default function Footer() {
             <span className="text-sm font-semibold text-white">{siteConfig.name}</span>
           </div>
 
-          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          <nav aria-label="Footer" className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {links.map((link) => (
               <a
                 key={link.label}
