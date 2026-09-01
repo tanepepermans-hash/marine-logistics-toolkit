@@ -53,7 +53,7 @@ export default function Navbar() {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav aria-label="Main" className="hidden items-center gap-8 lg:flex">
           {navLinks.map((link) => (
             <a
               key={link.href}
