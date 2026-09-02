@@ -1444,7 +1444,7 @@ QUICK_START = [
             "Get access to the booking/TMS system, carrier portals and shared inboxes",
             "Save this toolkit and bookmark the Email Templates and Checklists sections",
             "Learn who to go to for DG questions, customs issues and customer complaints",
-            "Work through the New Operator First-Week Checklist in Section 2",
+            "Work through the New Operator First-Week Checklist in Section 3",
         ],
     },
     {
@@ -1916,7 +1916,7 @@ html, body {
 .section-head p { color: #45536b; font-size: 9.7pt; margin-top: 4px; }
 
 /* ---- email templates ---- */
-.cat-title { display: flex; align-items: center; gap: 9px; font-size: 11.5pt; font-weight: 700; color: #0a1930; margin: 22px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #dbe3ee; }
+.cat-title { display: flex; align-items: center; gap: 9px; font-size: 11.5pt; font-weight: 700; color: #0a1930; margin: 22px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #dbe3ee; page-break-after: avoid; break-after: avoid; }
 .cat-title:first-of-type { margin-top: 0; }
 .tpl { border: 1px solid #dbe3ee; border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; break-inside: avoid; }
 .tpl .tpl-title { font-size: 9.6pt; font-weight: 700; color: #0b73b3; margin-bottom: 6px; }

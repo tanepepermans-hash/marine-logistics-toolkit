@@ -57,7 +57,7 @@ def build():
   <div class="cta-footer">
     <div class="eyebrow">Marine Logistics Operator Toolkit</div>
     <h4>Want the full toolkit this checklist came from?</h4>
-    <p>30 email templates, 12 checklists, 6 shipment problem workflows and AI operator prompts — built for daily use, not read once and shelved.</p>
+    <p>{b.BASE_EMAIL_TEMPLATE_COUNT} email templates, {b.BASE_CHECKLIST_COUNT} checklists, {b.WORKFLOW_COUNT} shipment problem workflows and AI operator prompts — built for daily use, not read once and shelved.</p>
     <span class="link">Get the Toolkit — marinelogisticstoolkit.com</span>
   </div>
 </div>
