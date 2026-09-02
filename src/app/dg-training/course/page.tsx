@@ -46,7 +46,7 @@ export default function CoursePathPage() {
           const href =
             module.classIds.length > 0
               ? `/dg-training/quiz/play?mode=mixed&classIds=${module.classIds.join(",")}&count=${module.quizCount}`
-              : `/dg-training/quiz/play?mode=scenario&count=${module.quizCount}`;
+              : `/dg-training/quiz/play?mode=${module.quizMode ?? "mixed"}&count=${module.quizCount}`;
 
           return (
             <div
