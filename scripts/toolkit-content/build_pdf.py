@@ -1711,6 +1711,23 @@ PREMIUM_CHECKLIST = {
     ],
 }
 
+# ---------------------------------------------------------------------------
+# DERIVED COUNTS — computed from the data above so the cover, table of
+# contents and section headers can never drift out of sync with what's
+# actually in the toolkit.
+# ---------------------------------------------------------------------------
+BASE_EMAIL_TEMPLATE_COUNT = sum(len(c["templates"]) for c in EMAIL_CATEGORIES)
+BASE_EMAIL_CATEGORY_COUNT = len(EMAIL_CATEGORIES)
+PREMIUM_EMAIL_TEMPLATE_COUNT = BASE_EMAIL_TEMPLATE_COUNT + len(PREMIUM_EMAIL_CATEGORY["templates"])
+PREMIUM_EMAIL_CATEGORY_COUNT = BASE_EMAIL_CATEGORY_COUNT + 1
+BASE_CHECKLIST_COUNT = len(CHECKLISTS)
+PREMIUM_CHECKLIST_COUNT = BASE_CHECKLIST_COUNT + 1
+WORKFLOW_COUNT = len(WORKFLOWS)
+AI_PROMPT_COUNT = len(AI_PROMPTS)
+GLOSSARY_COUNT = len(GLOSSARY)
+INCOTERMS_COUNT = len(INCOTERMS)
+PREMIUM_BONUS_TEMPLATE_COUNT = len(PREMIUM_EMAIL_CATEGORY["templates"])
+
 EMAIL_CATEGORY_ICONS = {
     "Pickup Requests": "package",
     "POD Requests": "file-text",
@@ -1888,6 +1905,7 @@ html, body {
 .toc-row { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid #dbe3ee; font-size: 10.3pt; }
 .toc-row .t { flex: 1; color: #16233a; font-weight: 600; }
 .toc-row .d { color: #8797ac; font-size: 9pt; }
+.toc-row.incoterm-row .t { flex: 0 0 230px; }
 
 /* ---- section header ---- */
 .section-break { page-break-before: always; }
@@ -1968,8 +1986,8 @@ def render_route_graphic():
 
 
 def render_cover(premium=False):
-    email_count = 57 if premium else 49
-    checklist_count = 20 if premium else 19
+    email_count = PREMIUM_EMAIL_TEMPLATE_COUNT if premium else BASE_EMAIL_TEMPLATE_COUNT
+    checklist_count = PREMIUM_CHECKLIST_COUNT if premium else BASE_CHECKLIST_COUNT
     badge = (
         f'<div style="position:relative;display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#f6c453,#e08a1e);'
         f'color:#2b1a03;font-size:8.5pt;font-weight:800;letter-spacing:1px;text-transform:uppercase;border-radius:999px;padding:5px 13px;margin-bottom:14px;">'
@@ -1989,8 +2007,8 @@ def render_cover(premium=False):
   <div class="stats">
     <div class="stat"><b>{email_count}</b><span>Email Templates</span></div>
     <div class="stat"><b>{checklist_count}</b><span>Checklists</span></div>
-    <div class="stat"><b>10</b><span>Workflows</span></div>
-    <div class="stat"><b>12</b><span>AI Prompts</span></div>
+    <div class="stat"><b>{WORKFLOW_COUNT}</b><span>Workflows</span></div>
+    <div class="stat"><b>{AI_PROMPT_COUNT}</b><span>AI Prompts</span></div>
   </div>
   <div class="footer-note">Marine Logistics Operator Toolkit — Edition 1.0 &nbsp;·&nbsp; Educational &amp; operational reference. Not a substitute for formal DG, customs or regulatory training.</div>
 </div>
@@ -1998,16 +2016,22 @@ def render_cover(premium=False):
 
 
 def render_intro(premium=False):
+    email_line = (
+        f"{PREMIUM_EMAIL_TEMPLATE_COUNT} templates across {PREMIUM_EMAIL_CATEGORY_COUNT} categories"
+        if premium
+        else f"{BASE_EMAIL_TEMPLATE_COUNT} templates across {BASE_EMAIL_CATEGORY_COUNT} categories"
+    )
+    checklist_line = f"{PREMIUM_CHECKLIST_COUNT} checklists" if premium else f"{BASE_CHECKLIST_COUNT} checklists"
     rows = [
         ("1", "compass", "Quick-Start Guide", "Your first month, phase by phase"),
-        ("2", "mail", "Email Templates", "57 templates across 18 categories" if premium else "49 templates across 17 categories"),
-        ("3", "list-checks", "Operational Checklists", "20 checklists" if premium else "19 checklists"),
-        ("4", "workflow", "Shipment Problem Workflows", "10 workflows"),
-        ("5", "sparkles", "AI Operator Prompts", "12 ready-to-use prompts"),
-        ("6", "search", "Glossary & Incoterms Reference", "20 terms + 9 Incoterms explained"),
+        ("2", "mail", "Email Templates", email_line),
+        ("3", "list-checks", "Operational Checklists", checklist_line),
+        ("4", "workflow", "Shipment Problem Workflows", f"{WORKFLOW_COUNT} workflows"),
+        ("5", "sparkles", "AI Operator Prompts", f"{AI_PROMPT_COUNT} ready-to-use prompts"),
+        ("6", "search", "Glossary & Incoterms Reference", f"{GLOSSARY_COUNT} terms + {INCOTERMS_COUNT} Incoterms explained"),
     ]
     if premium:
-        rows.append(("7", "star", "Premium Bonus: Advanced Operator Templates", "8 templates + claims checklist"))
+        rows.append(("7", "star", "Premium Bonus: Advanced Operator Templates", f"{PREMIUM_BONUS_TEMPLATE_COUNT} templates + claims checklist"))
         rows.append(("8", "gift", "Bonus: Emergency Vessel Shipment Checklist", "1-page reference"))
     else:
         rows.append(("7", "gift", "Bonus: Emergency Vessel Shipment Checklist", "1-page reference"))
@@ -2058,7 +2082,7 @@ def render_reference():
     )
     body += f'<div class="cat-title">Glossary</div><div class="toc">{glossary_rows}</div>'
     incoterms_rows = "".join(
-        f'<div class="toc-row"><div class="t">{esc(term)}</div><div class="d">{esc(definition)}</div></div>'
+        f'<div class="toc-row incoterm-row"><div class="t">{esc(term)}</div><div class="d">{esc(definition)}</div></div>'
         for term, definition in INCOTERMS
     )
     body += f'<div class="cat-title" style="margin-top:26px;">Incoterms 2020 — Quick Reference</div><div class="toc">{incoterms_rows}</div>'
@@ -2066,7 +2090,7 @@ def render_reference():
 
 
 def render_emails():
-    body = render_section_head("Section 2", "49 Professional Email Templates", "Ready-to-send templates for the messages operators write every day. Replace anything in [brackets] with your shipment's real details.", "mail")
+    body = render_section_head("Section 2", f"{BASE_EMAIL_TEMPLATE_COUNT} Professional Email Templates", "Ready-to-send templates for the messages operators write every day. Replace anything in [brackets] with your shipment's real details.", "mail")
     for cat in EMAIL_CATEGORIES:
         cat_icon = icon_badge(EMAIL_CATEGORY_ICONS.get(cat["name"], "mail"), size=22, icon_size=11, tone="tint")
         body += f'<div class="cat-title">{cat_icon}{esc(cat["name"])}</div>'
@@ -2082,7 +2106,7 @@ def render_emails():
 
 
 def render_checklists():
-    body = render_section_head("Section 3", "19 Operational Checklists", "Step-by-step checklists to verify cargo, documents and vessel requirements before you commit to a plan.", "list-checks")
+    body = render_section_head("Section 3", f"{BASE_CHECKLIST_COUNT} Operational Checklists", "Step-by-step checklists to verify cargo, documents and vessel requirements before you commit to a plan.", "list-checks")
     for c in CHECKLISTS:
         rows = "".join(f'<div class="check-row"><div class="box"></div><div>{esc(item)}</div></div>' for item in c["items"])
         h_icon = icon_badge(CHECKLIST_ICONS.get(c["name"], "list-checks"), size=22, icon_size=11, tone="tint")
@@ -2091,7 +2115,7 @@ def render_checklists():
 
 
 def render_workflows():
-    body = render_section_head("Section 4", "10 Shipment Problem Workflows", "Decision paths for the situations that derail an otherwise smooth shipment.", "workflow")
+    body = render_section_head("Section 4", f"{WORKFLOW_COUNT} Shipment Problem Workflows", "Decision paths for the situations that derail an otherwise smooth shipment.", "workflow")
     for w in WORKFLOWS:
         steps = "".join(
             f'<div class="wf-step"><div class="wf-num">{i+1}</div><div>{esc(s)}</div></div>'
@@ -2103,7 +2127,7 @@ def render_workflows():
 
 
 def render_prompts():
-    body = render_section_head("Section 5", "12 AI Operator Prompts", "Paste your shipment details into any AI assistant along with the prompt below to get a usable draft in seconds.", "sparkles")
+    body = render_section_head("Section 5", f"{AI_PROMPT_COUNT} AI Operator Prompts", "Paste your shipment details into any AI assistant along with the prompt below to get a usable draft in seconds.", "sparkles")
     for p in AI_PROMPTS:
         h_icon = icon_badge("sparkles", size=22, icon_size=11, tone="navy")
         body += f"""
@@ -2170,7 +2194,7 @@ def render_premium_bonus():
     cat = PREMIUM_EMAIL_CATEGORY
     body = render_section_head(
         "Premium Bonus",
-        "8 Advanced Operator Templates",
+        f"{PREMIUM_BONUS_TEMPLATE_COUNT} Advanced Operator Templates",
         "Extra templates for the less everyday, higher-stakes situations — included with Premium.",
         "star",
     )
