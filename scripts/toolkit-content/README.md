@@ -23,6 +23,11 @@ All four use only the Python standard library — no `pip install` needed.
 - `build_lead_magnet.py` — builds the free, public one-page checklist PDF
   given away in exchange for an email (see README section 8), reusing the
   same `BONUS_CHECKLIST` content and icons as `build_pdf.py`.
+- `check_counts.py` — run this after adding/removing a template, checklist,
+  workflow or prompt in `build_pdf.py`. It checks that the counts quoted in
+  the marketing site's hand-written copy (`Hero.tsx`, `Features.tsx`,
+  `Pricing.tsx`) still match reality — those numbers aren't derived from
+  `build_pdf.py` automatically, so nothing else catches it if they drift.
 
 ## Regenerating everything
 

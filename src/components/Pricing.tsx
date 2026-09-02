@@ -30,7 +30,7 @@ const premiumIncludes = [
 const dgIncludes = [
   "Full DG Training Academy access",
   "162 practice questions across all 9 hazard classes",
-  "7 quiz modes + a guided Course Path + a 10/20/50-question Mixed Exam",
+  "8 quiz modes + a guided Course Path + a 10/20/50-question Mixed Exam",
   "Spaced-repetition mistake tracking",
   "XP, levels, streaks & progress analytics",
   "Instant access · One-time payment",

@@ -93,6 +93,7 @@ export function buildQuiz({ mode, count, classId, classIds, state }: BuildQuizPa
     mode === "cargo" ||
     mode === "unnumber" ||
     mode === "packing-group" ||
+    mode === "iata" ||
     mode === "scenario"
   ) {
     pool = pool.filter((q) => q.category === mode);
