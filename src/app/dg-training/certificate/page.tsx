@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Linkedin, Lock, Printer, ShieldCheck, Trophy } from "lucide-react";
+import { CreditCard, Linkedin, Lock, Printer, ScrollText, ShieldCheck, Trophy } from "lucide-react";
 import { useDg } from "@/dg/lib/DgStateProvider";
 import { bestCertificateAttempt, hasPassedCertificateExam } from "@/dg/lib/quizEngine";
 import { getCertificateName, setCertificateName } from "@/dg/lib/storage";
@@ -16,6 +16,7 @@ function formatDate(ms: number): string {
 export default function CertificatePage() {
   const { state, loaded } = useDg();
   const [name, setName] = useState("");
+  const [view, setView] = useState<"certificate" | "card">("certificate");
 
   useEffect(() => {
     setName(getCertificateName());
@@ -79,12 +80,6 @@ export default function CertificatePage() {
             maxLength={60}
             className="w-full max-w-sm rounded-xl border border-white/15 bg-navy-900/60 px-4 py-2.5 text-sm text-white placeholder:text-mist-500 focus:border-hazard-orange focus:outline-none sm:w-72"
           />
-          <button
-            onClick={() => window.print()}
-            className="flex items-center justify-center gap-2 rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-white hover:bg-hazard-reddeep"
-          >
-            <Printer size={15} /> Print / Save as PDF
-          </button>
           <a
             href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
             target="_blank"
@@ -94,35 +89,94 @@ export default function CertificatePage() {
             <Linkedin size={15} /> Share on LinkedIn
           </a>
         </div>
+
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <div className="flex rounded-full border border-white/15 p-1">
+            <button
+              onClick={() => setView("certificate")}
+              className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold ${
+                view === "certificate" ? "bg-hazard-orange text-white" : "text-mist-300 hover:text-white"
+              }`}
+            >
+              <ScrollText size={13} /> Certificate
+            </button>
+            <button
+              onClick={() => setView("card")}
+              className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold ${
+                view === "card" ? "bg-hazard-orange text-white" : "text-mist-300 hover:text-white"
+              }`}
+            >
+              <CreditCard size={13} /> Wallet Card
+            </button>
+          </div>
+          <button
+            onClick={() => window.print()}
+            className="flex items-center justify-center gap-2 rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-white hover:bg-hazard-reddeep"
+          >
+            <Printer size={15} /> Print / Save as PDF
+          </button>
+        </div>
       </div>
 
-      <div className="mx-auto max-w-3xl rounded-[28px] border-[3px] border-hazard-orange/40 bg-gradient-to-b from-navy-800 to-navy-900 p-10 text-center shadow-premium-lg print:border-2 print:border-hazard-orange print:bg-white print:text-navy-900 print:shadow-none sm:p-14">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-hazard-orange/15 text-hazard-orange print:bg-transparent">
-          <ShieldCheck size={32} />
-        </div>
-        <div className="mt-5 text-xs font-bold uppercase tracking-[0.25em] text-hazard-orange">
-          DG Training Academy
-        </div>
-        <h2 className="mt-2 text-3xl font-extrabold text-white print:text-navy-900 sm:text-4xl">
-          Certificate of Completion
-        </h2>
-        <p className="mt-6 text-sm text-mist-400 print:text-navy-700">This certifies that</p>
-        <p className="mt-2 border-b border-white/15 pb-3 font-serif text-3xl font-semibold text-white print:border-navy-300 print:text-navy-900 sm:text-4xl">
-          {displayName}
-        </p>
-        <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-mist-300 print:text-navy-700">
-          has completed the full DG Training Academy course path — all nine UN Dangerous Goods classes, packing
-          groups and operational scenarios — and passed the {attempt?.total}-question certification exam with a
-          score of <span className="font-semibold text-white print:text-navy-900">{pct}%</span>, reaching{" "}
-          <span className="font-semibold text-white print:text-navy-900">Level {level.level} · {level.title}</span>.
-        </p>
-        <p className="mt-6 text-sm text-mist-400 print:text-navy-700">{dateLabel}</p>
+      {view === "certificate" ? (
+        <div className="mx-auto max-w-3xl rounded-[28px] border-[3px] border-hazard-orange/40 bg-gradient-to-b from-navy-800 to-navy-900 p-10 text-center shadow-premium-lg print:border-2 print:border-hazard-orange print:bg-white print:text-navy-900 print:shadow-none sm:p-14">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-hazard-orange/15 text-hazard-orange print:bg-transparent">
+            <ShieldCheck size={32} />
+          </div>
+          <div className="mt-5 text-xs font-bold uppercase tracking-[0.25em] text-hazard-orange">
+            DG Training Academy
+          </div>
+          <h2 className="mt-2 text-3xl font-extrabold text-white print:text-navy-900 sm:text-4xl">
+            Certificate of Completion
+          </h2>
+          <p className="mt-6 text-sm text-mist-400 print:text-navy-700">This certifies that</p>
+          <p className="mt-2 border-b border-white/15 pb-3 font-serif text-3xl font-semibold text-white print:border-navy-300 print:text-navy-900 sm:text-4xl">
+            {displayName}
+          </p>
+          <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-mist-300 print:text-navy-700">
+            has completed the full DG Training Academy course path — all nine UN Dangerous Goods classes, packing
+            groups and operational scenarios — and passed the {attempt?.total}-question certification exam with a
+            score of <span className="font-semibold text-white print:text-navy-900">{pct}%</span>, reaching{" "}
+            <span className="font-semibold text-white print:text-navy-900">Level {level.level} · {level.title}</span>.
+          </p>
+          <p className="mt-6 text-sm text-mist-400 print:text-navy-700">{dateLabel}</p>
 
-        <div className="mx-auto mt-8 max-w-lg rounded-xl border border-white/10 bg-navy-950/40 px-4 py-3 text-[11px] leading-relaxed text-mist-500 print:border-navy-300 print:bg-transparent print:text-navy-600">
-          This is an informal study-aid certificate, not an official or regulatory Dangerous Goods certification.
-          It does not replace or count toward IATA DGR, ADR or IMDG Code training requirements.
+          <div className="mx-auto mt-8 max-w-lg rounded-xl border border-white/10 bg-navy-950/40 px-4 py-3 text-[11px] leading-relaxed text-mist-500 print:border-navy-300 print:bg-transparent print:text-navy-600">
+            This is an informal study-aid certificate, not an official or regulatory Dangerous Goods certification.
+            It does not replace or count toward IATA DGR, ADR or IMDG Code training requirements.
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex justify-center">
+          <div className="flex aspect-[1.586/1] w-full max-w-[400px] flex-col justify-between rounded-2xl border-[3px] border-hazard-orange/40 bg-gradient-to-br from-navy-800 to-navy-900 p-5 shadow-premium-lg print:border-2 print:border-hazard-orange print:bg-white print:text-navy-900 print:shadow-none">
+            <div className="flex items-start justify-between">
+              <div>
+                <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-hazard-orange">
+                  DG Training Academy
+                </div>
+                <div className="mt-0.5 text-[9px] uppercase tracking-wide text-mist-400 print:text-navy-600">
+                  Study-aid completion card
+                </div>
+              </div>
+              <ShieldCheck size={22} className="text-hazard-orange print:text-hazard-orange" />
+            </div>
+
+            <div>
+              <div className="font-serif text-xl font-semibold leading-tight text-white print:text-navy-900">
+                {displayName}
+              </div>
+              <div className="mt-1 text-[11px] text-mist-300 print:text-navy-700">
+                Level {level.level} · {level.title} &nbsp;·&nbsp; Scored {pct}%
+              </div>
+            </div>
+
+            <div className="flex items-end justify-between text-[9px] text-mist-500 print:text-navy-500">
+              <span>Issued {dateLabel}</span>
+              <span>Not an official DG certification</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
