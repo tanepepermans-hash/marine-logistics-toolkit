@@ -6,6 +6,7 @@ import ScenarioExample from "@/components/ScenarioExample";
 import HowItWorks from "@/components/HowItWorks";
 import Audience from "@/components/Audience";
 import ProductPreview from "@/components/ProductPreview";
+import FreeTemplateSample from "@/components/FreeTemplateSample";
 import Bonus from "@/components/Bonus";
 import DgTraining from "@/components/DgTraining";
 import Pricing from "@/components/Pricing";
@@ -27,6 +28,7 @@ export default function Home() {
         <HowItWorks />
         <Audience />
         <ProductPreview />
+        <FreeTemplateSample />
         <Bonus />
         <DgTraining />
         <Pricing />

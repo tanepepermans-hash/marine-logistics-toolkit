@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams, notFound } from "next/navigation";
-import { ArrowLeft, ShieldAlert, TriangleAlert } from "lucide-react";
+import { ArrowLeft, Mail, ShieldAlert, TriangleAlert } from "lucide-react";
 import { ALL_CLASS_IDS, getDgClass } from "@/dg/data/classes";
 import type { DgClassId } from "@/dg/types";
 import HazardLabel from "@/dg/components/HazardLabel";
@@ -108,6 +108,32 @@ export default function ClassDetailPage() {
             ))}
           </ul>
         </div>
+      </div>
+
+      <div className="rounded-2xl border border-hazard-amber/25 bg-hazard-amber/5 p-5">
+        <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold text-white">
+          <Mail size={16} className="text-hazard-amber" /> When You Hit This In the Toolkit
+        </h2>
+        <p className="mb-3 text-sm text-mist-300">
+          The Operator Toolkit includes ready-to-send material for exactly this situation — no need to write it from
+          scratch when a real DG shipment comes in.
+        </p>
+        <ul className="space-y-2">
+          <li className="rounded-lg bg-white/5 px-3 py-2 text-sm text-mist-200">
+            <span className="font-semibold text-white">DG Information Request to Shipper</span> — email template to
+            use the moment DG status is unclear, before you book.
+          </li>
+          <li className="rounded-lg bg-white/5 px-3 py-2 text-sm text-mist-200">
+            <span className="font-semibold text-white">DG Pre-Check</span> — the checklist to run through before
+            confirming any shipment in this class.
+          </li>
+        </ul>
+        <Link
+          href="/#whats-included"
+          className="mt-3 inline-block text-xs font-semibold text-hazard-amber underline hover:text-hazard-orange"
+        >
+          See it in the Operator Toolkit →
+        </Link>
       </div>
 
       <div className="rounded-2xl border border-white/10 bg-navy-800/70 p-5">

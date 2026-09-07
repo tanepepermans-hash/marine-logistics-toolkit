@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { tierHasToolkitFile, type TierId } from "@/config/site";
-import { verifyCheckoutSession } from "@/lib/stripe";
+import { verifyPurchase } from "@/lib/payments";
 import { watermarkPdf, watermarkZipPdf } from "@/lib/watermark";
 
 // ---------------------------------------------------------------------------
@@ -40,7 +40,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const sessionId = searchParams.get("session_id") ?? "";
 
-  const result = await verifyCheckoutSession(sessionId);
+  const result = await verifyPurchase(sessionId);
   if (!result.ok) {
     return NextResponse.json({ error: result.reason }, { status: 403 });
   }
