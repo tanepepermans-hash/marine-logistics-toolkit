@@ -12,7 +12,7 @@ const navLinks = [
   { label: "DG Training", href: "#dg-training-academy" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "FAQ", href: "#faq" },
-  { label: "Import Calculator", href: "/tools/landed-cost" },
+  { label: "Calculator", href: "/tools/landed-cost" },
   { label: "Compare Quotes", href: "/tools/quote-comparison" },
 ];
 
@@ -55,26 +55,26 @@ export default function Navbar() {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-5 xl:flex">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-mist-300 transition-colors hover:text-white"
+              className="whitespace-nowrap text-sm font-medium text-mist-300 transition-colors hover:text-white"
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden xl:block">
           <CheckoutButton label={`Get Toolkit — ${siteConfig.currencySymbol}${siteConfig.tiers.standard.price}`} size="md" showArrow={false} />
         </div>
 
         <button
           type="button"
           onClick={() => setMenuOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-white lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-white xl:hidden"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
         >
@@ -83,7 +83,7 @@ export default function Navbar() {
       </Container>
 
       {menuOpen && (
-        <div className="border-t border-white/10 bg-navy-900/98 backdrop-blur-lg lg:hidden">
+        <div className="border-t border-white/10 bg-navy-900/98 backdrop-blur-lg xl:hidden">
           <Container className="flex flex-col gap-1 py-5">
             {navLinks.map((link) => (
               <a
