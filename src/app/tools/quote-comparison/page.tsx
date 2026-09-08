@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Container from "@/components/ui/Container";
@@ -31,6 +32,14 @@ export default function QuoteComparisonPage() {
           <div className="mt-10">
             <QuoteComparisonTool />
           </div>
+
+          <p className="mt-10 max-w-2xl text-sm text-mist-400">
+            Don&apos;t have quotes yet?{" "}
+            <Link href="/tools/landed-cost" className="text-ocean-300 underline hover:text-ocean-200">
+              Get a rough import cost estimate first
+            </Link>
+            .
+          </p>
         </Container>
       </main>
       <Footer />

@@ -12,6 +12,8 @@ const navLinks = [
   { label: "DG Training", href: "#dg-training-academy" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "FAQ", href: "#faq" },
+  { label: "Import Calculator", href: "/tools/landed-cost" },
+  { label: "Compare Quotes", href: "/tools/quote-comparison" },
 ];
 
 export default function Navbar() {
