@@ -8,12 +8,17 @@ ships as its own small public PDF with a footer CTA for the full product.
 import build_pdf as b
 
 CSS = b.CSS + """
+@page { margin: 12mm 18mm 10mm 18mm; }
 body { padding: 0; }
-.wrap { max-width: 700px; margin: 0 auto; padding: 26mm 20mm; }
+.wrap { max-width: 700px; margin: 0 auto; padding: 6mm 20mm; }
+.section-head { margin-bottom: 14px; }
+.bonus-card { padding: 18px 22px; }
+.bonus-grid { gap: 12px 24px; }
 .cta-footer {
-  margin-top: 28px; border-radius: 14px; padding: 20px 24px;
+  margin-top: 14px; border-radius: 14px; padding: 14px 24px;
   background: linear-gradient(135deg, #0a1930, #0b2036);
   color: #fff; text-align: center;
+  break-inside: avoid; page-break-inside: avoid;
 }
 .cta-footer .eyebrow { color: #7dd0fa; font-size: 8.5pt; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
 .cta-footer h4 { margin: 8px 0 4px; font-size: 13pt; }
