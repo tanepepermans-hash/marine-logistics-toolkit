@@ -96,6 +96,7 @@ export type QuizMode =
   | "cargo"
   | "unnumber"
   | "packing-group"
+  | "iata"
   | "scenario"
   | "visual"
   | "mixed"

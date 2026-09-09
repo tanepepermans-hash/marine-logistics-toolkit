@@ -92,7 +92,7 @@ const cards: FeatureCard[] = [
   },
   {
     icon: Workflow,
-    title: "10 Shipment Problem Workflows",
+    title: "9 Shipment Problem Workflows",
     description: "Decision paths for the situations that derail an otherwise smooth shipment.",
     items: workflows,
   },

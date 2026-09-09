@@ -52,7 +52,10 @@ export const siteConfig = {
     bundle: {
       id: "bundle" as TierId,
       name: "Everything Bundle",
-      price: 69,
+      // Priced just €5 above Premium alone, so DG Training Academy reads as
+      // an almost-free add-on and the bundle discount is worth choosing
+      // (~18% off, vs. ~12% at the old €69 price).
+      price: 64,
       // Premium (59) + DG Training Academy (19) bought separately = 78.
       originalPrice: 78,
     },

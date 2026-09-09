@@ -1,12 +1,12 @@
-import type { DgClassId } from "@/dg/types";
+import type { DgClassId, QuizMode } from "@/dg/types";
 
 // -----------------------------------------------------------------------
 // Course Path — groups the 20 DG classes/divisions into a fixed, ordered
-// sequence of modules, plus a dedicated scenario module and a final
-// certification exam. This turns the app from a free-roam reference tool
-// into something with a recommended "Day 1 -> Week 1 -> Certificate" route,
-// while every class/quiz remains individually reachable from Learn and the
-// Quiz Hub for anyone who prefers to jump around.
+// sequence of modules, plus non-class modules (regulations, scenarios) and
+// a final certification exam. This turns the app from a free-roam reference
+// tool into something with a recommended "Day 1 -> Week 1 -> Certificate"
+// route, while every class/quiz remains individually reachable from Learn
+// and the Quiz Hub for anyone who prefers to jump around.
 // -----------------------------------------------------------------------
 
 export interface CourseModule {
@@ -16,14 +16,31 @@ export interface CourseModule {
   subtitle: string;
   description: string;
   classIds: DgClassId[];
+  /**
+   * For a module with no classIds (nothing to "master" class-by-class):
+   * which QuizMode's history counts toward completing it. Required whenever
+   * classIds is empty — see isModuleComplete in quizEngine.ts.
+   */
+  quizMode?: QuizMode;
   /** Recommended question count when starting this module's quiz. */
   quizCount: number;
 }
 
 export const COURSE_MODULES: CourseModule[] = [
   {
-    id: "explosives-gases",
+    id: "regulations-documentation",
     order: 1,
+    title: "Regulations & Documentation",
+    subtitle: "The framework",
+    description:
+      "Before the hazard classes: what IATA DGR, the IMDG Code and ADR actually are, and the paperwork — like the Shipper's Declaration — every DG shipment needs.",
+    classIds: [],
+    quizMode: "iata",
+    quizCount: 10,
+  },
+  {
+    id: "explosives-gases",
+    order: 2,
     title: "Explosives & Gases",
     subtitle: "Classes 1 & 2",
     description:
@@ -33,7 +50,7 @@ export const COURSE_MODULES: CourseModule[] = [
   },
   {
     id: "flammables",
-    order: 2,
+    order: 3,
     title: "Flammable Liquids & Solids",
     subtitle: "Classes 3 & 4",
     description:
@@ -43,7 +60,7 @@ export const COURSE_MODULES: CourseModule[] = [
   },
   {
     id: "oxidizers-toxic",
-    order: 3,
+    order: 4,
     title: "Oxidizers, Toxic & Infectious",
     subtitle: "Classes 5 & 6",
     description:
@@ -53,7 +70,7 @@ export const COURSE_MODULES: CourseModule[] = [
   },
   {
     id: "radioactive-corrosive-misc",
-    order: 4,
+    order: 5,
     title: "Radioactive, Corrosive & Miscellaneous",
     subtitle: "Classes 7, 8 & 9",
     description:
@@ -63,12 +80,13 @@ export const COURSE_MODULES: CourseModule[] = [
   },
   {
     id: "scenario-practice",
-    order: 5,
+    order: 6,
     title: "Operational Scenarios",
     subtitle: "Apply it",
     description:
       "Real judgment calls a junior operator actually faces — undeclared DG, segregation, packaging, documentation — not just label recall.",
     classIds: [],
+    quizMode: "scenario",
     quizCount: 15,
   },
 ];

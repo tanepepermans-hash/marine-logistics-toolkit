@@ -93,6 +93,7 @@ export function buildQuiz({ mode, count, classId, classIds, state }: BuildQuizPa
     mode === "cargo" ||
     mode === "unnumber" ||
     mode === "packing-group" ||
+    mode === "iata" ||
     mode === "scenario"
   ) {
     pool = pool.filter((q) => q.category === mode);
@@ -266,15 +267,19 @@ export function getClassModuleProgress(state: DgState, module: CourseModule): { 
   return { done, total, pct: total === 0 ? 0 : Math.round((done / total) * 100) };
 }
 
-/** The scenario module is done once the best "scenario" mode attempt clears the pass ratio. */
-export function isScenarioModuleComplete(state: DgState): boolean {
+/** A module with no classIds is done once the best attempt in its quizMode clears the pass ratio. */
+export function isNonClassModuleComplete(state: DgState, mode: QuizMode): boolean {
   return state.quizHistory.some(
-    (h) => h.mode === "scenario" && h.total > 0 && h.score / h.total >= CERTIFICATE_PASS_RATIO
+    (h) => h.mode === mode && h.total > 0 && h.score / h.total >= CERTIFICATE_PASS_RATIO
   );
 }
 
 export function isModuleComplete(state: DgState, module: CourseModule): boolean {
-  return module.classIds.length > 0 ? isClassModuleComplete(state, module) : isScenarioModuleComplete(state);
+  if (module.classIds.length > 0) return isClassModuleComplete(state, module);
+  if (!module.quizMode) {
+    throw new Error(`Course module "${module.id}" has no classIds and no quizMode — can't determine completion.`);
+  }
+  return isNonClassModuleComplete(state, module.quizMode);
 }
 
 /** Has the operator passed a full-length mixed exam at the certificate threshold? */

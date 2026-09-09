@@ -1,7 +1,7 @@
 import type { Question } from "@/dg/types";
 
 // -----------------------------------------------------------------------
-// Quiz question bank (90+ questions).
+// Quiz question bank — see QUESTION_COUNT below for the current total.
 //
 // Every fact here reflects the standard UN 9-class Dangerous Goods
 // classification system shared by IATA DGR, IMDG Code and ADR. This is a

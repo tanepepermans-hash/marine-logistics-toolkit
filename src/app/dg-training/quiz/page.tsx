@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Eye, Hash, Layers, Package, Scale, Zap, GraduationCap, RotateCcw, ClipboardList } from "lucide-react";
+import { Eye, Hash, Layers, Package, Scale, BookOpen, Zap, GraduationCap, RotateCcw, ClipboardList } from "lucide-react";
 import PremiumGate from "@/dg/components/PremiumGate";
 
 const MODES = [
@@ -37,6 +37,13 @@ const MODES = [
     desc: "Practice Packing Group I / II / III scenarios.",
     count: 8,
     icon: Scale,
+  },
+  {
+    mode: "iata",
+    title: "Regulations & Documentation",
+    desc: "IATA DGR, IMDG Code, ADR and the paperwork that goes with a DG shipment.",
+    count: 10,
+    icon: BookOpen,
   },
   {
     mode: "visual",
