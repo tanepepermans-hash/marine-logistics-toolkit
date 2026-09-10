@@ -54,7 +54,12 @@ export async function GET(request: Request) {
   const { path: filePath, filename, contentType } = FILES[result.tier]!;
 
   try {
-    const file = await fs.readFile(filePath);
+    // filePath always resolves to one of the two fixed files under
+    // TOOLKIT_DIR above — the indirection through FILES[tier] just stops
+    // Turbopack's static analysis from seeing that, which would otherwise
+    // make it trace (and bundle) the entire project as a false-positive
+    // "dynamic path" safeguard.
+    const file = await fs.readFile(/* turbopackIgnore: true */ filePath);
 
     // Stamp the buyer's email into the delivered file so a copy that leaks
     // publicly can be traced back to the order it came from. Falls back to

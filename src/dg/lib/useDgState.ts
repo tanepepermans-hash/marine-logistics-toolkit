@@ -29,6 +29,9 @@ export function useDgState() {
   const hasClaimed = useRef(false);
 
   useEffect(() => {
+    // One-time hydration from localStorage, which isn't available during
+    // SSR — this can't be a lazy useState initializer for that reason.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setState(loadDgState());
     // NEXT_PUBLIC_DEMO_MODE is only ever set on a separate, unlisted demo
     // deployment (see README) used to show the product internally without
@@ -58,6 +61,9 @@ export function useDgState() {
     const claimId = url.searchParams.get("claim");
     if (!claimId) return;
     hasClaimed.current = true;
+    // Kicks off an async verification fetch below — not derived state, so
+    // the usual "move it into render" fix doesn't apply here.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setClaiming(true);
     setClaimError(null);
     fetch(`/api/dg-unlock?session_id=${encodeURIComponent(claimId)}`)

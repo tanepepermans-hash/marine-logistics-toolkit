@@ -19,6 +19,8 @@ export default function CertificatePage() {
   const [view, setView] = useState<"certificate" | "card">("certificate");
 
   useEffect(() => {
+    // One-time hydration from localStorage, which isn't available during SSR.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setName(getCertificateName());
   }, []);
 

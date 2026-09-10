@@ -24,9 +24,9 @@ const PRODUCT_NAMES: Record<TierId, string> = {
 export default async function DownloadPage({
   searchParams,
 }: {
-  searchParams: { session_id?: string };
+  searchParams: Promise<{ session_id?: string }>;
 }) {
-  const sessionId = searchParams.session_id ?? "";
+  const sessionId = (await searchParams).session_id ?? "";
   const result = await verifyPurchase(sessionId);
 
   return (
