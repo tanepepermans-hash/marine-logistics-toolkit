@@ -11,6 +11,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: siteConfig.url, lastModified, changeFrequency: "weekly", priority: 1 },
     { url: `${siteConfig.url}/dg-training`, lastModified, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteConfig.url}/tools/landed-cost`, lastModified, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${siteConfig.url}/tools/quote-comparison`, lastModified, changeFrequency: "monthly", priority: 0.6 },
     { url: `${siteConfig.url}/privacy`, lastModified, changeFrequency: "yearly", priority: 0.3 },
     { url: `${siteConfig.url}/terms`, lastModified, changeFrequency: "yearly", priority: 0.3 },
     { url: `${siteConfig.url}/refunds`, lastModified, changeFrequency: "yearly", priority: 0.3 },
