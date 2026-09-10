@@ -6,16 +6,18 @@ export const metadata: Metadata = {
   title: `Privacy Policy | ${siteConfig.name}`,
 };
 
-// IMPORTANT — before going live, fill in [YOUR REGISTERED BUSINESS NAME] and
-// [BUSINESS ADDRESS] below with your real registered business details.
+// TODO: no business is registered yet — see the matching note in
+// src/app/terms/page.tsx. Fill in the real registered business name and
+// address here once registration is complete.
 export default function PrivacyPolicyPage() {
   return (
     <LegalPage title="Privacy Policy">
       <p>
-        This Privacy Policy explains how {siteConfig.name}, operated by [YOUR REGISTERED BUSINESS
-        NAME] ([BUSINESS ADDRESS]) (&quot;we&quot;, &quot;us&quot;), collects, uses and protects
-        your personal data when you visit this website, sign up for the free checklist, or
-        purchase the toolkit, in line with the EU General Data Protection Regulation (GDPR/AVG).
+        This Privacy Policy explains how {siteConfig.name}, currently operated by an individual
+        with business registration in progress (&quot;we&quot;, &quot;us&quot;), collects, uses
+        and protects your personal data when you visit this website, sign up for the free
+        checklist, or purchase the toolkit, in line with the EU General Data Protection Regulation
+        (GDPR/AVG).
       </p>
       <p>
         <strong>What we collect and why.</strong>

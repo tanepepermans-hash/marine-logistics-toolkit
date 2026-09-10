@@ -6,15 +6,19 @@ export const metadata: Metadata = {
   title: `Terms & Conditions | ${siteConfig.name}`,
 };
 
-// IMPORTANT — before going live, replace the bracketed [PLACEHOLDER] values
-// below with your real registered business details (see SellerIdentity).
-// Everything else on this page is ready to use as-is.
+// TODO: no business is registered yet (sole trader / no KvK-equivalent
+// number, no fixed VAT status). Replace this paragraph with the real
+// registered-business disclosure (name, country, registration number,
+// address, VAT number) once registration is complete — required before
+// relying on this site for live (non-test-mode) sales.
 function SellerIdentity() {
   return (
     <p className="rounded-xl border border-amber-400/30 bg-amber-400/10 p-4 text-navy-800">
-      <strong>Seller.</strong> {siteConfig.name} is operated by [YOUR REGISTERED BUSINESS NAME],
-      registered in [COUNTRY OF REGISTRATION] under company number [REGISTRATION NUMBER], located
-      at [BUSINESS ADDRESS]. VAT number: [VAT NUMBER, if applicable].
+      <strong>Seller.</strong> {siteConfig.name} is currently operated by an individual, with
+      business registration in progress. Full registered-business details (legal name,
+      registration number, address and VAT number, if applicable) will be published here once
+      registration is complete. In the meantime, contact us at the address below with any
+      questions before purchasing.
     </p>
   );
 }
