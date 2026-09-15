@@ -39,6 +39,7 @@ export default function FounderNote() {
               <div>
                 <div className="text-sm font-semibold text-navy-900">Tane</div>
                 <div className="text-xs text-navy-500">Founder, Marine Logistics Operator Toolkit</div>
+                <div className="mt-0.5 text-xs text-navy-500">Questions? I personally reply within 24 hours.</div>
               </div>
             </div>
           </div>
