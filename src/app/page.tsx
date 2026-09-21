@@ -20,50 +20,52 @@ import { siteConfig } from "@/config/site";
 // Product/Offer structured data — lets search engines show price and
 // availability directly in results instead of just a plain blue link.
 function ProductJsonLd() {
-  const products = Object.values(siteConfig.tiers).map((tier) => ({
-    "@type": "Product",
-    name: `${siteConfig.name} — ${tier.name}`,
-    description: siteConfig.tagline,
-    offers: {
-      "@type": "Offer",
-      price: tier.price,
-      priceCurrency: siteConfig.currency,
-      availability: "https://schema.org/InStock",
-      url: `${siteConfig.url}/#pricing`,
-    },
-  }));
+    const products = Object.values(siteConfig.tiers).map((tier) => ({
+          "@type": "Product",
+          name: `${siteConfig.name} — ${tier.name}`,
+          description: siteConfig.tagline,
+          offers: {
+                  "@type": "Offer",
+                  price: tier.price,
+                  priceCurrency: siteConfig.currency,
+                  availability: "https://schema.org/InStock",
+                  url: `${siteConfig.url}/#pricing`,
+          },
+    }));
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(products) }}
-    />
-  );
+        <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(products) }}
+
+        />
+      );
 }
 
 export default function Home() {
-  return (
-    <>
-      <ProductJsonLd />
-      <Navbar />
-      <main>
-        <Hero />
-        <ProblemSection />
-        <Features />
-        <ScenarioExample />
-        <HowItWorks />
-        <Audience />
-        <ProductPreview />
-        <FreeTemplateSample />
-        <Bonus />
-        <DgTraining />
-        <Pricing />
-        <TrustSection />
-        <FounderNote />
-        <FAQ />
-        <FinalCTA />
-      </main>
-      <Footer />
-    </>
-  );
+    return (
+          <>
+                <ProductJsonLd />
+                <Navbar />
+                <main>
+                        <Hero />
+                        <ProblemSection />
+                        <Bonus />
+                        <Features />
+                        <ScenarioExample />
+                        <HowItWorks />
+                        <Audience />
+                        <ProductPreview />
+                        <FreeTemplateSample />
+                        <DgTraining />
+                        <Pricing />
+                        <TrustSection />
+                        <FounderNote />
+                        <FAQ />
+                        <FinalCTA />
+
+                </main>
+                  <Footer />
+          </>
+        );
 }
