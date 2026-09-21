@@ -59,6 +59,9 @@ export default function Pricing() {
             Get the operator toolkit, the DG Training Academy on its own, or both together at a
             discount.
           </p>
+                      <p className="mt-2 text-sm font-semibold text-ocean-700">
+                                    Launch pricing ends October 15 — prices return to €49 / €59 after that.
+                      </p>
         </Reveal>
 
         <div className="mx-auto mt-14 grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:items-start">
