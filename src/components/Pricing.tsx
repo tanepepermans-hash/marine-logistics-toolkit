@@ -60,7 +60,7 @@ export default function Pricing() {
             discount.
           </p>
                       <p className="mt-2 text-sm font-semibold text-ocean-700">
-                                    Launch pricing ends October 15 — prices return to €49 / €59 after that.
+                                    Launch pricing ends October 5 — prices return to €49 / €59 after that.
                       </p>
         </Reveal>
 
