@@ -61,7 +61,7 @@ export default function TermsPage() {
       </p>
       <p>
         <strong>Price and payment.</strong> All prices are shown in EUR and, where applicable,
-        include VAT calculated for your country as required under EU digital-goods VAT rules.
+        do not yet include VAT. This site is currently in a pre-launch test phase — automatic VAT calculation will be enabled before real (live-mode) payments go live.
         The price shown at checkout is the total price you pay — as a digital product delivered
         instantly, there is no shipping, handling, or any other additional cost. Payment is
         processed securely by Stripe; we never see or store your full card details.
@@ -74,8 +74,8 @@ export default function TermsPage() {
         under applicable consumer protection law.
       </p>
       <p>
-        <strong>Governing law.</strong> These terms are governed by the law of [COUNTRY OF
-        REGISTRATION], without prejudice to any mandatory consumer protection rules of your own
+        <strong>Governing law.</strong> These terms are governed by the law of the country where the seller is registered (to be confirmed here once business registration is complete
+        ), without prejudice to any mandatory consumer protection rules of your own
         country of residence if you are an EU consumer.
       </p>
       <p>
