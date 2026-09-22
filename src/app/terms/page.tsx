@@ -74,8 +74,8 @@ export default function TermsPage() {
         under applicable consumer protection law.
       </p>
       <p>
-        <strong>Governing law.</strong> These terms are governed by the law of the country where the seller is registered (to be confirmed here once business registration is complete
-        ), without prejudice to any mandatory consumer protection rules of your own
+        <strong>Governing law.</strong> These terms are governed by the law of the country where the seller is registered (to be confirmed here once business registration is complete),
+        without prejudice to any mandatory consumer protection rules of your own
         country of residence if you are an EU consumer.
       </p>
       <p>
