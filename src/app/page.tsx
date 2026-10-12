@@ -10,6 +10,7 @@ import FreeTemplateSample from "@/components/FreeTemplateSample";
 import Bonus from "@/components/Bonus";
 import DgTraining from "@/components/DgTraining";
 import Pricing from "@/components/Pricing";
+import Testimonials from "@/components/Testimonials";
 import TrustSection from "@/components/TrustSection";
 import FounderNote from "@/components/FounderNote";
 import FAQ from "@/components/FAQ";
@@ -58,6 +59,7 @@ export default function Home() {
                         <ProductPreview />
                         <FreeTemplateSample />
                         <DgTraining />
+                        <Testimonials />
                         <Pricing />
                         <TrustSection />
                         <FounderNote />
