@@ -1,5 +1,6 @@
 interface ProgressBarProps {
   value: number; // 0-100
+  label: string; // accessible name — what this bar is progress *of*
   colorClass?: string; // tailwind bg-* class for the fill
   trackClassName?: string;
   className?: string;
@@ -8,6 +9,7 @@ interface ProgressBarProps {
 
 export default function ProgressBar({
   value,
+  label,
   colorClass = "bg-hazard-orange",
   trackClassName = "bg-white/10",
   className = "",
@@ -19,6 +21,7 @@ export default function ProgressBar({
       className={`w-full overflow-hidden rounded-full ${trackClassName} ${className}`}
       style={{ height }}
       role="progressbar"
+      aria-label={label}
       aria-valuenow={pct}
       aria-valuemin={0}
       aria-valuemax={100}

@@ -16,6 +16,29 @@ const nextConfig = {
           // Don't leak the full URL (which can include query params) to
           // third-party sites linked from this one.
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          // Checkout is a redirect to Stripe's own hosted page (no
+          // embedded Stripe.js), so script/style/connect can stay
+          // scoped to this origin — nothing here needs to load or
+          // execute third-party JS.
+          {
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline'",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data:",
+              "font-src 'self' data:",
+              "connect-src 'self'",
+              "frame-ancestors 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+            ].join("; "),
+          },
+          // Explicitly deny browser features this site never uses.
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), payment=()",
+          },
         ],
       },
     ];

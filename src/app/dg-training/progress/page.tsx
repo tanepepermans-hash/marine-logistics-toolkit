@@ -79,7 +79,11 @@ export default function ProgressPage() {
                 <span className="font-medium text-white">Class {g.classNumber} — {g.title}</span>
                 <span className="text-mist-400">{g.total > 0 ? `${g.pct}%` : "Not attempted"}</span>
               </div>
-              <ProgressBar value={g.pct} colorClass={g.total > 0 ? barColor(g.pct) : "bg-white/10"} />
+              <ProgressBar
+                value={g.pct}
+                label={`Class ${g.classNumber} — ${g.title} accuracy, ${g.total > 0 ? `${g.pct}%` : "not attempted"}`}
+                colorClass={g.total > 0 ? barColor(g.pct) : "bg-white/10"}
+              />
             </div>
           ))}
         </div>

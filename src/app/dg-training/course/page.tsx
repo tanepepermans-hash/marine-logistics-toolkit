@@ -98,13 +98,13 @@ export default function CoursePathPage() {
                         <span>{progress.done} / {progress.total} mastered</span>
                         <span>{progress.pct}%</span>
                       </div>
-                      <ProgressBar value={progress.pct} height={6} />
+                      <ProgressBar value={progress.pct} label={`${module.title} progress, ${progress.done} of ${progress.total} mastered`} height={6} />
                     </div>
                   )}
                   {unlocked ? (
                     <Link
                       href={href}
-                      className="flex items-center justify-center gap-2 rounded-full bg-hazard-orange px-4 py-2.5 text-sm font-semibold text-white hover:bg-hazard-reddeep"
+                      className="flex items-center justify-center gap-2 rounded-full bg-hazard-orange px-4 py-2.5 text-sm font-semibold text-navy-950 hover:bg-hazard-reddeep"
                     >
                       {done ? "Practice Again" : "Start Module"} <Sparkles size={15} />
                     </Link>
@@ -156,7 +156,7 @@ export default function CoursePathPage() {
               ) : allModulesDone ? (
                 <Link
                   href={`/dg-training/quiz/play?mode=mixed&count=${CERTIFICATE_MIN_QUESTIONS}`}
-                  className="flex items-center justify-center gap-2 rounded-full bg-hazard-orange px-4 py-2.5 text-sm font-semibold text-white hover:bg-hazard-reddeep"
+                  className="flex items-center justify-center gap-2 rounded-full bg-hazard-orange px-4 py-2.5 text-sm font-semibold text-navy-950 hover:bg-hazard-reddeep"
                 >
                   <ClipboardList size={15} /> Take the Exam
                 </Link>

@@ -44,7 +44,7 @@ export default function DailyChallengePage() {
         ) : (
           <Link
             href="/dg-training/quiz/play?mode=daily&count=5"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-hazard-orange px-8 py-3.5 text-sm font-semibold text-white shadow-premium hover:bg-hazard-reddeep"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-hazard-orange px-8 py-3.5 text-sm font-semibold text-navy-950 shadow-premium hover:bg-hazard-reddeep"
           >
             <Sparkles size={16} /> Start Today&apos;s Challenge
           </Link>

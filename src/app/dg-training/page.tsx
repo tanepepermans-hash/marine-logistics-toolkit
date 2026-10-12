@@ -65,7 +65,7 @@ export default function DashboardPage() {
               <h2 className="text-sm font-semibold text-white">Course Progress</h2>
               <span className="text-sm text-mist-400">{courseProgressPct}%</span>
             </div>
-            <ProgressBar value={courseProgressPct} height={10} />
+            <ProgressBar value={courseProgressPct} label={`Course progress, ${courseProgressPct}% complete`} height={10} />
             <p className="mt-2 text-xs text-mist-400">
               {mastered.length} of {DG_CLASSES.length} classes &amp; divisions mastered (80%+ accuracy over 3+ questions).
             </p>
@@ -74,7 +74,7 @@ export default function DashboardPage() {
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-2">
             <Link
               href="/dg-training/course"
-              className="flex items-center justify-between rounded-2xl bg-hazard-orange px-5 py-4 font-semibold text-white shadow-premium transition-transform hover:-translate-y-0.5"
+              className="flex items-center justify-between rounded-2xl bg-hazard-orange px-5 py-4 font-semibold text-navy-950 shadow-premium transition-transform hover:-translate-y-0.5"
             >
               Course Path <Map size={18} />
             </Link>

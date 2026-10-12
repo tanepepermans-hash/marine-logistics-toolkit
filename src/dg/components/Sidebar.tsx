@@ -28,7 +28,7 @@ export default function Sidebar({ xp, streak }: SidebarProps) {
         </div>
       </Link>
 
-      <nav className="mt-4 flex-1 space-y-1">
+      <nav aria-label="DG Training" className="mt-4 flex-1 space-y-1">
         {NAV_ITEMS.map((item) => {
           const active = item.href === "/dg-training" ? pathname === item.href : pathname?.startsWith(item.href);
           const Icon = item.icon;

@@ -16,7 +16,10 @@ export const siteConfig = {
   currencySymbol: "€",
 
   // <-- CHANGE CONTACT EMAIL HERE
-  contactEmail: "support@marinelogisticstoolkit.com",
+  // Temporary: marinelogisticstoolkit.com isn't a registered domain, so a
+  // support@ address there would silently bounce every reply. Swap this for
+  // a real support@ address once a domain and mailbox exist.
+  contactEmail: "tane.pepermans@gmail.com",
 
   // Canonical production URL, used for metadata / Open Graph / sitemap.
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://marinelogisticstoolkit.com",

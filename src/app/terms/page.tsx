@@ -6,15 +6,19 @@ export const metadata: Metadata = {
   title: `Terms & Conditions | ${siteConfig.name}`,
 };
 
-// IMPORTANT — before going live, replace the bracketed [PLACEHOLDER] values
-// below with your real registered business details (see SellerIdentity).
-// Everything else on this page is ready to use as-is.
+// TODO: no business is registered yet (sole trader / no KvK-equivalent
+// number, no fixed VAT status). Replace this paragraph with the real
+// registered-business disclosure (name, country, registration number,
+// address, VAT number) once registration is complete — required before
+// relying on this site for live (non-test-mode) sales.
 function SellerIdentity() {
   return (
     <p className="rounded-xl border border-amber-400/30 bg-amber-400/10 p-4 text-navy-800">
-      <strong>Seller.</strong> {siteConfig.name} is operated by [YOUR REGISTERED BUSINESS NAME],
-      registered in [COUNTRY OF REGISTRATION] under company number [REGISTRATION NUMBER], located
-      at [BUSINESS ADDRESS]. VAT number: [VAT NUMBER, if applicable].
+      <strong>Seller.</strong> {siteConfig.name} is currently operated by an individual, with
+      business registration in progress. Full registered-business details (legal name,
+      registration number, address and VAT number, if applicable) will be published here once
+      registration is complete. In the meantime, contact us at the address below with any
+      questions before purchasing.
     </p>
   );
 }
@@ -57,8 +61,10 @@ export default function TermsPage() {
       </p>
       <p>
         <strong>Price and payment.</strong> All prices are shown in EUR and, where applicable,
-        include VAT calculated for your country as required under EU digital-goods VAT rules.
-        Payment is processed securely by Stripe; we never see or store your full card details.
+        do not yet include VAT. This site is currently in a pre-launch test phase — automatic VAT calculation will be enabled before real (live-mode) payments go live.
+        The price shown at checkout is the total price you pay — as a digital product delivered
+        instantly, there is no shipping, handling, or any other additional cost. Payment is
+        processed securely by Stripe; we never see or store your full card details.
       </p>
       <p>
         <strong>Liability.</strong> The toolkit and DG Training content are provided &quot;as
@@ -68,8 +74,8 @@ export default function TermsPage() {
         under applicable consumer protection law.
       </p>
       <p>
-        <strong>Governing law.</strong> These terms are governed by the law of [COUNTRY OF
-        REGISTRATION], without prejudice to any mandatory consumer protection rules of your own
+        <strong>Governing law.</strong> These terms are governed by the law of the country where the seller is registered (to be confirmed here once business registration is complete),
+        without prejudice to any mandatory consumer protection rules of your own
         country of residence if you are an EU consumer.
       </p>
       <p>

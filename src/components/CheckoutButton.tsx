@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { siteConfig, type TierId } from "@/config/site";
 
@@ -36,6 +36,10 @@ export default function CheckoutButton({
 }: CheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Stable for the life of this button instance, so a retried click (after
+  // a failed attempt, or a race before `disabled` takes effect) reuses the
+  // same Stripe Checkout Session instead of creating a duplicate one.
+  const idempotencyKeyRef = useRef<string | null>(null);
 
   const paymentLink = siteConfig.stripePaymentLinks[tier];
   const hasPaymentLink = paymentLink.length > 0;
@@ -49,10 +53,13 @@ export default function CheckoutButton({
     setError(null);
     setLoading(true);
     try {
+      if (!idempotencyKeyRef.current) {
+        idempotencyKeyRef.current = crypto.randomUUID();
+      }
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tier }),
+        body: JSON.stringify({ tier, idempotencyKey: idempotencyKeyRef.current }),
       });
       const data = await res.json();
 

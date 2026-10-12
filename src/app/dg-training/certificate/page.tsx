@@ -19,6 +19,8 @@ export default function CertificatePage() {
   const [view, setView] = useState<"certificate" | "card">("certificate");
 
   useEffect(() => {
+    // One-time hydration from localStorage, which isn't available during SSR.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setName(getCertificateName());
   }, []);
 
@@ -44,7 +46,7 @@ export default function CertificatePage() {
         </p>
         <Link
           href="/dg-training/course"
-          className="mt-6 inline-block rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-white hover:bg-hazard-reddeep"
+          className="mt-6 inline-block rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-navy-950 hover:bg-hazard-reddeep"
         >
           Go to Course Path
         </Link>
@@ -111,7 +113,7 @@ export default function CertificatePage() {
           </div>
           <button
             onClick={() => window.print()}
-            className="flex items-center justify-center gap-2 rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-white hover:bg-hazard-reddeep"
+            className="flex items-center justify-center gap-2 rounded-full bg-hazard-orange px-5 py-2.5 text-sm font-semibold text-navy-950 hover:bg-hazard-reddeep"
           >
             <Printer size={15} /> Print / Save as PDF
           </button>

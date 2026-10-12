@@ -26,7 +26,7 @@ export default function ProductMockup() {
               </div>
               <p className="text-xs font-semibold text-navy-900">Vessel Delivery Checklist</p>
             </div>
-            <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] font-semibold text-emerald-600">
+            <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[10px] font-semibold text-emerald-700">
               On Track
             </span>
           </div>
