@@ -17,6 +17,11 @@ export default function FounderNote() {
           <div className="rounded-3xl border border-navy-900/10 bg-white p-8 shadow-premium sm:p-10">
             <div className="space-y-4 text-base leading-relaxed text-navy-600">
               <p>
+                I&apos;m a freight operator, and I&apos;ve worked my way up through the whole chain —
+                warehouse operations, supervision, inventory control and international freight
+                forwarding — in Brussels, Antwerp, Amsterdam and now Copenhagen.
+              </p>
+              <p>
                 Most junior marine logistics operators get a booking system login and a &quot;good
                 luck&quot; on day one. Nobody hands you the email templates, the checklists, or the
                 judgment calls that actually come with the job — you&apos;re expected to pick it up by
@@ -38,7 +43,7 @@ export default function FounderNote() {
               </span>
               <div>
                 <div className="text-sm font-semibold text-navy-900">Tane</div>
-                <div className="text-xs text-navy-500">Founder, Marine Logistics Operator Toolkit</div>
+                <div className="text-xs text-navy-500">Freight Operator · Founder, Marine Logistics Operator Toolkit</div>
                 <div className="mt-0.5 text-xs text-navy-500">Questions? I personally reply within 24 hours.</div>
               </div>
             </div>

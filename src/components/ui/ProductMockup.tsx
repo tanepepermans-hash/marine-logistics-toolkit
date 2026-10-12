@@ -15,7 +15,7 @@ export default function ProductMockup() {
           <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
           <span className="ml-3 flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1 text-[10px] text-mist-300">
             <Ship className="h-3 w-3 text-ocean-300" aria-hidden />
-            operator-toolkit.app/vessel-checklist
+            Toolkit / Vessel Delivery Checklist
           </span>
         </div>
         <div className="rounded-xl bg-mist-50 p-4">

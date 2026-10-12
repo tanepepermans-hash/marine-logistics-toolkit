@@ -60,7 +60,7 @@ export default function Pricing() {
             discount.
           </p>
                       <p className="mt-2 text-sm font-semibold text-ocean-700">
-                                    Launch pricing ends October 5 — prices return to €49 / €59 after that.
+                                    Launch pricing for early users — prices will rise once the launch period ends.
                       </p>
         </Reveal>
 
@@ -109,7 +109,7 @@ export default function Pricing() {
           <Reveal delay={0.08}>
             <div className="flex h-full flex-col rounded-3xl border border-navy-900/10 bg-white p-7 shadow-premium">
               <span className="inline-flex w-fit items-center rounded-full bg-ocean-500/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-ocean-700">
-                Most Popular
+                Recommended
               </span>
               <h3 className="mt-5 text-lg font-bold text-navy-900">Premium</h3>
               <div className="mt-3 flex items-end gap-2.5">
