@@ -1506,6 +1506,96 @@ INCOTERMS = [
     ("DDP — Delivered Duty Paid", "Seller delivers the goods cleared for import at the named destination — the maximum obligation for a seller."),
 ]
 
+AIR_CARRIER_CODES = [
+    ("Europe", [
+        ("BA", "British Airways"), ("LH", "Lufthansa"), ("KL", "KLM Royal Dutch Airlines"),
+        ("AF", "Air France"), ("IB", "Iberia"), ("LX", "Swiss International Air Lines"),
+        ("AZ", "ITA Airways"), ("AY", "Finnair"), ("SK", "Scandinavian Airlines (SAS)"),
+        ("LO", "LOT Polish Airlines"), ("SN", "Brussels Airlines"), ("TK", "Turkish Airlines"),
+        ("EI", "Aer Lingus"), ("FR", "Ryanair"), ("U2", "easyJet"), ("W6", "Wizz Air"),
+    ]),
+    ("Asia", [
+        ("SQ", "Singapore Airlines"), ("CX", "Cathay Pacific"), ("NH", "All Nippon Airways (ANA)"),
+        ("JL", "Japan Airlines"), ("KE", "Korean Air"), ("OZ", "Asiana Airlines"),
+        ("CA", "Air China"), ("MU", "China Eastern Airlines"), ("CZ", "China Southern Airlines"),
+        ("HU", "Hainan Airlines"), ("TG", "Thai Airways"), ("VN", "Vietnam Airlines"),
+        ("GA", "Garuda Indonesia"), ("MH", "Malaysia Airlines"), ("5J", "Cebu Pacific"), ("AI", "Air India"),
+    ]),
+    ("North America", [
+        ("AA", "American Airlines"), ("UA", "United Airlines"), ("DL", "Delta Air Lines"),
+        ("WN", "Southwest Airlines"), ("B6", "JetBlue Airways"), ("AS", "Alaska Airlines"),
+        ("AC", "Air Canada"), ("WS", "WestJet"), ("NK", "Spirit Airlines"),
+        ("F9", "Frontier Airlines"), ("HA", "Hawaiian Airlines"),
+    ]),
+    ("South America", [
+        ("LA", "LATAM Airlines"), ("AR", "Aerolíneas Argentinas"), ("G3", "GOL Linhas Aéreas"),
+        ("AV", "Avianca"), ("CM", "Copa Airlines"), ("H2", "Sky Airline"),
+        ("OB", "Boliviana de Aviación"), ("AD", "Azul Brazilian Airlines"), ("ZP", "Paranair"),
+    ]),
+    ("Africa", [
+        ("ET", "Ethiopian Airlines"), ("SA", "South African Airways"), ("KQ", "Kenya Airways"),
+        ("MS", "EgyptAir"), ("AT", "Royal Air Maroc"), ("DT", "TAAG Angola Airlines"),
+        ("TC", "Air Tanzania"), ("WB", "RwandAir"), ("4Z", "Airlink"), ("TU", "Tunisair"),
+    ]),
+    ("Middle East", [
+        ("EK", "Emirates"), ("QR", "Qatar Airways"), ("EY", "Etihad Airways"),
+        ("SV", "Saudia"), ("GF", "Gulf Air"), ("FZ", "flydubai"), ("WY", "Oman Air"),
+        ("RJ", "Royal Jordanian"), ("ME", "Middle East Airlines"), ("IA", "Iraqi Airways"),
+    ]),
+    ("Oceania", [
+        ("QF", "Qantas"), ("NZ", "Air New Zealand"), ("VA", "Virgin Australia"),
+        ("JQ", "Jetstar Airways"), ("FJ", "Fiji Airways"), ("IE", "Solomon Airlines"), ("SB", "Aircalin"),
+    ]),
+]
+
+AIRPORT_CODES = [
+    ("Europe", [
+        ("AMS", "Amsterdam Airport Schiphol"), ("ANR", "Antwerp International Airport"),
+        ("BRU", "Brussels Airport"), ("CPH", "Copenhagen Airport"), ("DUB", "Dublin Airport"),
+        ("FRA", "Frankfurt Airport"), ("LHR", "London Heathrow Airport"), ("LGG", "Liège Airport"),
+        ("MAD", "Madrid-Barajas Airport"), ("MUC", "Munich Airport"), ("OSL", "Oslo Airport Gardermoen"),
+        ("CDG", "Paris Charles de Gaulle Airport"), ("BCN", "Barcelona-El Prat Airport"),
+        ("FCO", "Rome Fiumicino Airport"), ("IST", "Istanbul Airport"),
+    ]),
+    ("Asia", [
+        ("HKG", "Hong Kong International Airport"), ("PVG", "Shanghai Pudong International Airport"),
+        ("PEK", "Beijing Capital International Airport"), ("CAN", "Guangzhou Baiyun International Airport"),
+        ("KIX", "Kansai International Airport"), ("NRT", "Narita International Airport"),
+        ("HND", "Haneda Airport"), ("ICN", "Incheon International Airport"),
+        ("SIN", "Singapore Changi Airport"), ("BOM", "Chhatrapati Shivaji Maharaj International Airport"),
+        ("DEL", "Indira Gandhi International Airport"), ("BKK", "Suvarnabhumi Airport"),
+        ("KUL", "Kuala Lumpur International Airport"), ("CGK", "Soekarno-Hatta International Airport"),
+        ("MNL", "Ninoy Aquino International Airport"),
+    ]),
+    ("North America", [
+        ("ATL", "Hartsfield-Jackson Atlanta International Airport"), ("DFW", "Dallas Fort Worth International Airport"),
+        ("LAX", "Los Angeles International Airport"), ("JFK", "John F. Kennedy International Airport"),
+        ("ORD", "O'Hare International Airport"), ("MIA", "Miami International Airport"),
+        ("IAH", "George Bush Intercontinental Airport"), ("YYZ", "Toronto Pearson International Airport"),
+        ("YVR", "Vancouver International Airport"), ("SFO", "San Francisco International Airport"),
+    ]),
+    ("South America", [
+        ("GRU", "São Paulo/Guarulhos International Airport"), ("EZE", "Ministro Pistarini International Airport"),
+        ("SCL", "Santiago International Airport"), ("BOG", "El Dorado International Airport"),
+        ("LIM", "Jorge Chávez International Airport"), ("GIG", "Rio de Janeiro/Galeão International Airport"),
+    ]),
+    ("Africa", [
+        ("JNB", "O.R. Tambo International Airport"), ("CPT", "Cape Town International Airport"),
+        ("CAI", "Cairo International Airport"), ("ADD", "Addis Ababa Bole International Airport"),
+        ("NBO", "Jomo Kenyatta International Airport"), ("ACC", "Kotoka International Airport"),
+    ]),
+    ("Middle East", [
+        ("DXB", "Dubai International Airport"), ("AUH", "Abu Dhabi International Airport"),
+        ("DOH", "Hamad International Airport"), ("RUH", "King Khalid International Airport"),
+        ("JED", "King Abdulaziz International Airport"), ("KWI", "Kuwait International Airport"),
+        ("MCT", "Muscat International Airport"),
+    ]),
+    ("Oceania", [
+        ("SYD", "Sydney Kingsford Smith Airport"), ("MEL", "Melbourne Airport"), ("BNE", "Brisbane Airport"),
+        ("PER", "Perth Airport"), ("AKL", "Auckland International Airport"), ("CHC", "Christchurch International Airport"),
+    ]),
+]
+
 BONUS_CHECKLIST = [
     {
         "category": "Vessel Information",
@@ -1726,6 +1816,8 @@ WORKFLOW_COUNT = len(WORKFLOWS)
 AI_PROMPT_COUNT = len(AI_PROMPTS)
 GLOSSARY_COUNT = len(GLOSSARY)
 INCOTERMS_COUNT = len(INCOTERMS)
+AIR_CARRIER_CODE_COUNT = sum(len(codes) for _, codes in AIR_CARRIER_CODES)
+AIRPORT_CODE_COUNT = sum(len(codes) for _, codes in AIRPORT_CODES)
 PREMIUM_BONUS_TEMPLATE_COUNT = len(PREMIUM_EMAIL_CATEGORY["templates"])
 
 EMAIL_CATEGORY_ICONS = {
@@ -1907,6 +1999,14 @@ html, body {
 .toc-row .d { color: #8797ac; font-size: 9pt; }
 .toc-row.incoterm-row .t { flex: 0 0 230px; }
 
+/* ---- code reference tables (air carrier / airport codes) ---- */
+.code-cols { display: flex; flex-wrap: wrap; gap: 0 26px; margin-top: 10px; }
+.code-region { flex: 1 1 240px; min-width: 220px; margin-bottom: 18px; break-inside: avoid; page-break-inside: avoid; }
+.code-region h4 { font-size: 9pt; font-weight: 700; color: #0b73b3; text-transform: uppercase; letter-spacing: 0.6px; margin: 0 0 6px; padding-bottom: 4px; border-bottom: 1px solid #dbe3ee; }
+.code-row { display: flex; align-items: baseline; gap: 10px; padding: 3.5px 0; font-size: 9pt; }
+.code-row .code { flex: 0 0 30px; font-weight: 700; color: #16233a; font-variant-numeric: tabular-nums; }
+.code-row .name { flex: 1; color: #45536b; }
+
 /* ---- section header ---- */
 .section-break { page-break-before: always; }
 .section-head { display: flex; align-items: center; gap: 14px; border-bottom: 2.5px solid #0b73b3; padding-bottom: 14px; margin-bottom: 20px; }
@@ -2028,7 +2128,7 @@ def render_intro(premium=False):
         ("3", "list-checks", "Operational Checklists", checklist_line),
         ("4", "workflow", "Shipment Problem Workflows", f"{WORKFLOW_COUNT} workflows"),
         ("5", "sparkles", "AI Operator Prompts", f"{AI_PROMPT_COUNT} ready-to-use prompts"),
-        ("6", "search", "Glossary & Incoterms Reference", f"{GLOSSARY_COUNT} terms + {INCOTERMS_COUNT} Incoterms explained"),
+        ("6", "search", "Glossary, Incoterms & Code Reference", f"{GLOSSARY_COUNT} terms, {INCOTERMS_COUNT} Incoterms, {AIR_CARRIER_CODE_COUNT} airline + {AIRPORT_CODE_COUNT} airport codes"),
     ]
     if premium:
         rows.append(("7", "star", "Premium Bonus: Advanced Operator Templates", f"{PREMIUM_BONUS_TEMPLATE_COUNT} templates + claims checklist"))
@@ -2074,8 +2174,21 @@ def render_quickstart():
     return f'<div class="section-break">{body}</div>'
 
 
+def render_code_table(regions):
+    cols = "".join(
+        f'<div class="code-region"><h4>{esc(region)}</h4>'
+        + "".join(
+            f'<div class="code-row"><div class="code">{esc(code)}</div><div class="name">{esc(name)}</div></div>'
+            for code, name in entries
+        )
+        + "</div>"
+        for region, entries in regions
+    )
+    return f'<div class="code-cols">{cols}</div>'
+
+
 def render_reference():
-    body = render_section_head("Section 6", "Glossary & Incoterms Reference", "Plain-language definitions for the abbreviations and terms used throughout this toolkit.", "search")
+    body = render_section_head("Section 6", "Glossary, Incoterms & Code Reference", "Plain-language definitions, Incoterms, and IATA airline/airport codes used throughout this toolkit.", "search")
     glossary_rows = "".join(
         f'<div class="toc-row"><div class="t">{esc(term)}</div><div class="d">{esc(definition)}</div></div>'
         for term, definition in GLOSSARY
@@ -2086,6 +2199,12 @@ def render_reference():
         for term, definition in INCOTERMS
     )
     body += f'<div class="cat-title" style="margin-top:26px;">Incoterms 2020 — Quick Reference</div><div class="toc">{incoterms_rows}</div>'
+    air_icon = icon_badge("plane", size=22, icon_size=11, tone="tint")
+    body += f'<div class="cat-title" style="margin-top:26px;">{air_icon}Air Carrier Codes — IATA 2-Letter Codes</div>'
+    body += render_code_table(AIR_CARRIER_CODES)
+    airport_icon = icon_badge("map-pin", size=22, icon_size=11, tone="tint")
+    body += f'<div class="cat-title" style="margin-top:26px;">{airport_icon}Airport Codes — IATA Codes</div>'
+    body += render_code_table(AIRPORT_CODES)
     return f'<div class="section-break">{body}</div>'
 
 
