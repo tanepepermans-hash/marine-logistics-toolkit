@@ -5,7 +5,7 @@ import Features from "@/components/Features";
 import ScenarioExample from "@/components/ScenarioExample";
 import HowItWorks from "@/components/HowItWorks";
 import Audience from "@/components/Audience";
-import ProductPreview from "@/components/ProductPreview";
+import ToolkitShowcase from "@/components/ToolkitShowcase";
 import FreeTemplateSample from "@/components/FreeTemplateSample";
 import Bonus from "@/components/Bonus";
 import DgTraining from "@/components/DgTraining";
@@ -56,7 +56,7 @@ export default function Home() {
                         <ScenarioExample />
                         <HowItWorks />
                         <Audience />
-                        <ProductPreview />
+                        <ToolkitShowcase />
                         <FreeTemplateSample />
                         <DgTraining />
                         <Testimonials />

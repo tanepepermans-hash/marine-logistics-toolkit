@@ -6,7 +6,8 @@ import CheckoutButton from "@/components/CheckoutButton";
 import { siteConfig } from "@/config/site";
 
 const standardIncludes = [
-  "Online toolkit — searchable, one-click copy",
+  "Online toolkit — auto-fills your shipment details",
+  "Free content updates included",
   "PDF version to download",
   "Quick-Start Guide for your first month",
   "49 professional email templates",

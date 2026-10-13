@@ -43,6 +43,16 @@ const faqs = [
     answer: "No. It is a one-time purchase.",
   },
   {
+    question: "Do I have to fill in every template myself?",
+    answer:
+      "No. In the online toolkit you enter a shipment's details once — reference, parties, cargo, dates and times — and every email template and AI prompt fills itself in, ready to copy or open in your mail app. Fields that are specific to one email stay highlighted so you can't miss them.",
+  },
+  {
+    question: "Will the toolkit be updated?",
+    answer:
+      "Yes. New and improved templates, checklists and reference tables are added to the online toolkit over time, at no extra cost — you'll see them the next time you open it.",
+  },
+  {
     question: "Can I share it with colleagues?",
     answer:
       "Each purchase is a licence for one person, usable on up to 3 of your own devices — work PC, laptop and phone, for example. Your access link and downloads are personal and marked with your order details, so please don't forward them. For colleagues, a team licence is the way to go.",

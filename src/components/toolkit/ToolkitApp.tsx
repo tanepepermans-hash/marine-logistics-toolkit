@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   Anchor,
   BookOpen,
@@ -11,18 +11,24 @@ import {
   GitBranch,
   Link2,
   Mail,
+  PenLine,
+  Send,
+  Star,
   RotateCcw,
   Rocket,
   Search,
   Sparkles,
   X,
 } from "lucide-react";
-import type { Checklist, CodeRegion, EmailTemplate, Term, ToolkitContent } from "@/content/types";
+import type { Checklist, CodeRegion, EmailTemplate, Prompt, Term, ToolkitContent, Workflow } from "@/content/types";
+import ShipmentPanel from "./ShipmentPanel";
+import { FIELDS, buildLookup, fillText, filledCount, formatDate, segments, type Values } from "./shipment";
 
-type SectionId = "start" | "emails" | "checklists" | "workflows" | "prompts" | "reference";
+type SectionId = "start" | "favorites" | "emails" | "checklists" | "workflows" | "prompts" | "reference";
 
 const SECTIONS: { id: SectionId; label: string; icon: typeof Mail }[] = [
   { id: "start", label: "Start here", icon: Rocket },
+  { id: "favorites", label: "Favourites", icon: Star },
   { id: "emails", label: "Email templates", icon: Mail },
   { id: "checklists", label: "Checklists", icon: ClipboardCheck },
   { id: "workflows", label: "Problem workflows", icon: GitBranch },
@@ -88,21 +94,48 @@ function CopyButton({ text, label, primary = false }: { text: string; label: str
   );
 }
 
-// Highlights [Placeholder] fields so they're easy to spot and fill in.
+// Shared state the cards read: the auto-fill lookup and the favourites.
+type Ctx = { lookup: Map<string, string>; favs: string[]; toggleFav: (id: string) => void };
+const ToolkitCtx = createContext<Ctx>({ lookup: new Map(), favs: [], toggleFav: () => {} });
+const useToolkit = () => useContext(ToolkitCtx);
+
+// Shows text with its [Placeholder] fields: filled-in values in green (from
+// the shipment details), still-open fields highlighted in blue.
 function WithPlaceholders({ text }: { text: string }) {
-  const parts = text.split(/(\[[^\]\n]+\])/g);
+  const { lookup } = useToolkit();
   return (
     <>
-      {parts.map((part, i) =>
-        /^\[[^\]\n]+\]$/.test(part) ? (
+      {segments(text, lookup).map((seg, i) =>
+        seg.kind === "filled" ? (
+          <mark key={i} title={`Filled in: ${seg.field}`} className="rounded bg-emerald-500/10 px-0.5 font-semibold text-emerald-800">
+            {seg.text}
+          </mark>
+        ) : seg.kind === "open" ? (
           <mark key={i} className="rounded bg-ocean-500/10 px-0.5 font-semibold text-ocean-700">
-            {part}
+            {seg.text}
           </mark>
         ) : (
-          <span key={i}>{part}</span>
+          <span key={i}>{seg.text}</span>
         ),
       )}
     </>
+  );
+}
+
+function FavButton({ id, label }: { id: string; label: string }) {
+  const { favs, toggleFav } = useToolkit();
+  const on = favs.includes(id);
+  return (
+    <button
+      type="button"
+      onClick={() => toggleFav(id)}
+      aria-pressed={on}
+      aria-label={on ? `Remove ${label} from favourites` : `Add ${label} to favourites`}
+      title={on ? "Remove from favourites" : "Add to favourites"}
+      className={`shrink-0 rounded-full p-1.5 transition-colors ${on ? "text-amber-500 hover:bg-amber-50" : "text-navy-300 hover:bg-mist-100 hover:text-amber-500"}`}
+    >
+      <Star className="h-4 w-4" fill={on ? "currentColor" : "none"} aria-hidden />
+    </button>
   );
 }
 
@@ -157,9 +190,16 @@ function PremiumTag() {
 // ---------------------------------------------------------------------------
 
 function EmailCard({ t }: { t: EmailTemplate }) {
+  const { lookup } = useToolkit();
+  const subject = fillText(t.subject, lookup);
+  const body = fillText(t.body, lookup);
+  const mailto = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   return (
     <Card id={slug(t.title)}>
-      <h4 className="font-semibold text-navy-900">{t.title}</h4>
+      <div className="flex items-start justify-between gap-2">
+        <h4 className="font-semibold text-navy-900">{t.title}</h4>
+        <FavButton id={`email:${t.title}`} label={t.title} />
+      </div>
       <div className="mt-3 flex flex-wrap items-center gap-2 rounded-xl bg-mist-50 px-3.5 py-2.5 text-sm">
         <span className="text-xs font-semibold uppercase tracking-wider text-navy-500">Subject</span>
         <span className="min-w-0 flex-1 break-words text-navy-800">
@@ -170,9 +210,58 @@ function EmailCard({ t }: { t: EmailTemplate }) {
         <WithPlaceholders text={t.body} />
       </pre>
       <div className="mt-4 flex flex-wrap gap-2 border-t border-navy-900/5 pt-4">
-        <CopyButton primary text={t.body} label="Copy email" />
-        <CopyButton text={t.subject} label="Copy subject" />
+        <CopyButton primary text={body} label="Copy email" />
+        <CopyButton text={subject} label="Copy subject" />
+        <a
+          href={mailto}
+          className="inline-flex items-center gap-1.5 rounded-full border border-navy-900/15 bg-white px-3.5 py-1.5 text-xs font-semibold text-navy-700 transition-colors hover:border-ocean-500 hover:text-ocean-700"
+        >
+          <Send className="h-3.5 w-3.5" aria-hidden />
+          Open in mail app
+        </a>
       </div>
+    </Card>
+  );
+}
+
+function PromptCard({ p }: { p: Prompt }) {
+  const { lookup } = useToolkit();
+  return (
+    <Card id={slug(p.title)}>
+      <div className="flex items-start justify-between gap-2">
+        <h4 className="font-semibold text-navy-900">{p.title}</h4>
+        <FavButton id={`prompt:${p.title}`} label={p.title} />
+      </div>
+      <pre className="mt-3 whitespace-pre-wrap break-words rounded-xl bg-mist-50 p-4 font-sans text-sm leading-relaxed text-navy-700">
+        <WithPlaceholders text={p.prompt} />
+      </pre>
+      <div className="mt-4">
+        <CopyButton primary text={fillText(p.prompt, lookup)} label="Copy prompt" />
+      </div>
+    </Card>
+  );
+}
+
+function WorkflowCard({ w }: { w: Workflow }) {
+  return (
+    <Card id={slug(w.trigger)}>
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wider text-amber-600">When this happens</p>
+          <h4 className="mt-1 font-semibold text-navy-900">{w.trigger}</h4>
+        </div>
+        <FavButton id={`workflow:${w.trigger}`} label={w.trigger} />
+      </div>
+      <ol className="mt-4 space-y-3">
+        {w.steps.map((s, i) => (
+          <li key={s} className="flex gap-3 text-sm text-navy-700">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ocean-500/10 text-xs font-bold text-ocean-700">
+              {i + 1}
+            </span>
+            <span className="pt-0.5">{s}</span>
+          </li>
+        ))}
+      </ol>
     </Card>
   );
 }
@@ -193,7 +282,19 @@ function storageSet(key: string, value: string[]) {
   }
 }
 
-function TickList({ id, title, items, extra }: { id: string; title: string; items: string[]; extra?: ReactNode }) {
+function TickList({
+  id,
+  title,
+  items,
+  extra,
+  favId,
+}: {
+  id: string;
+  title: string;
+  items: string[];
+  extra?: ReactNode;
+  favId?: string;
+}) {
   const storageKey = `toolkit-check:${id}`;
   const [done, setDone] = useState<string[]>([]);
   // Read saved ticks after hydration (the server can't see localStorage).
@@ -223,9 +324,12 @@ function TickList({ id, title, items, extra }: { id: string; title: string; item
           <h4 className="font-semibold text-navy-900">{title}</h4>
           {extra}
         </div>
-        <span className="shrink-0 text-xs font-semibold text-navy-500">
-          {count}/{items.length}
-        </span>
+        <div className="flex shrink-0 items-center gap-1">
+          <span className="text-xs font-semibold text-navy-500">
+            {count}/{items.length}
+          </span>
+          {favId && <FavButton id={favId} label={title} />}
+        </div>
       </div>
       <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-mist-100">
         <div className="h-full rounded-full bg-emerald-500 transition-all" style={{ width: `${pct}%` }} />
@@ -306,6 +410,68 @@ function CodeTable({ title, regions }: { title: string; regions: CodeRegion[] })
   );
 }
 
+function readJson<T>(key: string, fallback: T): T {
+  try {
+    const v = window.localStorage.getItem(key);
+    return v ? (JSON.parse(v) as T) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+function writeJson(key: string, value: unknown) {
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    /* private mode — still works for this visit */
+  }
+}
+
+// The strip at the top of the email and prompt sections: what's filled in,
+// and the way into the shipment details.
+function AutofillBar({ values, onOpen }: { values: Values; onOpen: () => void }) {
+  const n = filledCount(values, true);
+  const v = (k: string) => (values[k] ?? "").trim();
+  const summary = [
+    v("ref"),
+    v("origin") && v("destination") ? `${v("origin")} → ${v("destination")}` : v("origin") || v("destination"),
+    v("customer"),
+    v("date") && formatDate(v("date")),
+  ].filter(Boolean);
+  return (
+    <div
+      className={`mb-6 flex flex-col gap-3 rounded-2xl border p-4 sm:flex-row sm:items-center sm:justify-between ${
+        n ? "border-emerald-500/25 bg-emerald-50" : "border-ocean-500/25 bg-ocean-500/5"
+      }`}
+    >
+      <div className="flex items-start gap-3">
+        <PenLine className={`mt-0.5 h-5 w-5 shrink-0 ${n ? "text-emerald-600" : "text-ocean-600"}`} aria-hidden />
+        <div className="text-sm">
+          {n ? (
+            <>
+              <span className="font-semibold text-navy-900">Auto-fill on — {n} shipment field{n === 1 ? "" : "s"} filled in.</span>
+              {summary.length > 0 && <span className="block text-navy-600">{summary.join(" · ")}</span>}
+            </>
+          ) : (
+            <>
+              <span className="font-semibold text-navy-900">Fill in your shipment once.</span>
+              <span className="block text-navy-600">
+                Reference, parties, cargo, dates — every template below fills itself in, ready to copy.
+              </span>
+            </>
+          )}
+        </div>
+      </div>
+      <button
+        type="button"
+        onClick={onOpen}
+        className={`shrink-0 rounded-full px-4 py-2 text-xs font-semibold text-white ${n ? "bg-emerald-600 hover:bg-emerald-500" : "bg-ocean-600 hover:bg-ocean-500"}`}
+      >
+        {n ? "Edit shipment details" : "Fill in shipment details"}
+      </button>
+    </div>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Main app
 // ---------------------------------------------------------------------------
@@ -321,6 +487,46 @@ export default function ToolkitApp({
 }: Props) {
   const [section, setSection] = useState<SectionId>("start");
   const [query, setQuery] = useState("");
+  const [values, setValues] = useState<Values>({});
+  const [favs, setFavs] = useState<string[]>([]);
+  const [panelOpen, setPanelOpen] = useState(false);
+
+  // Shipment details and favourites live in this browser's storage. Read
+  // after hydration, since the server can't see localStorage.
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      setValues(readJson<Values>("toolkit-shipment", {}));
+      setFavs(readJson<string[]>("toolkit-favs", []));
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+  const setField = useCallback((key: string, value: string) => {
+    setValues((prev) => {
+      const next = { ...prev, [key]: value };
+      writeJson("toolkit-shipment", next);
+      return next;
+    });
+  }, []);
+  const clearShipment = useCallback(() => {
+    setValues((prev) => {
+      const next: Values = {};
+      for (const f of FIELDS) if (f.profile && prev[f.key]) next[f.key] = prev[f.key];
+      writeJson("toolkit-shipment", next);
+      return next;
+    });
+  }, []);
+  const toggleFav = useCallback((id: string) => {
+    setFavs((prev) => {
+      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
+      writeJson("toolkit-favs", next);
+      return next;
+    });
+  }, []);
+  const lookup = useMemo(() => buildLookup(values), [values]);
+  const ctx = useMemo(() => ({ lookup, favs, toggleFav }), [lookup, favs, toggleFav]);
+  const openPanel = useCallback(() => setPanelOpen(true), []);
+  const closePanel = useCallback(() => setPanelOpen(false), []);
+  const shipmentFilled = filledCount(values, true);
   const q = query.trim().toLowerCase();
 
   // Keep the open section in the URL hash, so a refresh or a bookmark
@@ -376,10 +582,18 @@ export default function ToolkitApp({
     checklists: content.checklists.length,
     workflows: content.workflows.length,
     prompts: content.prompts.length,
+    favorites: favs.length || undefined,
+  };
+
+  const favItems = {
+    emails: content.emailCategories.flatMap((c) => c.templates).filter((t) => favs.includes(`email:${t.title}`)),
+    checklists: content.checklists.filter((c) => favs.includes(`checklist:${c.name}`)),
+    workflows: content.workflows.filter((w) => favs.includes(`workflow:${w.trigger}`)),
+    prompts: content.prompts.filter((p) => favs.includes(`prompt:${p.title}`)),
   };
 
   const searching = q.length > 0;
-  const show = (id: SectionId) => (searching ? id !== "start" : section === id);
+  const show = (id: SectionId) => (searching ? id !== "start" && id !== "favorites" : section === id);
   const resultCount =
     filtered.emails.reduce((n, c) => n + c.templates.length, 0) +
     filtered.checklists.length +
@@ -398,7 +612,15 @@ export default function ToolkitApp({
   );
 
   return (
+    <ToolkitCtx.Provider value={ctx}>
     <div className="min-h-screen bg-mist-50">
+      <ShipmentPanel
+        open={panelOpen}
+        onClose={closePanel}
+        values={values}
+        onChange={setField}
+        onClearShipment={clearShipment}
+      />
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0 z-20 select-none print:fixed"
@@ -437,6 +659,19 @@ export default function ToolkitApp({
               </button>
             )}
           </div>
+          <button
+            type="button"
+            onClick={openPanel}
+            className="ml-auto inline-flex shrink-0 items-center gap-2 rounded-full border border-white/15 px-3 py-2 text-xs font-semibold text-white hover:bg-white/10"
+          >
+            <PenLine className="h-4 w-4 text-ocean-300" aria-hidden />
+            <span className="hidden sm:inline">Shipment details</span>
+            {shipmentFilled > 0 && (
+              <span className="rounded-full bg-emerald-500 px-1.5 py-0.5 text-[10px] font-bold leading-none text-white">
+                {shipmentFilled}
+              </span>
+            )}
+          </button>
         </div>
         {/* Mobile section tabs */}
         <nav className="flex gap-1 overflow-x-auto px-4 pb-2.5 lg:hidden" aria-label="Sections">
@@ -501,9 +736,8 @@ export default function ToolkitApp({
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ocean-300">Welcome aboard</p>
                 <h1 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">Your Marine Logistics Operator Toolkit</h1>
                 <p className="mt-3 max-w-2xl text-sm leading-relaxed text-mist-300">
-                  Everything is here and searchable. Open a template, fill in the highlighted{" "}
-                  <span className="rounded bg-white/10 px-1 font-semibold text-ocean-200">[fields]</span>, copy, send.
-                  Checklists remember what you ticked in this browser — reset them for the next shipment.
+                  Everything is here and searchable. Enter your shipment details once and every template fills itself
+                  in — copy, send. Star the ones you use most, and checklists remember what you ticked in this browser.
                 </p>
                 <div className="mt-6 grid gap-3 sm:grid-cols-4">
                   {[
@@ -524,6 +758,8 @@ export default function ToolkitApp({
                   ))}
                 </div>
               </div>
+
+              <AutofillBar values={values} onOpen={openPanel} />
 
               <Card>
                 <div className="flex items-start gap-3">
@@ -581,13 +817,64 @@ export default function ToolkitApp({
             </section>
           )}
 
+          {/* FAVOURITES */}
+          {show("favorites") && (
+            <section>
+              <SectionHeader
+                title="Your favourites"
+                desc="Tap the star on any template, checklist, workflow or prompt to keep it here. Saved in this browser."
+              />
+              {favs.length === 0 ? (
+                <div className="rounded-2xl border border-dashed border-navy-900/15 p-10 text-center text-sm text-navy-500">
+                  <Star className="mx-auto mb-3 h-6 w-6 text-amber-400" aria-hidden />
+                  No favourites yet. Star the templates you use every day and they&apos;ll be waiting here.
+                </div>
+              ) : (
+                <div className="space-y-8">
+                  {favItems.emails.length > 0 && (
+                    <>
+                      <AutofillBar values={values} onOpen={openPanel} />
+                      <div className="grid gap-4 xl:grid-cols-2">
+                        {favItems.emails.map((t) => (
+                          <EmailCard key={t.title} t={t} />
+                        ))}
+                      </div>
+                    </>
+                  )}
+                  {favItems.checklists.length > 0 && (
+                    <div className="grid gap-4 xl:grid-cols-2">
+                      {favItems.checklists.map((c) => (
+                        <TickList key={c.name} id={slug(c.name)} title={c.name} items={c.items} favId={`checklist:${c.name}`} />
+                      ))}
+                    </div>
+                  )}
+                  {favItems.workflows.length > 0 && (
+                    <div className="grid gap-4 xl:grid-cols-2">
+                      {favItems.workflows.map((w) => (
+                        <WorkflowCard key={w.trigger} w={w} />
+                      ))}
+                    </div>
+                  )}
+                  {favItems.prompts.length > 0 && (
+                    <div className="grid gap-4 xl:grid-cols-2">
+                      {favItems.prompts.map((p) => (
+                        <PromptCard key={p.title} p={p} />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </section>
+          )}
+
           {/* EMAILS */}
           {show("emails") && filtered.emails.length > 0 && (
             <section>
               <SectionHeader
                 title="Email templates"
-                desc="Ready-to-send messages for daily operations. Highlighted fields are the ones to fill in."
+                desc="Ready-to-send messages for daily operations. Green = filled in from your shipment, blue = still to fill in."
               />
+              <AutofillBar values={values} onOpen={openPanel} />
               <div className="space-y-8">
                 {filtered.emails.map((c) => (
                   <div key={c.name}>
@@ -620,6 +907,7 @@ export default function ToolkitApp({
                     id={slug(c.name)}
                     title={c.name}
                     items={c.items}
+                    favId={`checklist:${c.name}`}
                     extra={isPremiumChecklist(c) ? <PremiumTag /> : undefined}
                   />
                 ))}
@@ -636,20 +924,7 @@ export default function ToolkitApp({
               />
               <div className="grid gap-4 xl:grid-cols-2">
                 {filtered.workflows.map((w) => (
-                  <Card key={w.trigger} id={slug(w.trigger)}>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-amber-600">When this happens</p>
-                    <h4 className="mt-1 font-semibold text-navy-900">{w.trigger}</h4>
-                    <ol className="mt-4 space-y-3">
-                      {w.steps.map((s, i) => (
-                        <li key={s} className="flex gap-3 text-sm text-navy-700">
-                          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ocean-500/10 text-xs font-bold text-ocean-700">
-                            {i + 1}
-                          </span>
-                          <span className="pt-0.5">{s}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  </Card>
+                  <WorkflowCard key={w.trigger} w={w} />
                 ))}
               </div>
             </section>
@@ -660,19 +935,12 @@ export default function ToolkitApp({
             <section>
               <SectionHeader
                 title="AI operator prompts"
-                desc="Paste into any AI assistant together with your shipment details."
+                desc="Paste into any AI assistant — the fields you've entered are filled in for you."
               />
+              <AutofillBar values={values} onOpen={openPanel} />
               <div className="grid gap-4 xl:grid-cols-2">
                 {filtered.prompts.map((p) => (
-                  <Card key={p.title} id={slug(p.title)}>
-                    <h4 className="font-semibold text-navy-900">{p.title}</h4>
-                    <pre className="mt-3 whitespace-pre-wrap break-words rounded-xl bg-mist-50 p-4 font-sans text-sm leading-relaxed text-navy-700">
-                      <WithPlaceholders text={p.prompt} />
-                    </pre>
-                    <div className="mt-4">
-                      <CopyButton primary text={p.prompt} label="Copy prompt" />
-                    </div>
-                  </Card>
+                  <PromptCard key={p.title} p={p} />
                 ))}
               </div>
             </section>
@@ -715,5 +983,6 @@ export default function ToolkitApp({
         </main>
       </div>
     </div>
+    </ToolkitCtx.Provider>
   );
 }
