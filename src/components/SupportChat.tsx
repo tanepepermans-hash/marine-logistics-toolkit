@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { MessageCircle, Send, X } from "lucide-react";
+import { HelpCircle, Mail, MessageCircle, Send, X } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 type ChatMessage = {
@@ -14,7 +15,10 @@ const GREETING: ChatMessage = {
   content: `Hi! I'm the ${siteConfig.name} support assistant. Ask me about pricing, what's included, DG Training, or refunds.`,
 };
 
-export default function SupportChat() {
+// aiEnabled is false until ANTHROPIC_API_KEY is set (see layout.tsx). Then
+// the panel offers email support and the FAQ instead of a chat box that
+// could only ever answer with a configuration error.
+export default function SupportChat({ aiEnabled = true }: { aiEnabled?: boolean }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
   const [input, setInput] = useState("");
@@ -71,6 +75,31 @@ export default function SupportChat() {
             </button>
           </div>
 
+          {!aiEnabled ? (
+            <div className="flex flex-1 flex-col gap-3 px-4 py-5">
+              <p className="rounded-2xl bg-white/[0.06] px-3.5 py-2.5 text-sm leading-relaxed text-mist-200">
+                Hi! Questions about the toolkit, DG Training, team licences or your order? Send us an email —
+                we personally reply within 24 hours.
+              </p>
+              <a
+                href={`mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent(`Question about ${siteConfig.name}`)}`}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-ocean-400 to-ocean-600 px-4 py-2.5 text-sm font-semibold text-white"
+              >
+                <Mail className="h-4 w-4" aria-hidden />
+                Email support
+              </a>
+              <Link
+                href="/#faq"
+                onClick={() => setOpen(false)}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-4 py-2.5 text-sm font-semibold text-mist-200 hover:bg-white/5"
+              >
+                <HelpCircle className="h-4 w-4" aria-hidden />
+                Read the FAQ
+              </Link>
+              <p className="mt-auto text-center text-xs text-mist-400">{siteConfig.contactEmail}</p>
+            </div>
+          ) : (
+          <>
           <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
             {messages.map((m, i) => (
               <div
@@ -119,6 +148,8 @@ export default function SupportChat() {
               <Send className="h-4 w-4" aria-hidden />
             </button>
           </form>
+          </>
+          )}
         </div>
       )}
 

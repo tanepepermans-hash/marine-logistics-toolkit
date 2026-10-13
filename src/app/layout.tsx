@@ -63,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         )}
         {children}
-        <SupportChat />
+        <SupportChat aiEnabled={Boolean(process.env.ANTHROPIC_API_KEY)} />
       </body>
     </html>
   );

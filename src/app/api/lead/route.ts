@@ -1,3 +1,4 @@
+import { cleanEnv } from "@/lib/env";
 import { NextResponse } from "next/server";
 import { clientIp, isRateLimited } from "@/lib/rateLimit";
 
@@ -112,9 +113,47 @@ export async function POST(request: Request) {
       // simply the ones that got missed while it was down.
       console.error("Failed to forward lead to LEAD_WEBHOOK_URL");
     }
+  } else if (cleanEnv("STRIPE_SECRET_KEY")) {
+    // No email tool connected yet: keep the lead as a Stripe Customer
+    // (Stripe Dashboard → Customers, metadata lead_source), so no sign-up
+    // is lost before Mailchimp or a webhook is set up.
+    const saved = await saveLeadToStripe(email);
+    if (!saved) console.error("Failed to save lead to Stripe:", email);
   } else {
     console.warn("No lead capture configured (MAILCHIMP_API_KEY or LEAD_WEBHOOK_URL) — lead was not saved anywhere:", email);
   }
 
   return NextResponse.json({ ok: true });
+}
+
+// Creates (or tags, if one already exists for this email) a Stripe
+// Customer for a free-checklist sign-up.
+async function saveLeadToStripe(email: string): Promise<boolean> {
+  const key = cleanEnv("STRIPE_SECRET_KEY");
+  if (!key) return false;
+  const headers = { Authorization: `Bearer ${key}`, "Content-Type": "application/x-www-form-urlencoded" };
+  try {
+    const found = await fetch(`https://api.stripe.com/v1/customers?limit=1&email=${encodeURIComponent(email)}`, {
+      headers,
+      cache: "no-store",
+    });
+    const existing = found.ok ? ((await found.json()).data?.[0]?.id as string | undefined) : undefined;
+
+    const body = new URLSearchParams();
+    body.set("metadata[lead_source]", "emergency-vessel-shipment-checklist");
+    body.set("metadata[lead_signed_up]", new Date().toISOString().slice(0, 10));
+    if (!existing) {
+      body.set("email", email);
+      body.set("description", "Free checklist sign-up");
+    }
+    const res = await fetch(`https://api.stripe.com/v1/customers${existing ? `/${existing}` : ""}`, {
+      method: "POST",
+      headers,
+      body,
+      cache: "no-store",
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
 }

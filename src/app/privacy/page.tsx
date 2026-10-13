@@ -45,7 +45,8 @@ export default function PrivacyPolicyPage() {
       </p>
       <p>
         <strong>Third parties.</strong> Payment processing is handled by Stripe; email delivery
-        for the free checklist may be handled by a third-party email/webhook tool. We do not sell
+        for the free checklist may be handled by a third-party email/webhook tool, and
+        checklist sign-ups may be stored as customer records in our Stripe account. We do not sell
         your personal data to anyone. Review Stripe&apos;s own privacy policy for details on how
         it handles your data.
       </p>
