@@ -74,7 +74,7 @@ export default function ToolkitShowcase() {
               width={1800}
               height={1125}
             />
-            <p className="mt-3 text-center text-xs text-mist-500">Shipment details — with quick date and time buttons</p>
+            <p className="mt-3 text-center text-xs text-mist-400">Shipment details — with quick date and time buttons</p>
           </Reveal>
           <Reveal delay={0.08}>
             <BrowserFrame
@@ -83,7 +83,7 @@ export default function ToolkitShowcase() {
               width={1800}
               height={1125}
             />
-            <p className="mt-3 text-center text-xs text-mist-500">Checklists that remember your progress</p>
+            <p className="mt-3 text-center text-xs text-mist-400">Checklists that remember your progress</p>
           </Reveal>
           <Reveal delay={0.16} className="mx-auto w-full max-w-[260px] lg:max-w-none">
             <div className="overflow-hidden rounded-[2rem] border-4 border-navy-700 bg-navy-800 shadow-premium-lg">
@@ -98,7 +98,7 @@ export default function ToolkitShowcase() {
                 className="block h-auto w-full"
               />
             </div>
-            <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-mist-500">
+            <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-mist-400">
               <Smartphone className="h-3.5 w-3.5" aria-hidden />
               Works on your phone too
             </p>

@@ -132,7 +132,7 @@ export default function LandedCostEstimator() {
                 className="w-full bg-transparent px-2 py-2.5 text-white placeholder:text-mist-500 focus:outline-none"
               />
             </div>
-            <p className="mt-1 text-[11px] text-mist-500">One total — no need to split it out</p>
+            <p className="mt-1 text-[11px] text-mist-400">One total — no need to split it out</p>
           </div>
         </div>
 

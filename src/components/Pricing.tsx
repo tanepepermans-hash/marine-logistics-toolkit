@@ -75,7 +75,7 @@ export default function Pricing() {
               </span>
               <h3 className="mt-5 text-lg font-bold text-navy-900">Standard</h3>
               <div className="mt-3 flex items-end gap-2.5">
-                <span className="text-base font-medium text-mist-400 line-through">
+                <span className="text-base font-medium text-mist-500 line-through">
                   {siteConfig.currencySymbol}
                   {siteConfig.tiers.standard.originalPrice}
                 </span>
@@ -115,7 +115,7 @@ export default function Pricing() {
               </span>
               <h3 className="mt-5 text-lg font-bold text-navy-900">Premium</h3>
               <div className="mt-3 flex items-end gap-2.5">
-                <span className="text-base font-medium text-mist-400 line-through">
+                <span className="text-base font-medium text-mist-500 line-through">
                   {siteConfig.currencySymbol}
                   {siteConfig.tiers.premium.originalPrice}
                 </span>
@@ -156,7 +156,7 @@ export default function Pricing() {
               </span>
               <h3 className="mt-5 text-lg font-bold text-white">DG Training Academy</h3>
               <div className="mt-3 flex items-end gap-2.5">
-                <span className="text-base font-medium text-mist-500 line-through">
+                <span className="text-base font-medium text-mist-400 line-through">
                   {siteConfig.currencySymbol}
                   {siteConfig.tiers.dg.originalPrice}
                 </span>
@@ -198,7 +198,7 @@ export default function Pricing() {
               </span>
               <h3 className="relative mt-5 text-lg font-bold text-white">Everything Bundle</h3>
               <div className="relative mt-3 flex items-end gap-2.5">
-                <span className="text-base font-medium text-mist-500 line-through">
+                <span className="text-base font-medium text-mist-400 line-through">
                   {siteConfig.currencySymbol}
                   {siteConfig.tiers.bundle.originalPrice}
                 </span>

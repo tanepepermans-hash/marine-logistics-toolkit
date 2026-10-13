@@ -84,7 +84,7 @@ export default async function DownloadPage({
                   device — inside the toolkit you&apos;ll also find a link you can copy.
                 </p>
               )}
-              <p className="mt-4 text-xs text-mist-500">
+              <p className="mt-4 text-xs text-mist-400">
                 Trouble accessing your order? Contact{" "}
                 <a className="underline" href={`mailto:${siteConfig.contactEmail}`}>
                   {siteConfig.contactEmail}
@@ -107,7 +107,7 @@ export default async function DownloadPage({
               >
                 Back to pricing
               </Link>
-              <p className="mt-4 text-xs text-mist-500">
+              <p className="mt-4 text-xs text-mist-400">
                 Already paid? Contact{" "}
                 <a className="underline" href={`mailto:${siteConfig.contactEmail}`}>
                   {siteConfig.contactEmail}

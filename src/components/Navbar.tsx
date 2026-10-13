@@ -1,17 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Anchor, Menu, X } from "lucide-react";
 import Container from "@/components/ui/Container";
 import CheckoutButton from "@/components/CheckoutButton";
 import { siteConfig } from "@/config/site";
 
 const navLinks = [
-  { label: "Product", href: "#product" },
-  { label: "What's Included", href: "#whats-included" },
-  { label: "DG Training", href: "#dg-training-academy" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Product", href: "/#product" },
+  { label: "What's Included", href: "/#whats-included" },
+  { label: "DG Training", href: "/#dg-training-academy" },
+  { label: "How It Works", href: "/#how-it-works" },
+  { label: "FAQ", href: "/#faq" },
   { label: "Calculator", href: "/tools/landed-cost" },
   { label: "Compare Quotes", href: "/tools/quote-comparison" },
 ];
@@ -45,7 +46,7 @@ export default function Navbar() {
       }`}
     >
       <Container className="flex items-center justify-between py-3.5">
-        <a href="#product" className="flex items-center gap-2.5">
+        <Link href="/" className="flex items-center gap-2.5">
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-ocean-400 to-ocean-600">
             <Anchor className="h-5 w-5 text-white" aria-hidden />
           </span>
@@ -53,7 +54,7 @@ export default function Navbar() {
             Marine Logistics
             <span className="block text-[11px] font-medium text-mist-400">Operator Toolkit</span>
           </span>
-        </a>
+        </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-5 xl:flex">
           {navLinks.map((link) => (

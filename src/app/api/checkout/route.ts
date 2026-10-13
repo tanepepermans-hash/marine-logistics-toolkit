@@ -50,7 +50,18 @@ export async function POST(request: Request) {
   // back to this deployment's own known URL.
   const requestOrigin = request.headers.get("origin");
   const allowedOrigins = new Set([siteConfig.url]);
-  if (process.env.VERCEL_URL) allowedOrigins.add(`https://${process.env.VERCEL_URL}`);
+  // Vercel's own hostnames for this deployment: the per-deployment URL, the
+  // branch alias, and the project's production domain (e.g.
+  // <project>.vercel.app, or a custom domain once one is attached). Without
+  // these, a buyer on the .vercel.app address would be sent back to
+  // siteConfig.url after paying — a domain that may not exist yet.
+  for (const host of [
+    process.env.VERCEL_URL,
+    process.env.VERCEL_BRANCH_URL,
+    process.env.VERCEL_PROJECT_PRODUCTION_URL,
+  ]) {
+    if (host) allowedOrigins.add(`https://${host}`);
+  }
   const origin = requestOrigin && allowedOrigins.has(requestOrigin) ? requestOrigin : siteConfig.url;
 
   const result = await createCheckoutUrl(tier, origin, idempotencyKey);

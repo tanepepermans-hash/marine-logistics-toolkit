@@ -101,7 +101,8 @@ export function buildLookup(values: Values): Map<string, string> {
   return map;
 }
 
-export const PLACEHOLDER = /\[([^\]\n]+)\]/g;
+// "[ ]" (a checkbox in some templates) is not a placeholder.
+export const PLACEHOLDER = /\[(?!\s*\])([^\]\n]+)\]/g;
 
 export function fillText(text: string, lookup: Map<string, string>): string {
   if (lookup.size === 0) return text;

@@ -19,7 +19,7 @@ export default function QuoteComparisonPage() {
       <Navbar />
       <main className="bg-navy-900 py-16 sm:py-20">
         <Container className="max-w-8xl">
-          <SectionBadge>Free tool</SectionBadge>
+          <SectionBadge tone="dark">Free tool</SectionBadge>
           <h1 className="mt-5 text-3xl font-bold text-white sm:text-4xl">
             Freight quote comparison
           </h1>

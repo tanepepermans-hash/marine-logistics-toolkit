@@ -30,8 +30,10 @@ export default function LeadMagnetForm() {
         throw new Error(data.error ?? "Something went wrong. Please try again.");
       }
 
+      // No automatic window.open here: after an await it isn't a direct
+      // click any more, so Safari and most mobile browsers block it. The
+      // success state shows a download button instead.
       setStatus("success");
-      window.open(CHECKLIST_URL, "_blank", "noopener");
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
@@ -40,15 +42,20 @@ export default function LeadMagnetForm() {
 
   if (status === "success") {
     return (
-      <div className="mt-5 flex items-center gap-2.5 rounded-lg bg-emerald-500/10 px-3.5 py-3 text-sm font-medium text-emerald-700">
-        <CheckCircle2 className="h-4 w-4 shrink-0" aria-hidden />
-        <span>
-          Sent! Your download should have opened in a new tab —{" "}
-          <a href={CHECKLIST_URL} target="_blank" rel="noopener" className="underline">
-            click here
-          </a>{" "}
-          if not.
-        </span>
+      <div className="mt-5 rounded-lg bg-emerald-500/10 px-3.5 py-3 text-sm text-emerald-800" role="status">
+        <p className="flex items-center gap-2.5 font-medium">
+          <CheckCircle2 className="h-4 w-4 shrink-0" aria-hidden />
+          Thanks — your checklist is ready.
+        </p>
+        <a
+          href={CHECKLIST_URL}
+          target="_blank"
+          rel="noopener"
+          download
+          className="mt-3 inline-flex items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-500"
+        >
+          Download the checklist (PDF)
+        </a>
       </div>
     );
   }
@@ -100,7 +107,7 @@ export default function LeadMagnetForm() {
           {error}
         </p>
       )}
-      <p className="mt-2 text-[11px] text-mist-400">
+      <p className="mt-2 text-[11px] text-mist-500">
         One checklist, no spam. Unsubscribe anytime.
       </p>
     </form>

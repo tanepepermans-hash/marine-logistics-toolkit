@@ -156,6 +156,7 @@ export default function QuoteComparisonTool() {
                   </td>
                   <td className="px-3 py-2">
                     <select
+                      aria-label={`Transport mode${quote.carrier ? ` for ${quote.carrier}` : ""}`}
                       value={quote.mode}
                       onChange={(e) => updateQuote(quote.id, "mode", e.target.value)}
                       className="rounded-md border border-white/10 bg-navy-950 px-2 py-1.5 text-white focus:border-ocean-400 focus:outline-none"

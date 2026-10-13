@@ -60,7 +60,7 @@ export default function DgTraining() {
                 Or get it in the Everything Bundle
               </a>
             </div>
-            <p className="mt-3 text-xs leading-relaxed text-mist-500">
+            <p className="mt-3 text-xs leading-relaxed text-mist-400">
               An educational study aid — not a substitute for official IATA DGR, ADR or IMDG Code
               certification.
             </p>
@@ -71,7 +71,7 @@ export default function DgTraining() {
               <div className="mb-5 flex items-center justify-between border-b border-white/10 pb-4">
                 <div>
                   <p className="text-sm font-bold text-white">DG Training Academy</p>
-                  <p className="text-xs text-mist-500">Visual Recognition mode</p>
+                  <p className="text-xs text-mist-400">Visual Recognition mode</p>
                 </div>
                 <span className="flex items-center gap-1.5 rounded-full bg-amber-400/10 px-2.5 py-1 text-[10px] font-bold text-amber-300">
                   <Zap className="h-3 w-3" aria-hidden fill="currentColor" />

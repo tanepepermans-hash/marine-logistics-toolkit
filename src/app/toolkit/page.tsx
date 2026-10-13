@@ -88,7 +88,7 @@ function NoAccess({ reason }: { reason: string }) {
           <Mail className="h-4 w-4" aria-hidden />
           Lost your link? Email support
         </a>
-        <Link href="/" className="mt-4 inline-block text-xs text-mist-500 underline">
+        <Link href="/" className="mt-4 inline-block text-xs text-mist-400 underline">
           Back to the website
         </Link>
       </div>

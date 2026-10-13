@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { tierHasToolkitFile, type TierId } from "@/config/site";
 import { verifyPurchase } from "@/lib/payments";
+import { getToolkitAccess } from "@/lib/toolkitAccess";
 import { watermarkPdf, watermarkZipPdf } from "@/lib/watermark";
 
 // ---------------------------------------------------------------------------
@@ -40,7 +41,12 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const sessionId = searchParams.get("session_id") ?? "";
 
-  const result = await verifyPurchase(sessionId);
+  // The 30-day link expiry doesn't apply when the request comes from the
+  // buyer's own registered toolkit browser — the download button inside
+  // the online toolkit keeps working after the link itself has gone stale.
+  const toolkit = await getToolkitAccess();
+  const fromToolkit = toolkit.ok && toolkit.key === sessionId;
+  const result = await verifyPurchase(sessionId, { allowExpired: fromToolkit });
   if (!result.ok) {
     return NextResponse.json({ error: result.reason }, { status: 403 });
   }

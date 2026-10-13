@@ -81,7 +81,7 @@ export default function ScenarioExample() {
                       animate={
                         revealed || i < 2
                           ? { opacity: 1, x: 0 }
-                          : { opacity: 0.35, x: 0 }
+                          : { opacity: 0.7, x: 0 }
                       }
                       transition={{ duration: 0.35, delay: revealed ? i * 0.08 : 0 }}
                       className="flex items-start gap-3 rounded-xl bg-navy-900/[0.03] px-4 py-3"

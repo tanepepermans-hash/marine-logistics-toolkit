@@ -56,7 +56,7 @@ export default function CoursePathPage() {
                   ? "border-hazard-green/30 bg-hazard-green/5"
                   : unlocked
                     ? "border-white/10 bg-navy-800/70"
-                    : "border-white/5 bg-navy-800/30 opacity-60"
+                    : "border-white/5 bg-navy-800/30 opacity-90"
               }`}
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -109,7 +109,7 @@ export default function CoursePathPage() {
                       {done ? "Practice Again" : "Start Module"} <Sparkles size={15} />
                     </Link>
                   ) : (
-                    <div className="flex items-center justify-center gap-2 rounded-full border border-white/10 px-4 py-2.5 text-xs font-medium text-mist-500">
+                    <div className="flex items-center justify-center gap-2 rounded-full border border-white/10 px-4 py-2.5 text-xs font-medium text-mist-400">
                       <Lock size={13} /> Finish Module {module.order - 1} first
                     </div>
                   )}
@@ -121,7 +121,7 @@ export default function CoursePathPage() {
 
         <div
           className={`rounded-2xl border p-5 sm:p-6 ${
-            certified ? "border-hazard-green/30 bg-hazard-green/5" : allModulesDone ? "border-hazard-amber/30 bg-hazard-amber/5" : "border-white/5 bg-navy-800/30 opacity-60"
+            certified ? "border-hazard-green/30 bg-hazard-green/5" : allModulesDone ? "border-hazard-amber/30 bg-hazard-amber/5" : "border-white/5 bg-navy-800/30 opacity-90"
           }`}
         >
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -161,7 +161,7 @@ export default function CoursePathPage() {
                   <ClipboardList size={15} /> Take the Exam
                 </Link>
               ) : (
-                <div className="flex items-center justify-center gap-2 rounded-full border border-white/10 px-4 py-2.5 text-xs font-medium text-mist-500">
+                <div className="flex items-center justify-center gap-2 rounded-full border border-white/10 px-4 py-2.5 text-xs font-medium text-mist-400">
                   <Lock size={13} /> Finish every module first
                 </div>
               )}

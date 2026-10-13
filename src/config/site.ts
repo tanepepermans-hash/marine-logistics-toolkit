@@ -22,7 +22,15 @@ export const siteConfig = {
   contactEmail: "tane.pepermans@gmail.com",
 
   // Canonical production URL, used for metadata / Open Graph / sitemap.
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://marinelogisticstoolkit.com",
+  // Until NEXT_PUBLIC_SITE_URL is set (do that once the real domain is
+  // live), fall back to the project's Vercel production address — Vercel
+  // exposes it as NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL — rather than a
+  // domain that isn't registered yet.
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
+      : "https://marinelogisticstoolkit.com"),
 
   // ---------------------------------------------------------------------
   // PRICING TIERS

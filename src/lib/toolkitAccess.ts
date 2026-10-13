@@ -165,9 +165,12 @@ export const getToolkitAccess = cache(async (): Promise<ToolkitAccess> => {
   const { paid } = v;
   if (!paid.record) return granted(key, paid);
 
-  // Only enforced once at least one device is recorded, so a browser that
-  // got in during a Stripe hiccup isn't locked out.
+  // The browser must be one registered through the personal link. (A
+  // cookie set by hand for an order whose link was never opened would
+  // otherwise skip the device limit and the 30-day window.) If a claim got
+  // in without being recorded — Stripe unreachable at that moment — the
+  // buyer is simply asked to open their link again, which registers it.
   const devices = parseDevices(paid.record);
-  if (devices.length > 0 && !devices.some((d) => d.id === deviceId)) return { ok: false, reason: "device" };
+  if (!devices.some((d) => d.id === deviceId)) return { ok: false, reason: "device" };
   return granted(key, paid);
 });
