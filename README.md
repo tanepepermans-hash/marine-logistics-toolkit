@@ -324,3 +324,17 @@ the checklist itself, edit `BONUS_CHECKLIST` in
     an **editable Word doc** with all 35 templates, and an **editable Excel
     shipment tracker**.
   - Regenerate or edit any of it any time via `scripts/toolkit-content/`.
+
+## Online toolkit (/toolkit)
+
+Buyers of Standard, Premium or the Bundle get an online version of the toolkit
+in addition to the downloadable files. Their personal link is
+`/toolkit/access?key=<order id>` (shown on the /download page and inside the
+toolkit); it verifies the order and stores the key in an httpOnly cookie.
+A link grants access to a new browser for 30 days after purchase; a browser
+that already has the cookie keeps access for a year.
+
+The content comes from `scripts/toolkit-content/build_pdf.py`. After editing
+it, regenerate the online version with:
+
+    python3 scripts/toolkit-content/export_json.py
