@@ -54,10 +54,15 @@ export default function TermsPage() {
         for what happens if something goes wrong anyway.
       </p>
       <p>
-        <strong>License.</strong> Your purchase grants you a personal, non-transferable license to
-        use the toolkit for your own work. Redistribution, resale, or sharing the files or your
-        account access with others is not permitted. Team licensing is available on request —
-        contact us using the details below.
+        <strong>License.</strong> Each purchase grants one named person (the buyer) a personal,
+        non-transferable license to use the toolkit for their own work. The online toolkit may be
+        opened on up to three devices belonging to that person; your personal access link is part
+        of your license and must not be shared. Files you download are marked with your order
+        details. Redistribution, resale, publishing, or sharing the files, their contents or your
+        access link with others — including colleagues within your company — is not permitted.
+        If we detect or are informed of such use, we may suspend access for the order concerned.
+        Teams and companies can buy a team license on request — contact us using the details
+        below.
       </p>
       <p>
         <strong>Price and payment.</strong> All prices are shown in EUR and, where applicable,

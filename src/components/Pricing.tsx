@@ -238,6 +238,12 @@ export default function Pricing() {
             <Lock className="h-3.5 w-3.5" aria-hidden />
             Secure checkout via Stripe
           </p>
+          <p className="mt-2 text-xs text-navy-500">
+            Single-user licence · use on up to 3 of your own devices ·{" "}
+            <a className="font-semibold text-ocean-700 underline" href={`mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent("Team licence")}`}>
+              team licences on request
+            </a>
+          </p>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2.5">
             {paymentMethods.map((method) => (
               <span

@@ -6,9 +6,27 @@ import { cleanEnv } from "@/lib/env";
 // route (via src/lib/payments.ts) so a buyer can only reach the toolkit file
 // after a real, paid order. STRIPE_SECRET_KEY never leaves the server.
 
+// Where per-order access state lives (registered toolkit devices, a manual
+// block). For Stripe it is the order's PaymentIntent metadata — editable by
+// hand in the Stripe Dashboard (Payments → the payment → Metadata), so no
+// separate database is needed. Lemon Squeezy orders have no such record.
+export type OrderRecord = { paymentIntentId: string; metadata: Record<string, string> };
+
 export type VerifyResult =
-  | { ok: true; customerEmail: string | null; tier: TierId }
+  | {
+      ok: true;
+      customerEmail: string | null;
+      tier: TierId;
+      purchasedAt: number; // ms since epoch
+      record: OrderRecord | null;
+    }
   | { ok: false; reason: string };
+
+// Set this metadata key to "true" on an order's payment in the Stripe
+// Dashboard to cut off its downloads, DG unlock and online toolkit access.
+export const BLOCKED_KEY = "toolkit_blocked";
+export const SUSPENDED_REASON =
+  "Access for this order has been suspended. If you think this is a mistake, please contact support.";
 
 export type CreateCheckoutResult = { url: string } | { error: string; status: number };
 
@@ -34,7 +52,7 @@ export async function verifyCheckoutSession(
 
   try {
     const res = await fetch(
-      `https://api.stripe.com/v1/checkout/sessions/${encodeURIComponent(sessionId)}?expand[]=line_items`,
+      `https://api.stripe.com/v1/checkout/sessions/${encodeURIComponent(sessionId)}?expand[]=line_items&expand[]=payment_intent`,
       {
         headers: { Authorization: `Bearer ${secretKey}` },
         cache: "no-store",
@@ -63,10 +81,21 @@ export async function verifyCheckoutSession(
       };
     }
 
+    const pi = session.payment_intent;
+    const record: OrderRecord | null =
+      pi && typeof pi === "object" && pi.id
+        ? { paymentIntentId: pi.id, metadata: (pi.metadata ?? {}) as Record<string, string> }
+        : null;
+    if (record?.metadata[BLOCKED_KEY] === "true") {
+      return { ok: false, reason: SUSPENDED_REASON };
+    }
+
     return {
       ok: true,
       customerEmail: session.customer_details?.email ?? null,
       tier: resolveTier(session),
+      purchasedAt: session.created * 1000,
+      record,
     };
   } catch {
     return { ok: false, reason: "Could not reach Stripe to verify this order. Please try again." };
@@ -177,4 +206,24 @@ function resolveTier(session: {
     if (purchasedPriceId && purchasedPriceId === priceIdByTier[tier]) return tier;
   }
   return "standard";
+}
+
+// Merges keys into an order's PaymentIntent metadata (an empty string
+// deletes a key). Returns false if Stripe couldn't be reached.
+export async function updateOrderMetadata(paymentIntentId: string, patch: Record<string, string>) {
+  const secretKey = cleanEnv("STRIPE_SECRET_KEY");
+  if (!secretKey) return false;
+  const body = new URLSearchParams();
+  for (const [k, v] of Object.entries(patch)) body.set(`metadata[${k}]`, v);
+  try {
+    const res = await fetch(`https://api.stripe.com/v1/payment_intents/${encodeURIComponent(paymentIntentId)}`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${secretKey}`, "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+      cache: "no-store",
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
 }

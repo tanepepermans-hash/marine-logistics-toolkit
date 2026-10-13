@@ -106,6 +106,19 @@ function WithPlaceholders({ text }: { text: string }) {
   );
 }
 
+// A faint, repeating "licensed to <email>" pattern laid over the toolkit, so
+// any screenshot or photo of it carries the buyer's own name. It sits above
+// the content with pointer-events off, so it never blocks clicks or
+// selection, and it's light enough not to get in the way of reading.
+function watermarkUrl(label: string) {
+  const esc = label.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  // Tile sized to the text so long email addresses aren't clipped.
+  const w = Math.max(420, Math.round(label.length * 9.5) + 200);
+  const h = Math.round(w * 0.6);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><text x="${w / 2}" y="${h / 2}" text-anchor="middle" dominant-baseline="middle" transform="rotate(-24 ${w / 2} ${h / 2})" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#11253f" fill-opacity="0.085">${esc}</text></svg>`;
+  return `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
+}
+
 function matches(q: string, ...fields: string[]) {
   return fields.some((f) => f.toLowerCase().includes(q));
 }
@@ -379,8 +392,18 @@ export default function ToolkitApp({
 
   const isPremiumChecklist = (c: Checklist) => c.name === content.premiumChecklistName;
 
+  const watermark = useMemo(
+    () => watermarkUrl(email ? `Licensed to ${email}` : "Licensed copy — personal use only"),
+    [email],
+  );
+
   return (
     <div className="min-h-screen bg-mist-50">
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-20 select-none print:fixed"
+        style={{ backgroundImage: watermark, backgroundRepeat: "repeat" }}
+      />
       {/* Top bar */}
       <header className="sticky top-0 z-30 border-b border-white/10 bg-navy-900">
         <div className="mx-auto flex max-w-8xl items-center gap-4 px-4 py-3 sm:px-6">
@@ -508,9 +531,10 @@ export default function ToolkitApp({
                   <div className="min-w-0 flex-1">
                     <h3 className="font-semibold text-navy-900">Bookmark your personal access link</h3>
                     <p className="mt-1 text-sm text-navy-600">
-                      Use this link to open your toolkit on your other devices within 30 days of purchase — after
-                      that, this browser stays signed in and support can send you a fresh link. It&apos;s tied to
-                      your order, so please keep it to yourself.
+                      Your licence covers up to 3 of your own devices (for example work PC, laptop and phone).
+                      Open this link once on each of them within 30 days of purchase — they then stay signed in.
+                      The link is tied to your order: once 3 devices are registered, it won&apos;t open anywhere
+                      else. For colleagues, ask about a team licence.
                     </p>
                     <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center">
                       <code className="min-w-0 flex-1 truncate rounded-lg bg-mist-50 px-3 py-2 text-xs text-navy-700">
@@ -678,8 +702,9 @@ export default function ToolkitApp({
           )}
 
           <footer className="border-t border-navy-900/10 pt-6 text-xs leading-relaxed text-navy-400">
-            {email ? <>Licensed to {email} for personal use. </> : <>Licensed for personal use. </>}
-            Please don&apos;t share your access link or redistribute the content. Questions?{" "}
+            {email ? <>Licensed to {email} — single-user licence, up to 3 devices. </> : <>Single-user licence, up to 3 devices. </>}
+            Sharing your access link or redistributing the content isn&apos;t permitted and can lead to access being
+            suspended. Team licences are available on request. Questions?{" "}
             <a className="underline" href={`mailto:${supportEmail}`}>
               {supportEmail}
             </a>

@@ -43,8 +43,13 @@ const faqs = [
     answer: "No. It is a one-time purchase.",
   },
   {
+    question: "Can I share it with colleagues?",
+    answer:
+      "Each purchase is a licence for one person, usable on up to 3 of your own devices — work PC, laptop and phone, for example. Your access link and downloads are personal and marked with your order details, so please don't forward them. For colleagues, a team licence is the way to go.",
+  },
+  {
     question: "Can companies purchase it for their teams?",
-    answer: `Yes. Team licensing can be requested separately — contact ${siteConfig.contactEmail}.`,
+    answer: `Yes. Team licences give everyone on your team their own access, at a lower price per person than individual purchases — contact ${siteConfig.contactEmail} with the number of people.`,
   },
 ];
 

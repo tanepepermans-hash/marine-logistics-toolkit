@@ -6,7 +6,7 @@ import raw from "@/content/toolkit-content.json";
 import type { RawToolkitContent, ToolkitContent } from "@/content/types";
 import ToolkitApp from "@/components/toolkit/ToolkitApp";
 import { siteConfig } from "@/config/site";
-import { getToolkitAccess } from "@/lib/toolkitAccess";
+import { MAX_DEVICES, getToolkitAccess } from "@/lib/toolkitAccess";
 
 export const metadata: Metadata = {
   title: `Your Toolkit | ${siteConfig.name}`,
@@ -37,7 +37,7 @@ export default async function ToolkitPage({
 
   if (!access.ok) {
     const { error } = await searchParams;
-    return <NoAccess error={error} />;
+    return <NoAccess reason={error ?? access.reason} />;
   }
 
   const h = await headers();
@@ -58,13 +58,20 @@ export default async function ToolkitPage({
   );
 }
 
-function NoAccess({ error }: { error?: string }) {
+const MESSAGES: Record<string, string> = {
+  rate: "Too many attempts from this connection. Please wait a few minutes and try your link again.",
+  invalid: "We couldn't confirm the order behind this link. Check that you used the full link from your order page.",
+  "not-toolkit": "This order is for the DG Training Academy only — it doesn't include the operator toolkit.",
+  suspended: "Access for this order has been suspended. If you think this is a mistake, please contact support.",
+  devices: `This toolkit licence is already in use on ${MAX_DEVICES} devices — the maximum for one person. If you got a new device, contact support and we'll reset it for you. For colleagues, ask us about a team licence.`,
+  expired: "This access link can no longer be used on a new device (it's valid for 30 days after purchase). Contact support with your order email and we'll help you out.",
+  device: "This browser isn't registered for this toolkit licence. Open your personal access link again on this device.",
+};
+
+function NoAccess({ reason }: { reason: string }) {
   const message =
-    error === "rate"
-      ? "Too many attempts from this connection. Please wait a few minutes and try your link again."
-      : error === "invalid"
-        ? "We couldn't confirm the order behind this link. Check that you used the full link from your order page."
-        : "Open the toolkit with the personal link from your order confirmation page — it unlocks the toolkit in this browser.";
+    MESSAGES[reason] ??
+    "Open the toolkit with the personal link from your order confirmation page — it unlocks the toolkit in this browser.";
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-navy-900 px-6 py-20">

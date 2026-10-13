@@ -1,11 +1,18 @@
 import { NextResponse } from "next/server";
 import { clientIp, isRateLimited } from "@/lib/rateLimit";
-import { TOOLKIT_COOKIE, TOOLKIT_COOKIE_MAX_AGE, checkToolkitKey } from "@/lib/toolkitAccess";
+import {
+  COOKIE_MAX_AGE,
+  DEVICE_COOKIE,
+  TOOLKIT_COOKIE,
+  claimToolkit,
+  isPlausibleDeviceId,
+  newDeviceId,
+} from "@/lib/toolkitAccess";
 
 // The buyer's personal link: /toolkit/access?key=<order id>.
-// Verifies the order, remembers it in an httpOnly cookie, and sends the
-// buyer on to the toolkit itself — so the key doesn't linger in the address
-// bar of the page they're actually reading.
+// Verifies the order, registers this browser against the order's device
+// limit, remembers both in httpOnly cookies, and sends the buyer on to the
+// toolkit — so the key doesn't linger in the address bar.
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const key = url.searchParams.get("key") ?? "";
@@ -14,19 +21,30 @@ export async function GET(request: Request) {
     return NextResponse.redirect(new URL("/toolkit?error=rate", url), 303);
   }
 
-  const access = await checkToolkitKey(key);
-  if (!access.ok) {
-    return NextResponse.redirect(new URL("/toolkit?error=invalid", url), 303);
-  }
+  const cookieHeader = request.headers.get("cookie") ?? "";
+  const existing = /(?:^|;\s*)toolkit_device=([^;]+)/.exec(cookieHeader)?.[1] ?? "";
+  const deviceId = isPlausibleDeviceId(existing) ? existing : newDeviceId();
+  // Vercel sets this from the visitor's IP; "??" locally or elsewhere.
+  const country = (request.headers.get("x-vercel-ip-country") ?? "??").replace(/[^A-Z?]/g, "").slice(0, 2) || "??";
 
-  const response = NextResponse.redirect(new URL("/toolkit", url), 303);
-  response.cookies.set(TOOLKIT_COOKIE, key, {
+  const access = await claimToolkit(key, deviceId, country);
+
+  const cookieOpts = {
     httpOnly: true,
     secure: url.protocol === "https:",
-    sameSite: "lax",
+    sameSite: "lax" as const,
     path: "/",
-    maxAge: TOOLKIT_COOKIE_MAX_AGE,
-  });
+    maxAge: COOKIE_MAX_AGE,
+  };
+
+  const response = NextResponse.redirect(
+    new URL(access.ok ? "/toolkit" : `/toolkit?error=${access.reason}`, url),
+    303,
+  );
+  // Keep the device id even on refusal, so retrying from the same browser
+  // doesn't count as yet another new device.
+  response.cookies.set(DEVICE_COOKIE, deviceId, cookieOpts);
+  if (access.ok) response.cookies.set(TOOLKIT_COOKIE, key, cookieOpts);
   response.headers.set("Cache-Control", "no-store");
   return response;
 }

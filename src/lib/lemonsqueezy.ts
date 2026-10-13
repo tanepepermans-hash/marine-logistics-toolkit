@@ -127,6 +127,8 @@ export async function verifyLemonSqueezyOrder(
       ok: true,
       customerEmail: attrs.user_email ?? null,
       tier: resolveTier(attrs),
+      purchasedAt: new Date(attrs.created_at).getTime(),
+      record: null,
     };
   } catch {
     return { ok: false, reason: "Could not reach Lemon Squeezy to verify this order. Please try again." };
