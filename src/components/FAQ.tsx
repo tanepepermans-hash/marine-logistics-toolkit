@@ -21,7 +21,7 @@ const faqs = [
   {
     question: "What format will I receive, and how do I access it?",
     answer:
-      "Standard is a single PDF; Premium adds an editable Word doc and Excel tracker in a .zip. You get instant access after payment on your download page — no account or app install needed, and it works on any device.",
+      "Right after payment you get a personal link to your online toolkit — searchable templates with one-click copy, tickable checklists, workflows and reference tables, on any device. No account or app install needed. You can also download a PDF version, and Premium adds an editable Word doc and Excel tracker.",
   },
   {
     question: "Does this replace dangerous goods training?",

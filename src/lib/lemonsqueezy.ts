@@ -83,7 +83,10 @@ export async function createLemonSqueezyCheckoutUrl(tier: TierId, origin: string
   }
 }
 
-export async function verifyLemonSqueezyOrder(orderId: string): Promise<VerifyResult> {
+export async function verifyLemonSqueezyOrder(
+  orderId: string,
+  opts: { allowExpired?: boolean } = {},
+): Promise<VerifyResult> {
   const apiKey = process.env.LEMONSQUEEZY_API_KEY;
 
   if (!apiKey) {
@@ -112,7 +115,7 @@ export async function verifyLemonSqueezyOrder(orderId: string): Promise<VerifyRe
 
     const ageMs = Date.now() - new Date(attrs.created_at).getTime();
     const expiryMs = LINK_EXPIRY_DAYS * 24 * 60 * 60 * 1000;
-    if (ageMs > expiryMs) {
+    if (!opts.allowExpired && ageMs > expiryMs) {
       return {
         ok: false,
         reason:

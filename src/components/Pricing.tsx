@@ -6,7 +6,8 @@ import CheckoutButton from "@/components/CheckoutButton";
 import { siteConfig } from "@/config/site";
 
 const standardIncludes = [
-  "Marine Logistics Operator Toolkit (PDF)",
+  "Online toolkit — searchable, one-click copy",
+  "PDF version to download",
   "Quick-Start Guide for your first month",
   "49 professional email templates",
   "19 operational checklists",

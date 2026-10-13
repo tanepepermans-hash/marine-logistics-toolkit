@@ -19,7 +19,10 @@ export type CreateCheckoutResult = { url: string } | { error: string; status: nu
 // stops the *link itself* from granting fresh access after it's gone stale.
 const LINK_EXPIRY_DAYS = 30;
 
-export async function verifyCheckoutSession(sessionId: string): Promise<VerifyResult> {
+export async function verifyCheckoutSession(
+  sessionId: string,
+  opts: { allowExpired?: boolean } = {},
+): Promise<VerifyResult> {
   const secretKey = cleanEnv("STRIPE_SECRET_KEY");
 
   if (!secretKey) {
@@ -52,7 +55,7 @@ export async function verifyCheckoutSession(sessionId: string): Promise<VerifyRe
     // Checkout Session, no `expand` needed.
     const ageMs = Date.now() - session.created * 1000;
     const expiryMs = LINK_EXPIRY_DAYS * 24 * 60 * 60 * 1000;
-    if (ageMs > expiryMs) {
+    if (!opts.allowExpired && ageMs > expiryMs) {
       return {
         ok: false,
         reason:

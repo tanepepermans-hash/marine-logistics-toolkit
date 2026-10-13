@@ -1,0 +1,1632 @@
+{
+ "quickStart": [
+  {
+   "phase": "Day 1 — Get Set Up",
+   "steps": [
+    "Get access to the booking/TMS system, carrier portals and shared inboxes",
+    "Save this toolkit and bookmark the Email Templates and Checklists sections",
+    "Learn who to go to for DG questions, customs issues and customer complaints",
+    "Work through the New Operator First-Week Checklist in Section 3"
+   ]
+  },
+  {
+   "phase": "Week 1 — Handle Real Shipments",
+   "steps": [
+    "Use the Pickup Request and Pre-Alert templates on your first live shipments",
+    "Run the Cargo Readiness Checklist before confirming any booking",
+    "Ask a colleague to review your first few customer-facing emails before sending",
+    "Try the Missing-Information Checklist AI prompt on a shipment with incomplete details"
+   ]
+  },
+  {
+   "phase": "Weeks 2–4 — Handle the Harder Cases",
+   "steps": [
+    "Use the Shipment Problem Workflows the first time something goes wrong",
+    "Send your first Delay Notification or Weather Delay email using a template as a base",
+    "Start using the Shift Handover Checklist at the end of each working day",
+    "If you have DG Training Academy access, start the Course Path alongside your day-to-day work"
+   ]
+  }
+ ],
+ "emailCategories": [
+  {
+   "name": "Pickup Requests",
+   "templates": [
+    {
+     "title": "Standard Pickup Request",
+     "subject": "Pickup Request – [Shipper Name] – Ref [Shipment Ref]",
+     "body": "Hi [Contact Name],\n\nCould you please arrange pickup for the shipment below?\n\nShipper: [Shipper Name]\nPickup address: [Full Pickup Address]\nDelivery address: [Full Delivery Address]\nReady date: [Date]\nPieces / Weight / Dimensions: [Pieces] / [Weight] kg / [L x W x H cm]\nReference: [Shipment Ref]\n\nPlease confirm the pickup date and driver ETA once scheduled.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Urgent Same-Day Pickup Request",
+     "subject": "URGENT – Same-Day Pickup Needed – Ref [Shipment Ref]",
+     "body": "Hi [Contact Name],\n\nWe need a same-day pickup for the shipment below — please treat as priority.\n\nShipper: [Shipper Name]\nPickup address: [Full Pickup Address]\nDelivery address: [Full Delivery Address]\nCargo ready from: [Time]\nLatest pickup time: [Time] (vessel/flight cut-off is [Cut-off Time])\nPieces / Weight: [Pieces] / [Weight] kg\nReference: [Shipment Ref]\n\nPlease confirm you can accommodate this within the next [X] hours, and share the driver's name and ETA once assigned.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Pickup Request – Appointment / Restricted Access",
+     "subject": "Pickup Request (Appointment Required) – Ref [Shipment Ref]",
+     "body": "Hi [Contact Name],\n\nThis pickup location requires a booked appointment slot. Details below:\n\nShipper: [Shipper Name]\nPickup address: [Full Pickup Address]\nDelivery address: [Full Delivery Address]\nSite contact: [Name / Phone]\nAccess notes: [Loading dock / forklift required / ID needed, etc.]\nRequested window: [Date, time window]\nReference: [Shipment Ref]\n\nPlease book the appointment directly with the site contact and confirm the slot back to me once arranged.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Pickup Confirmation to Customer",
+     "subject": "Pickup Confirmed – Ref [Shipment Ref]",
+     "body": "Hi [Customer Name],\n\nConfirming pickup has been scheduled for your shipment:\n\nReference: [Shipment Ref]\nPickup date: [Date]\nCarrier / Driver: [Name]\n\nWe'll update you as soon as the cargo is collected and in transit.\n\nBest regards,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "POD Requests",
+   "templates": [
+    {
+     "title": "POD Request – Standard",
+     "subject": "POD Request – Ref [Shipment Ref]",
+     "body": "Hi [Contact Name],\n\nCould you send over the Proof of Delivery for the shipment below?\n\nReference: [Shipment Ref]\nDelivered to: [Consignee]\nDelivery date (expected): [Date]\n\nSigned POD or delivery confirmation is fine — whichever you have on file.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "POD Request – Urgent Follow-Up",
+     "subject": "URGENT – Still Awaiting POD – Ref [Shipment Ref]",
+     "body": "Hi [Contact Name],\n\nFollowing up — we still haven't received the POD for reference [Shipment Ref], delivered on [Date]. Our customer is chasing us for confirmation.\n\nCould you send it across today, or let me know if there's a delay on your side?\n\nThanks,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "Pre-Alerts",
+   "templates": [
+    {
+     "title": "Pre-Alert to Consignee",
+     "subject": "Pre-Alert – Shipment [Shipment Ref] Incoming",
+     "body": "Hi [Consignee Contact],\n\nPlease find pre-alert details for an incoming shipment:\n\nReference: [Shipment Ref]\nVessel / Flight: [Name / Number]\nETD: [Date] — ETA: [Date]\nPieces / Weight: [Pieces] / [Weight] kg\nDocuments attached: [Invoice / Packing List / B/L / AWB]\n\nPlease confirm receipt and let us know if any documentation is missing on your end for customs clearance.\n\nBest regards,\n[Your Name]"
+    },
+    {
+     "title": "Pre-Alert to Destination Agent",
+     "subject": "Pre-Alert – Inbound Shipment [Shipment Ref]",
+     "body": "Hi [Agent Contact],\n\nPre-alerting the following shipment for your handling:\n\nReference: [Shipment Ref]\nVessel / Flight: [Name / Number] — ETA [Date]\nConsignee: [Consignee Name]\nCargo: [Pieces] / [Weight] kg / [Commodity]\nDG status: [Non-DG / DG — see attached DG docs]\n\nDocuments attached. Please confirm you're set to handle clearance and onward delivery, and share your local contact for the consignee.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Pre-Alert – Missing Info Follow-Up (Internal)",
+     "subject": "Missing Info for Pre-Alert – Ref [Shipment Ref]",
+     "body": "Hi [Colleague / Booking Team],\n\nI need the following before I can send the pre-alert for [Shipment Ref]:\n\n- [ ] Final vessel/flight and ETD/ETA\n- [ ] Confirmed pieces / weight / dimensions\n- [ ] Commercial invoice and packing list\n- [ ] DG status confirmation\n\nPlease send when available — pre-alert is due to go out by [Time/Date].\n\nThanks,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "Vessel Delivery Instructions",
+   "templates": [
+    {
+     "title": "Onboard Delivery Instructions to Trucker",
+     "subject": "Delivery Instructions – Vessel [Vessel Name] – Ref [Shipment Ref]",
+     "body": "Hi [Driver / Trucking Company],\n\nPlease find delivery instructions for the vessel delivery below:\n\nVessel: [Vessel Name] — Berth: [Berth/Terminal]\nDelivery cut-off: [Date / Time]\nDelivery address: [Terminal gate / address]\nReference / Booking number: [Booking Ref]\nContact on-site: [Agent Name / Phone]\n\nPlease confirm receipt of these instructions and share the delivery time once arranged.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Delivery Instructions with Hard Cut-Off Warning",
+     "subject": "TIME-CRITICAL – Delivery Cut-Off [Time] – Ref [Shipment Ref]",
+     "body": "Hi [Driver / Trucking Company],\n\nThis delivery has a hard cut-off — please read carefully.\n\nVessel: [Vessel Name]\nAbsolute cut-off: [Date / Time] — cargo NOT accepted after this time\nDelivery address: [Terminal gate / address]\nReference: [Shipment Ref]\n\nPlease confirm you can make this cut-off. If not achievable, notify me immediately so we can activate a backup plan.\n\nThanks,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "Warehouse Releases",
+   "templates": [
+    {
+     "title": "Warehouse Release Request",
+     "subject": "Release Request – Ref [Shipment Ref]",
+     "body": "Hi [Warehouse Contact],\n\nPlease release the following cargo for collection:\n\nReference: [Shipment Ref]\nCargo: [Pieces] / [Weight] kg / [Description]\nCollecting carrier: [Carrier Name]\nCollection window: [Date / Time]\n\nRelease note / authorization attached. Please confirm the cargo is ready for collection.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Release Follow-Up – Missing Release Note",
+     "subject": "Follow-Up – Release Note Needed – Ref [Shipment Ref]",
+     "body": "Hi [Warehouse Contact],\n\nOur driver is scheduled to collect [Shipment Ref] but the warehouse is requesting a release note we haven't yet issued on our side.\n\nCould you confirm exactly what's required (release note / ID / reference number) so I can send it across immediately and avoid delaying the driver?\n\nThanks,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "Dimensions Requests",
+   "templates": [
+    {
+     "title": "Dimensions & Weight Request to Shipper",
+     "subject": "Dimensions & Weight Needed – Ref [Shipment Ref]",
+     "body": "Hi [Shipper Contact],\n\nTo finalize the booking for [Shipment Ref], could you confirm:\n\n- Number of pieces:\n- Weight per piece (kg):\n- Dimensions per piece (L x W x H, cm):\n- Stackable? (Y/N):\n\nThis is needed to confirm space and pricing — happy to proceed as soon as we have these details.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Missing Dimensions – Booking Blocked",
+     "subject": "URGENT – Booking On Hold, Dimensions Needed – Ref [Shipment Ref]",
+     "body": "Hi [Shipper Contact],\n\nWe can't confirm the booking for [Shipment Ref] without final dimensions and weight — the carrier requires this before accepting space.\n\nCould you send these over today? Booking cut-off is [Date / Time], after which we may lose the allocated space.\n\nThanks,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "Missing Shipment Follow-Ups",
+   "templates": [
+    {
+     "title": "Shipment Not Arrived – Internal Check",
+     "subject": "Checking Status – [Shipment Ref] Not Yet Arrived",
+     "body": "Hi [Colleague],\n\n[Shipment Ref] was expected at [Location] by [Date/Time] and hasn't shown up on our tracking. Can you check with [Carrier/Warehouse] and confirm current status?\n\nPlease let me know as soon as you hear back — customer is asking.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Shipment Not Arrived – External Follow-Up to Trucker",
+     "subject": "Status Check – [Shipment Ref] Expected [Date]",
+     "body": "Hi [Trucking Company],\n\n[Shipment Ref] was due for delivery/pickup at [Location] on [Date] and we haven't had confirmation yet. Could you provide a status update and, if delayed, a revised ETA?\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Missing Shipment – Escalation to Customer",
+     "subject": "Update Needed – [Shipment Ref] Status",
+     "body": "Hi [Customer Name],\n\nWe're currently confirming the exact status of [Shipment Ref] with our carrier following an unexpected delay in tracking updates. We'll follow up with a firm status within [timeframe] and apologize for the uncertainty in the meantime.\n\nBest regards,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "Delay Notifications",
+   "templates": [
+    {
+     "title": "Delay Notification to Customer",
+     "subject": "Delay Notice – [Shipment Ref]",
+     "body": "Hi [Customer Name],\n\nWe want to flag a delay affecting your shipment:\n\nReference: [Shipment Ref]\nOriginal ETA: [Date]\nRevised ETA: [Date]\nReason: [Vessel delay / customs hold / carrier issue, etc.]\n\nWe're actively monitoring this and will update you as soon as we have further movement. Apologies for the inconvenience.\n\nBest regards,\n[Your Name]"
+    },
+    {
+     "title": "Delay Notification – New ETA with Alternative Offered",
+     "subject": "Delay Update + Alternative Option – [Shipment Ref]",
+     "body": "Hi [Customer Name],\n\nFollowing the delay on [Shipment Ref] (revised ETA [Date]), we wanted to flag a possible alternative to recover time:\n\nOption: [e.g. next available vessel / air freight upgrade / different port]\nEstimated new ETA: [Date]\nEstimated cost impact: [If any]\n\nLet us know if you'd like us to proceed with this option, or if the revised ETA above works for you.\n\nBest regards,\n[Your Name]"
+    },
+    {
+     "title": "Delay Notification – Internal Heads-Up",
+     "subject": "Heads-Up: Delay on [Shipment Ref]",
+     "body": "Hi team,\n\nFlagging a delay on [Shipment Ref] — [brief reason]. New ETA is [Date].\n\nCustomer has [not yet been informed / been informed]. Please hold off on any related bookings until this is confirmed.\n\nThanks,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "Next-Port Proposals",
+   "templates": [
+    {
+     "title": "Next-Port Proposal to Customer",
+     "subject": "Next-Port Option – [Shipment Ref]",
+     "body": "Hi [Customer Name],\n\nAs [original port/vessel] is no longer achievable for [Shipment Ref], we'd like to propose shipping via the next available option:\n\nProposed port/vessel: [Name]\nNew ETD / ETA: [Dates]\nAdditional cost (if any): [Amount]\n\nPlease confirm if we should proceed, or if you'd prefer to explore another option.\n\nBest regards,\n[Your Name]"
+    },
+    {
+     "title": "Next-Port Proposal to Agent",
+     "subject": "Next-Port Rebooking Request – [Shipment Ref]",
+     "body": "Hi [Agent Contact],\n\nWe need to rebook [Shipment Ref] onto the next available vessel/port after missing [original vessel/port].\n\nCould you check availability and share the earliest option, including new\nETD/ETA and any rate difference?\n\nThanks,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "DG Information Requests",
+   "templates": [
+    {
+     "title": "DG Information Request to Shipper",
+     "subject": "DG Information Needed – Ref [Shipment Ref]",
+     "body": "Hi [Shipper Contact],\n\nTo confirm whether this shipment can move as booked, we need the following dangerous goods information:\n\n- UN number (if applicable):\n- Proper shipping name:\n- Class / Packing group:\n- MSDS / SDS attached? (Y/N)\n\nPlease confirm — even if the cargo is Non-DG, a written confirmation helps us proceed without delay.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "MSDS / DG Documents Follow-Up",
+     "subject": "Follow-Up – MSDS Required – Ref [Shipment Ref]",
+     "body": "Hi [Shipper Contact],\n\nOur carrier requires the MSDS (Safety Data Sheet) before accepting this booking. Could you send this across as soon as possible? Without it we risk missing the current booking cut-off of [Date/Time].\n\nThanks,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "Airfreight Quotation Requests",
+   "templates": [
+    {
+     "title": "Airfreight Quote Request to Airline/Agent",
+     "subject": "Airfreight Quote Request – [Origin] to [Destination]",
+     "body": "Hi [Contact Name],\n\nCould you quote airfreight for the below?\n\nOrigin / Destination: [Airport / Airport]\nPieces / Weight / Dimensions: [Pieces] / [Weight] kg / [L x W x H cm]\nReady date: [Date]\nCommodity: [Description]\nDG: [Yes/No — details if yes]\n\nPlease include transit time and earliest available flight.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Urgent Airfreight Quote – Same Day",
+     "subject": "URGENT Airfreight Quote Needed – [Origin] to [Destination]",
+     "body": "Hi [Contact Name],\n\nNeed an urgent airfreight quote — cargo must move today if possible.\n\nOrigin / Destination: [Airport / Airport]\nPieces / Weight: [Pieces] / [Weight] kg\nCargo ready: [Time]\nDG: [Yes/No]\n\nPlease advise the earliest possible flight and rate as soon as you can — happy to confirm by phone if faster.\n\nThanks,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "Agent Coordination",
+   "templates": [
+    {
+     "title": "Agent Coordination – Handover Instructions",
+     "subject": "Handover Instructions – [Shipment Ref]",
+     "body": "Hi [Agent Contact],\n\nHanding over the following shipment for your side of the move:\n\nReference: [Shipment Ref]\nCurrent status: [e.g. departed origin, in transit]\nNext milestone: [e.g. arrival, customs, delivery]\nSpecial instructions: [Any handling notes]\n\nDocuments attached. Please confirm receipt and let me know if you need anything further from our side.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Agent Coordination – Urgent Shipment Brief",
+     "subject": "URGENT Shipment Brief – [Shipment Ref]",
+     "body": "Hi [Agent Contact],\n\nThis shipment is time-critical — please treat as priority on your end.\n\nReference: [Shipment Ref]\nDeadline: [Date/Time and what it's tied to, e.g. vessel cut-off]\nCurrent status: [Status]\nWhat we need from you: [e.g. confirm delivery slot, confirm customs cleared]\n\nPlease confirm receipt and expected timing.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Agent Coordination – POD Request to Destination Agent",
+     "subject": "POD Request – [Shipment Ref]",
+     "body": "Hi [Agent Contact],\n\nCould you confirm final delivery and send the POD for [Shipment Ref] once available? Our customer is awaiting confirmation.\n\nThanks for handling this one — let me know if anything is needed from our side to close it out.\n\nBest regards,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "Booking Amendments & Changes",
+   "templates": [
+    {
+     "title": "Amend Booking – Change in Pieces / Weight",
+     "subject": "Booking Amendment – Ref [Shipment Ref]",
+     "body": "Hi [Contact Name],\n\nWe need to amend the booking below — the piece count/weight has changed since the original request:\n\nReference / Booking number: [Shipment Ref]\nOriginal: [Pieces] / [Weight] kg\nUpdated: [New Pieces] / [New Weight] kg\nReason for change: [Reason]\n\nCould you confirm whether this affects the rate, space or cut-off, and reconfirm the booking once updated?\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Amend Booking – Change in Ready Date",
+     "subject": "Booking Amendment – New Ready Date – Ref [Shipment Ref]",
+     "body": "Hi [Contact Name],\n\nThe cargo ready date for the booking below has changed:\n\nReference: [Shipment Ref]\nOriginal ready date: [Date]\nNew ready date: [Date]\nReason: [Delay at supplier / production / other]\n\nPlease confirm whether the current vessel/flight booking still holds, or if we need to rebook onto a later option.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Booking Cancellation Request",
+     "subject": "Booking Cancellation – Ref [Shipment Ref]",
+     "body": "Hi [Contact Name],\n\nPlease cancel the booking below:\n\nReference / Booking number: [Shipment Ref]\nReason for cancellation: [Reason]\n\nCould you confirm the cancellation and let us know if any cancellation fee applies, so we can inform the customer if needed?\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Change of Consignee / Delivery Address",
+     "subject": "Delivery Address Change – Ref [Shipment Ref]",
+     "body": "Hi [Contact Name],\n\nThe delivery details for the shipment below have changed:\n\nReference: [Shipment Ref]\nOriginal consignee / delivery address: [Original Details]\nNew consignee / delivery address: [New Full Address]\nEffective from: [Date, or \"immediately\"]\n\nPlease confirm this change is reflected in your system before the cargo moves, and flag if it affects customs or delivery documents already issued.\n\nThanks,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "Rate & Quote Negotiation",
+   "templates": [
+    {
+     "title": "Initial Rate Request to Carrier",
+     "subject": "Rate Request – [Origin] to [Destination]",
+     "body": "Hi [Carrier / Agent Contact],\n\nCould you provide a rate for the following lane?\n\nOrigin / Destination: [Origin] to [Destination]\nMode: [Sea FCL / Sea LCL / Air / Road]\nCargo: [Pieces] / [Weight] kg / [Commodity]\nFrequency: [One-off / recurring — volume per month if recurring]\nTarget ready date: [Date]\n\nPlease include transit time, all-in cost (with surcharges) and validity of the rate.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Rate Counter-Offer",
+     "subject": "Re: Rate Offer – [Origin] to [Destination]",
+     "body": "Hi [Carrier / Agent Contact],\n\nThanks for the rate on [Origin] to [Destination]. It's a little above what we need to remain competitive for the customer — would you be able to improve on [Quoted Rate] given [reason: volume commitment / recurring lane / flexible dates]?\n\nWe'd like to confirm today if we can align on pricing.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Rate Confirmation to Customer",
+     "subject": "Rate Confirmation – [Origin] to [Destination]",
+     "body": "Hi [Customer Name],\n\nConfirming the rate for your shipment:\n\nOrigin / Destination: [Origin] to [Destination]\nRate: [Amount] (all-in / excluding [exclusions, if any])\nTransit time: [Days]\nValidity: [Date]\n\nLet me know if you'd like to proceed and I'll get the booking confirmed.\n\nBest regards,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "Customs Query & Clearance",
+   "templates": [
+    {
+     "title": "Customs Query – Additional Documents Requested",
+     "subject": "Customs Query – Documents Needed – Ref [Shipment Ref]",
+     "body": "Hi [Contact Name],\n\nCustoms has requested additional documentation before this shipment can clear:\n\nReference: [Shipment Ref]\nDocuments requested: [e.g. certificate of origin, license, revised invoice]\nReason given: [Reason, if provided]\nDeadline: [Date/Time]\n\nCould you provide these as soon as possible to avoid storage/demurrage charges building up?\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Customs Hold Notification to Customer",
+     "subject": "Customs Hold – Ref [Shipment Ref]",
+     "body": "Hi [Customer Name],\n\nYour shipment has been placed on hold by customs:\n\nReference: [Shipment Ref]\nReason for hold: [Reason, as far as known]\nWhat's needed to release it: [Documents / inspection / payment]\nEstimated impact on delivery: [Timeframe]\n\nWe're actively working with our broker to resolve this and will update you as soon as there's movement.\n\nBest regards,\n[Your Name]"
+    },
+    {
+     "title": "HS Code Confirmation Request",
+     "subject": "HS Code Confirmation Needed – Ref [Shipment Ref]",
+     "body": "Hi [Shipper / Customer Contact],\n\nTo complete the customs declaration for [Shipment Ref], could you confirm the HS code for:\n\nCommodity: [Description]\nSuggested HS code (if any): [Code]\n\nIf you're not sure, a detailed product description and intended use will help our broker classify it correctly.\n\nThanks,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "New Shipment Kickoff",
+   "templates": [
+    {
+     "title": "New Shipment – Request Full Instructions from Customer",
+     "subject": "New Shipment – Details Needed to Get Started",
+     "body": "Hi [Customer Name],\n\nThanks for the new booking — to get this moving, could you confirm:\n\nOrigin / Destination: [Origin] to [Destination]\nCargo: [Pieces] / [Weight] kg / [Dimensions] / [Commodity]\nReady date: [Date]\nDG status: [Yes/No — details if yes]\nIncoterm: [e.g. FOB, CIF, DAP]\nAny deadline we should be aware of: [Date, if applicable]\n\nOnce I have these, I'll come back with routing options and a firm timeline.\n\nBest regards,\n[Your Name]"
+    },
+    {
+     "title": "Internal Handover – New Shipment from Sales",
+     "subject": "New Shipment Handover – Ref [Shipment Ref]",
+     "body": "Hi [Ops Colleague],\n\nHanding over a new shipment that's just been confirmed:\n\nCustomer: [Customer Name]\nReference: [Shipment Ref]\nRoute: [Origin] to [Destination]\nAgreed rate / terms: [Summary]\nAnything the customer specifically asked for: [Notes]\n\nLet me know if you need anything further from the sales side to get this booked.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Welcome / Onboarding Email to New Customer",
+     "subject": "Welcome — How We'll Work Together",
+     "body": "Hi [Customer Name],\n\nWelcome on board — I'll be your main point of contact for shipments going forward. A few quick things to make this run smoothly:\n\n- Send booking requests to: [email/contact]\n- For anything urgent, reach me directly at: [phone/email]\n- Please always confirm dangerous goods status upfront — it saves delays\n  later\n- I'll send a pre-alert and POD for every shipment automatically\n\nLooking forward to working together — let me know if you have any questions before your first booking.\n\nBest regards,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "Weather / Force Majeure Delay",
+   "templates": [
+    {
+     "title": "Weather Delay Notification to Customer",
+     "subject": "Weather Delay – Ref [Shipment Ref]",
+     "body": "Hi [Customer Name],\n\nYour shipment is affected by weather-related disruption:\n\nReference: [Shipment Ref]\nDisruption: [e.g. storm, port closure, flight grounding]\nOriginal ETA: [Date] — Revised ETA: [Date, or \"to be confirmed\"]\n\nThis is outside the carrier's control, but we're monitoring closely and will update you as soon as vessels/flights resume normal schedules.\n\nBest regards,\n[Your Name]"
+    },
+    {
+     "title": "Force Majeure Notice",
+     "subject": "Force Majeure Notice – Ref [Shipment Ref]",
+     "body": "Hi [Customer Name],\n\nWe're issuing this as a formal force majeure notice affecting your shipment:\n\nReference: [Shipment Ref]\nEvent: [e.g. natural disaster, strike, war-risk closure]\nSource confirming the event: [Carrier / port authority / news source]\nExpected impact: [Delay / rerouting / cost impact]\n\nWe will keep you updated as the situation develops and will propose alternatives as soon as they become available.\n\nBest regards,\n[Your Name]"
+    },
+    {
+     "title": "Port Congestion / Strike Notification",
+     "subject": "Port Congestion Notice – [Port Name]",
+     "body": "Hi [Customer Name],\n\n[Port Name] is currently experiencing [congestion / industrial action], affecting vessels calling this week, including your shipment [Shipment\nRef].\n\nExpected impact: [Delay estimate]\nAlternative being considered: [e.g. nearby port, different vessel]\n\nWe'll confirm the best path forward as soon as we have firmer information from the carrier/terminal.\n\nBest regards,\n[Your Name]"
+    }
+   ]
+  },
+  {
+   "name": "Shift / Team Handover",
+   "templates": [
+    {
+     "title": "End-of-Shift Handover – Open Items",
+     "subject": "Shift Handover – [Date]",
+     "body": "Hi [Colleague],\n\nHanding over the following open items before I sign off:\n\n1. [Shipment Ref] — [Status] — [What still needs to happen, by when]\n2. [Shipment Ref] — [Status] — [What still needs to happen, by when]\n3. [Shipment Ref] — [Status] — [What still needs to happen, by when]\n\nNothing else urgent outstanding. Call me if anything time-critical comes up before [time].\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Handover – Colleague Out of Office",
+     "subject": "Covering [Colleague Name] – [Date range]",
+     "body": "Hi team,\n\nI'll be covering [Colleague Name]'s shipments while they're out ([Date] to [Date]). Please send anything related to their accounts directly to me at [email/phone] during this period.\n\nOpen/urgent items I'm already aware of:\n- [Shipment Ref] — [What needs attention]\n\nThanks for flagging anything I might have missed.\n\n[Your Name]"
+    },
+    {
+     "title": "Weekly Status Summary to Manager",
+     "subject": "Weekly Shipment Summary – Week of [Date]",
+     "body": "Hi [Manager Name],\n\nQuick summary of this week's shipments:\n\nTotal shipments handled: [Number]\nOn-time / delayed: [Number] / [Number]\nOpen issues needing attention: [Shipment Ref] — [Brief description]\nAnything I need support on: [Notes, or \"nothing at the moment\"]\n\nLet me know if you'd like more detail on anything specific.\n\nThanks,\n[Your Name]"
+    }
+   ]
+  }
+ ],
+ "checklists": [
+  {
+   "name": "Vessel Delivery Checklist",
+   "items": [
+    "Confirm vessel name, voyage number and berth/terminal",
+    "Confirm gate cut-off date and time",
+    "Confirm booking number matches carrier system",
+    "Verify cargo dimensions and weight match booking",
+    "Confirm DG status and documents if applicable",
+    "Share delivery instructions with trucker/driver",
+    "Confirm driver has correct documents (booking, ID, permits)",
+    "Track delivery and confirm gate-in on the day",
+    "Obtain and file the terminal receipt / EIR"
+   ]
+  },
+  {
+   "name": "Urgent Shipment Checklist",
+   "items": [
+    "Confirm the actual deadline (vessel ETD / flight cut-off / customer deadline)",
+    "Confirm cargo is physically ready and where it currently is",
+    "Check customs and documentation status",
+    "Identify the fastest viable transport option",
+    "Contact the carrier/agent directly rather than waiting on email",
+    "Confirm a backup option in case the primary plan fails",
+    "Set a clear internal owner and check-in time",
+    "Notify the customer of the plan and next update time"
+   ]
+  },
+  {
+   "name": "Airfreight Quote Checklist",
+   "items": [
+    "Confirm origin and destination airports",
+    "Confirm pieces, weight and dimensions",
+    "Confirm commodity description and HS code if known",
+    "Confirm DG status",
+    "Confirm ready date/time",
+    "Request transit time and earliest available flight",
+    "Compare at least two carrier/agent options if time allows",
+    "Confirm all-in rate (including surcharges) before booking"
+   ]
+  },
+  {
+   "name": "Cargo Readiness Checklist",
+   "items": [
+    "Confirm cargo is physically packed and labeled",
+    "Confirm final piece count, weight and dimensions",
+    "Confirm packaging is suitable for the transport mode",
+    "Confirm commercial invoice and packing list are ready",
+    "Confirm any certificates required (origin, fumigation, etc.)",
+    "Confirm cargo location and site access details",
+    "Confirm a contact person is available at pickup"
+   ]
+  },
+  {
+   "name": "Pre-Alert Checklist",
+   "items": [
+    "Confirm shipment reference and booking details",
+    "Confirm final vessel/flight, ETD and ETA",
+    "Attach commercial invoice and packing list",
+    "Attach transport document (B/L, AWB, CMR)",
+    "Confirm DG documents attached if applicable",
+    "Confirm consignee/agent contact details are correct",
+    "Send pre-alert with enough lead time for customs prep"
+   ]
+  },
+  {
+   "name": "DG Pre-Check",
+   "items": [
+    "Confirm whether the cargo is classified as dangerous goods",
+    "Obtain UN number, proper shipping name, class and packing group",
+    "Obtain MSDS / Safety Data Sheet",
+    "Confirm packaging and labeling meet DG requirements",
+    "Confirm the selected carrier accepts this DG class",
+    "Confirm any additional documentation required (DGD, permits)",
+    "Escalate to a qualified DG specialist before booking if uncertain"
+   ]
+  },
+  {
+   "name": "Customs Documentation Check",
+   "items": [
+    "Confirm commercial invoice matches the actual cargo",
+    "Confirm HS codes are provided or confirmed",
+    "Confirm country of origin is stated",
+    "Confirm any required licenses or certificates are attached",
+    "Confirm consignee's customs/EORI/tax ID is correct",
+    "Confirm incoterms are stated and understood by both sides",
+    "Confirm customs broker has all documents before cargo arrival"
+   ]
+  },
+  {
+   "name": "Warehouse Pickup Check",
+   "items": [
+    "Confirm exact pickup address and site access requirements",
+    "Confirm release note or authorization is issued",
+    "Confirm opening hours and any appointment requirements",
+    "Confirm driver has correct reference numbers",
+    "Confirm cargo is palletized/ready for loading",
+    "Confirm site contact name and phone number"
+   ]
+  },
+  {
+   "name": "Next Port Checklist",
+   "items": [
+    "Confirm why the original port/vessel is no longer viable",
+    "Check availability on the next vessel/port option",
+    "Confirm new ETD/ETA and transit time",
+    "Confirm any additional cost and who absorbs it",
+    "Confirm cargo can physically reach the new port/cut-off in time",
+    "Get customer approval before rebooking",
+    "Update all parties (agent, warehouse, customer) once confirmed"
+   ]
+  },
+  {
+   "name": "Onboard Delivery Checklist",
+   "items": [
+    "Confirm onboard delivery is permitted for this vessel/berth",
+    "Confirm exact delivery window and gate details",
+    "Confirm required documents for gate access",
+    "Confirm driver has vessel/berth contact details",
+    "Confirm cargo will physically make the delivery window",
+    "Track delivery in real time and escalate early if at risk",
+    "Obtain confirmation of onboard delivery once completed"
+   ]
+  },
+  {
+   "name": "Agent Coordination Checklist",
+   "items": [
+    "Confirm the agent's scope (clearance only, delivery, both)",
+    "Share shipment reference, documents and current status",
+    "Confirm agent's local contact and working hours",
+    "Confirm any special handling instructions are passed on",
+    "Set a clear expectation for status updates",
+    "Confirm POD process and who is responsible for obtaining it"
+   ]
+  },
+  {
+   "name": "Delay / Missed Deadline Checklist",
+   "items": [
+    "Confirm the deadline that was missed and by how much",
+    "Identify the root cause (documentation, cargo readiness, carrier, customs)",
+    "Determine the earliest realistic recovery option",
+    "Estimate any added cost or time impact",
+    "Inform the customer proactively, before they ask",
+    "Document what happened for internal follow-up",
+    "Confirm the recovery plan with all parties involved"
+   ]
+  },
+  {
+   "name": "FCL Sea Freight Booking Checklist",
+   "items": [
+    "Confirm origin and destination ports",
+    "Confirm container type and quantity (e.g. 1x40'HC)",
+    "Confirm cargo weight and whether it's within container payload limits",
+    "Confirm VGM (Verified Gross Mass) process and deadline",
+    "Confirm empty container pickup location and date",
+    "Confirm loading location, address and access requirements",
+    "Confirm gate-in cut-off and document cut-off dates",
+    "Confirm DG status and documents if applicable",
+    "Confirm seal number is recorded once container is sealed"
+   ]
+  },
+  {
+   "name": "LCL Sea Freight Checklist",
+   "items": [
+    "Confirm CBM (volume) and weight, and which is used for pricing",
+    "Confirm CFS (container freight station) cut-off date",
+    "Confirm palletization and packaging suitable for consolidation",
+    "Confirm cargo marks and labels are clear and match documents",
+    "Confirm co-loader/consolidator handling the shipment",
+    "Confirm DG status — many consolidators restrict or exclude DG in LCL",
+    "Confirm destination CFS and deconsolidation process for the consignee"
+   ]
+  },
+  {
+   "name": "Road Freight (FTL/LTL) Checklist",
+   "items": [
+    "Confirm exact pickup and delivery addresses, including any access restrictions",
+    "Confirm loading/unloading time windows and appointment requirements",
+    "Confirm vehicle type required (e.g. tail-lift, curtain-side, refrigerated)",
+    "Confirm driver has all required references, IDs and permits",
+    "Confirm cargo securing/packaging is suitable for road transport",
+    "Confirm border/customs requirements if crossing into another country",
+    "Confirm contact person and phone number at both pickup and delivery"
+   ]
+  },
+  {
+   "name": "New Operator First-Week Checklist",
+   "items": [
+    "Get access to the booking/TMS system and carrier portals",
+    "Save key contacts: main carriers, agents, customs broker, warehouse",
+    "Review the toolkit's email templates and bookmark the ones used daily",
+    "Shadow a colleague on at least one urgent/time-critical shipment",
+    "Confirm who to escalate to for DG questions and for customer complaints",
+    "Learn the company's standard cut-off times per trade lane/mode",
+    "Confirm where shipment documents and past correspondence are filed"
+   ]
+  },
+  {
+   "name": "Shift Handover Checklist",
+   "items": [
+    "List every shipment with an open action, not just problem shipments",
+    "State the next required action and who owns it, in plain terms",
+    "Flag anything with a deadline in the next 24 hours",
+    "Confirm the customer has (or hasn't) been informed of any issue",
+    "Share where documents or correspondence for open items are saved",
+    "Confirm how to reach you if something urgent comes up after handover"
+   ]
+  },
+  {
+   "name": "Rate Quote Sanity-Check Checklist",
+   "items": [
+    "Confirm the quote is all-in (no hidden surcharges like BAF, CAF, THC)",
+    "Confirm the quote's validity period and whether rates can change after booking",
+    "Confirm which party pays destination charges (per the quoted Incoterm)",
+    "Compare against at least one other quote if time and margin allow",
+    "Confirm transit time matches what the customer was promised",
+    "Confirm the quote covers the actual cargo profile (weight, DG, dimensions)"
+   ]
+  },
+  {
+   "name": "End-of-Shipment Closeout Checklist",
+   "items": [
+    "Confirm POD has been received and filed",
+    "Confirm all invoices (ours and carrier's) have been reconciled",
+    "Confirm no outstanding claims, damage or disputes remain open",
+    "Archive all shipment documents in the correct customer/reference folder",
+    "Note any lessons learned for next time (delay causes, what worked well)",
+    "Confirm the customer received final confirmation that the shipment is complete"
+   ]
+  }
+ ],
+ "workflows": [
+  {
+   "trigger": "Shipment Will Miss Vessel",
+   "steps": [
+    "Confirm the actual vessel ETD and gate/document cut-off times",
+    "Confirm exactly where the cargo currently is and how long it needs to reach the terminal",
+    "Check if a later cut-off or a sister vessel on the same string is available",
+    "If not recoverable, identify the next vessel or an air/courier alternative",
+    "Get customer approval on cost and timing before rebooking",
+    "Update all parties (warehouse, trucker, agent, customer) once a new plan is confirmed"
+   ]
+  },
+  {
+   "trigger": "Supplier Hasn't Released Cargo",
+   "steps": [
+    "Contact the supplier directly to confirm the reason for the hold",
+    "Confirm what is needed to release the cargo (payment, documents, approval)",
+    "Escalate internally if the hold is commercial (e.g. payment terms)",
+    "Get a firm, confirmed release time from the supplier — not an estimate",
+    "Recalculate whether the original transport plan is still achievable",
+    "If not, prepare a backup transport option in parallel while resolving the hold"
+   ]
+  },
+  {
+   "trigger": "Airline Rejects Shipment",
+   "steps": [
+    "Confirm the exact reason for rejection (DG, documentation, dimensions, space)",
+    "Correct the issue if possible (missing document, incorrect labeling, etc.)",
+    "If space-related, ask for the next available flight or a different routing",
+    "Check alternative airlines or a consolidator/agent with available space",
+    "Reconfirm the new option meets the customer's required delivery date",
+    "Notify the customer of the change and revised ETA"
+   ]
+  },
+  {
+   "trigger": "Documents Are Missing",
+   "steps": [
+    "Identify exactly which document is missing and who is responsible for it",
+    "Contact that party directly with a clear deadline for when it's needed",
+    "Check if a provisional or draft document can be used to avoid delay",
+    "Confirm with the carrier/customs broker whether movement can proceed without it",
+    "Escalate internally if the missing document risks a deadline",
+    "File the final document once received and confirm nothing else is outstanding"
+   ]
+  },
+  {
+   "trigger": "Vessel Changes Port",
+   "steps": [
+    "Confirm the new port and the reason for the change",
+    "Confirm whether cargo already delivered to the original port needs to be moved",
+    "Check transit time and cost impact of reaching the new port",
+    "Confirm the new ETD/ETA and whether the original deadline is still achievable",
+    "Get customer approval for any additional cost or delay",
+    "Update all parties with the new port and revised schedule"
+   ]
+  },
+  {
+   "trigger": "Cargo Cannot Be Delivered Onboard",
+   "steps": [
+    "Confirm the exact reason (missed cut-off, access restriction, documentation)",
+    "Check if a later delivery window or different gate is available",
+    "If not, confirm the terminal's off-dock or CFS delivery option",
+    "Check whether next-port or next-vessel rebooking is a better option than waiting",
+    "Confirm any storage or demurrage cost this may create",
+    "Inform the customer of the situation and the recommended path forward"
+   ]
+  },
+  {
+   "trigger": "Customer Disputes the Invoice or Rate",
+   "steps": [
+    "Pull the original quote/rate confirmation and compare it line by line to the invoice",
+    "Identify exactly which charge is disputed and why",
+    "Check if the disputed charge was clearly communicated upfront (e.g. a surcharge)",
+    "If the charge is valid, explain it clearly with the supporting quote/document",
+    "If the charge is an error, correct the invoice and apologize for the mistake",
+    "Document the resolution so the same dispute doesn't recur on future shipments"
+   ]
+  },
+  {
+   "trigger": "Cargo Fails Customs Inspection",
+   "steps": [
+    "Get the exact reason for the failed inspection from the broker or customs directly",
+    "Determine if it's a documentation issue, a physical cargo issue, or a compliance issue",
+    "Contact the shipper/customer immediately if additional documents or corrections are needed",
+    "Confirm the revised timeline and any storage/demurrage cost building up",
+    "Escalate to a customs specialist or legal advisor if the issue is regulatory, not just paperwork",
+    "Keep the customer updated at each step, even if there's no resolution yet"
+   ]
+  },
+  {
+   "trigger": "Driver or Trucker No-Show",
+   "steps": [
+    "Confirm the booking was actually received and confirmed by the trucking company",
+    "Call the driver and dispatcher directly rather than waiting on email",
+    "Check if a replacement driver/vehicle can be arranged from the same or another carrier",
+    "Recalculate whether the original cut-off is still achievable with a new pickup time",
+    "Inform the customer proactively if the delay is likely to affect their deadline",
+    "Follow up afterward on why the no-show happened, especially with a repeat carrier"
+   ]
+  }
+ ],
+ "prompts": [
+  {
+   "title": "Operational Action Plan",
+   "prompt": "You are helping a marine logistics operator handle an urgent shipment.\n\nShipment data:\n- Vessel / flight: [Vessel or flight name]\n- ETD / cut-off: [Date and time]\n- Cargo location: [Current location]\n- Cargo details: [Pieces / weight / dimensions]\n- DG status: [Non-DG / DG — details]\n- Deadline: [What must happen by when]\n\nBased on this information, generate a clear, numbered operational action plan for the next 24 hours. Prioritize the steps by urgency, flag any information that is still missing, and note one realistic backup option in case the primary plan fails."
+  },
+  {
+   "title": "Customer Update Email",
+   "prompt": "You are a marine logistics operator writing a professional update to a customer about their shipment.\n\nShipment data:\n- Reference: [Shipment ref]\n- Situation: [What has happened — e.g. delay, missed vessel, rebooking]\n- Impact: [New ETA / cost impact, if any]\n- Next update: [When you will follow up again]\n\nWrite a concise, professional email (under 150 words) that explains the situation clearly, states what is being done about it, and gives a specific time for the next update. Avoid overly technical jargon."
+  },
+  {
+   "title": "Agent / Partner Instructions",
+   "prompt": "You are briefing a destination agent or partner on a shipment they need to handle on your behalf.\n\nShipment data:\n- Reference: [Shipment ref]\n- Current status: [Status]\n- What the agent needs to do: [Clearance / delivery / both]\n- Deadline or priority level: [Details]\n- Special instructions: [Handling notes, DG, access restrictions, etc.]\n\nWrite a clear, structured handover brief the agent can act on immediately, including exactly what confirmation you need back from them and by when."
+  },
+  {
+   "title": "Risk Assessment",
+   "prompt": "You are assessing the risk of a shipment not meeting its deadline.\n\nShipment data:\n- Deadline: [Date/time and what it's tied to]\n- Current status: [Where the cargo and documents currently stand]\n- Known issues: [Any delays, missing documents, DG concerns, capacity issues]\n- Time remaining: [Hours/days left]\n\nIdentify the top 3 risks to this shipment meeting its deadline, rate each as low/medium/high, and suggest one mitigation action for each risk."
+  },
+  {
+   "title": "Backup Solution Options",
+   "prompt": "You are generating backup options for a shipment where the primary transport plan may fail.\n\nShipment data:\n- Primary plan: [e.g. vessel X on date Y]\n- Reason it may fail: [Reason]\n- Cargo details: [Pieces / weight / dimensions / DG status]\n- Customer's hard deadline (if any): [Date]\n\nSuggest two to three realistic backup options (e.g. next vessel, air freight, different port or routing), with an approximate timeline and trade-off for each, so the operator can present clear choices internally or to the customer."
+  },
+  {
+   "title": "Missing-Information Checklist",
+   "prompt": "You are reviewing a shipment before it can be safely booked or moved.\n\nShipment data so far:\n- [Paste everything currently known about the shipment here — vessel/flight,\n  cargo details, DG status, documents, deadline, etc.]\n\nBased on what is provided, list exactly what information is still missing before this shipment can be booked or moved with confidence, grouped by category (cargo details, documentation, customs, DG, deadline)."
+  },
+  {
+   "title": "Rate Negotiation Draft",
+   "prompt": "You are a marine logistics operator negotiating a better rate with a carrier or agent.\n\nNegotiation data:\n- Lane: [Origin] to [Destination]\n- Quoted rate: [Amount]\n- Target rate: [Amount, if you have one in mind]\n- Leverage: [Volume commitment / recurring lane / flexible dates / other]\n\nWrite a short, professional email that pushes for a better rate using the leverage above, without sounding confrontational, and proposes a clear next step (e.g. confirming today if the rate is matched)."
+  },
+  {
+   "title": "Claims / Insurance Letter Draft",
+   "prompt": "You are drafting a formal cargo damage or loss claim on behalf of a customer.\n\nClaim data:\n- Reference: [Shipment Ref]\n- Description of damage/loss: [Description]\n- When and where discovered: [Details]\n- Estimated value affected: [Amount]\n- Supporting documents available: [Photos / survey report / invoice, etc.]\n\nWrite a clear, formal claim letter to the carrier or insurer stating the facts, the documents attached, and the outcome being requested (repair, replacement, or compensation)."
+  },
+  {
+   "title": "Shift Handover Summary Generator",
+   "prompt": "You are a marine logistics operator writing a handover summary at the end of your shift.\n\nOpen items:\n- [List each shipment reference, its current status, and what still needs\n  to happen, in rough notes]\n\nTurn these rough notes into a clear, numbered handover summary that a colleague could act on immediately without needing to ask follow-up questions, ordered by urgency."
+  },
+  {
+   "title": "SOP / Process Documentation Generator",
+   "prompt": "You are documenting a recurring operational process so any operator on the team can follow it consistently.\n\nProcess to document: [e.g. \"how we handle a missed vessel cut-off\", \"how we pre-alert a new customer\"]\nRough steps as currently done: [Describe the steps informally, in any order]\n\nTurn this into a clear, numbered Standard Operating Procedure with a short purpose statement at the top, so a new team member could follow it without additional explanation."
+  },
+  {
+   "title": "Customer Service Recovery Message",
+   "prompt": "You are writing to a customer after something went wrong on their shipment, to rebuild trust and keep the relationship strong.\n\nSituation:\n- What went wrong: [Description]\n- Root cause: [Cause, in plain terms]\n- What's being done to fix it: [Concrete action]\n- What's being done to prevent it happening again: [Concrete action, if any]\n\nWrite an honest, empathetic email that takes ownership without being overly apologetic, explains the fix clearly, and ends with a concrete next step and timeline."
+  }
+ ],
+ "glossary": [
+  {
+   "term": "POD",
+   "definition": "Proof of Delivery — signed confirmation that cargo was delivered to the consignee."
+  },
+  {
+   "term": "ETD / ETA",
+   "definition": "Estimated Time of Departure / Estimated Time of Arrival."
+  },
+  {
+   "term": "B/L (Bill of Lading)",
+   "definition": "The transport document and title document for a sea shipment."
+  },
+  {
+   "term": "AWB (Air Waybill)",
+   "definition": "The transport document for an air shipment — unlike a B/L, it is not a title document."
+  },
+  {
+   "term": "CMR",
+   "definition": "The transport document and contract used for international road freight in Europe."
+  },
+  {
+   "term": "FCL / LCL",
+   "definition": "Full Container Load / Less than Container Load — a container booked exclusively, versus shared space."
+  },
+  {
+   "term": "CFS",
+   "definition": "Container Freight Station — the facility where LCL cargo is consolidated or deconsolidated."
+  },
+  {
+   "term": "VGM",
+   "definition": "Verified Gross Mass — the legally required, verified weight of a loaded container before it can be loaded on a vessel."
+  },
+  {
+   "term": "HS Code",
+   "definition": "Harmonized System code — the international product classification used for customs declarations."
+  },
+  {
+   "term": "EORI",
+   "definition": "Economic Operators Registration and Identification — an EU customs ID number for businesses."
+  },
+  {
+   "term": "DG",
+   "definition": "Dangerous Goods — cargo classified as hazardous under the IMDG Code, IATA DGR or ADR."
+  },
+  {
+   "term": "MSDS / SDS",
+   "definition": "(Material) Safety Data Sheet — a document describing a substance's hazards and safe handling."
+  },
+  {
+   "term": "Demurrage",
+   "definition": "Charges for keeping a container at the port/terminal beyond the free time allowed."
+  },
+  {
+   "term": "Detention",
+   "definition": "Charges for keeping a carrier's container or equipment outside the port beyond the free time allowed."
+  },
+  {
+   "term": "Consignee",
+   "definition": "The party to whom cargo is being shipped and delivered."
+  },
+  {
+   "term": "Shipper",
+   "definition": "The party sending the cargo — often the exporter or seller."
+  },
+  {
+   "term": "Pre-Alert",
+   "definition": "Advance notification sent to a consignee or agent with shipment and document details before arrival."
+  },
+  {
+   "term": "Cut-off",
+   "definition": "The latest time cargo or documents must be submitted to make a specific vessel or flight."
+  },
+  {
+   "term": "TEU",
+   "definition": "Twenty-foot Equivalent Unit — the standard unit used for counting container capacity."
+  },
+  {
+   "term": "Force Majeure",
+   "definition": "Unforeseeable circumstances outside a party's control that prevent a contract from being fulfilled."
+  }
+ ],
+ "incoterms": [
+  {
+   "term": "EXW — Ex Works",
+   "definition": "Seller makes the goods available at their own premises; the buyer takes on all risk and cost from that point."
+  },
+  {
+   "term": "FCA — Free Carrier",
+   "definition": "Seller delivers the goods to a carrier nominated by the buyer at a named place."
+  },
+  {
+   "term": "FOB — Free On Board",
+   "definition": "Seller delivers the goods on board the vessel; risk transfers to the buyer once loaded."
+  },
+  {
+   "term": "CFR — Cost and Freight",
+   "definition": "Seller pays the cost and freight to the destination port; risk transfers once the goods are loaded."
+  },
+  {
+   "term": "CIF — Cost, Insurance and Freight",
+   "definition": "Same as CFR, but the seller must also provide minimum cargo insurance."
+  },
+  {
+   "term": "CPT — Carriage Paid To",
+   "definition": "Seller pays carriage to the named destination; risk transfers to the buyer at the first carrier."
+  },
+  {
+   "term": "CIP — Carriage and Insurance Paid To",
+   "definition": "Same as CPT, but the seller must also provide cargo insurance."
+  },
+  {
+   "term": "DAP — Delivered At Place",
+   "definition": "Seller delivers the goods, ready for unloading, at the named destination; the buyer handles import clearance."
+  },
+  {
+   "term": "DDP — Delivered Duty Paid",
+   "definition": "Seller delivers the goods cleared for import at the named destination — the maximum obligation for a seller."
+  }
+ ],
+ "airCarrierCodes": [
+  {
+   "region": "Europe",
+   "codes": [
+    {
+     "code": "BA",
+     "name": "British Airways"
+    },
+    {
+     "code": "LH",
+     "name": "Lufthansa"
+    },
+    {
+     "code": "KL",
+     "name": "KLM Royal Dutch Airlines"
+    },
+    {
+     "code": "AF",
+     "name": "Air France"
+    },
+    {
+     "code": "IB",
+     "name": "Iberia"
+    },
+    {
+     "code": "LX",
+     "name": "Swiss International Air Lines"
+    },
+    {
+     "code": "AZ",
+     "name": "ITA Airways"
+    },
+    {
+     "code": "AY",
+     "name": "Finnair"
+    },
+    {
+     "code": "SK",
+     "name": "Scandinavian Airlines (SAS)"
+    },
+    {
+     "code": "LO",
+     "name": "LOT Polish Airlines"
+    },
+    {
+     "code": "SN",
+     "name": "Brussels Airlines"
+    },
+    {
+     "code": "TK",
+     "name": "Turkish Airlines"
+    },
+    {
+     "code": "EI",
+     "name": "Aer Lingus"
+    },
+    {
+     "code": "FR",
+     "name": "Ryanair"
+    },
+    {
+     "code": "U2",
+     "name": "easyJet"
+    },
+    {
+     "code": "W6",
+     "name": "Wizz Air"
+    }
+   ]
+  },
+  {
+   "region": "Asia",
+   "codes": [
+    {
+     "code": "SQ",
+     "name": "Singapore Airlines"
+    },
+    {
+     "code": "CX",
+     "name": "Cathay Pacific"
+    },
+    {
+     "code": "NH",
+     "name": "All Nippon Airways (ANA)"
+    },
+    {
+     "code": "JL",
+     "name": "Japan Airlines"
+    },
+    {
+     "code": "KE",
+     "name": "Korean Air"
+    },
+    {
+     "code": "OZ",
+     "name": "Asiana Airlines"
+    },
+    {
+     "code": "CA",
+     "name": "Air China"
+    },
+    {
+     "code": "MU",
+     "name": "China Eastern Airlines"
+    },
+    {
+     "code": "CZ",
+     "name": "China Southern Airlines"
+    },
+    {
+     "code": "HU",
+     "name": "Hainan Airlines"
+    },
+    {
+     "code": "TG",
+     "name": "Thai Airways"
+    },
+    {
+     "code": "VN",
+     "name": "Vietnam Airlines"
+    },
+    {
+     "code": "GA",
+     "name": "Garuda Indonesia"
+    },
+    {
+     "code": "MH",
+     "name": "Malaysia Airlines"
+    },
+    {
+     "code": "5J",
+     "name": "Cebu Pacific"
+    },
+    {
+     "code": "AI",
+     "name": "Air India"
+    }
+   ]
+  },
+  {
+   "region": "North America",
+   "codes": [
+    {
+     "code": "AA",
+     "name": "American Airlines"
+    },
+    {
+     "code": "UA",
+     "name": "United Airlines"
+    },
+    {
+     "code": "DL",
+     "name": "Delta Air Lines"
+    },
+    {
+     "code": "WN",
+     "name": "Southwest Airlines"
+    },
+    {
+     "code": "B6",
+     "name": "JetBlue Airways"
+    },
+    {
+     "code": "AS",
+     "name": "Alaska Airlines"
+    },
+    {
+     "code": "AC",
+     "name": "Air Canada"
+    },
+    {
+     "code": "WS",
+     "name": "WestJet"
+    },
+    {
+     "code": "NK",
+     "name": "Spirit Airlines"
+    },
+    {
+     "code": "F9",
+     "name": "Frontier Airlines"
+    },
+    {
+     "code": "HA",
+     "name": "Hawaiian Airlines"
+    }
+   ]
+  },
+  {
+   "region": "South America",
+   "codes": [
+    {
+     "code": "LA",
+     "name": "LATAM Airlines"
+    },
+    {
+     "code": "AR",
+     "name": "Aerolíneas Argentinas"
+    },
+    {
+     "code": "G3",
+     "name": "GOL Linhas Aéreas"
+    },
+    {
+     "code": "AV",
+     "name": "Avianca"
+    },
+    {
+     "code": "CM",
+     "name": "Copa Airlines"
+    },
+    {
+     "code": "H2",
+     "name": "Sky Airline"
+    },
+    {
+     "code": "OB",
+     "name": "Boliviana de Aviación"
+    },
+    {
+     "code": "AD",
+     "name": "Azul Brazilian Airlines"
+    },
+    {
+     "code": "ZP",
+     "name": "Paranair"
+    }
+   ]
+  },
+  {
+   "region": "Africa",
+   "codes": [
+    {
+     "code": "ET",
+     "name": "Ethiopian Airlines"
+    },
+    {
+     "code": "SA",
+     "name": "South African Airways"
+    },
+    {
+     "code": "KQ",
+     "name": "Kenya Airways"
+    },
+    {
+     "code": "MS",
+     "name": "EgyptAir"
+    },
+    {
+     "code": "AT",
+     "name": "Royal Air Maroc"
+    },
+    {
+     "code": "DT",
+     "name": "TAAG Angola Airlines"
+    },
+    {
+     "code": "TC",
+     "name": "Air Tanzania"
+    },
+    {
+     "code": "WB",
+     "name": "RwandAir"
+    },
+    {
+     "code": "4Z",
+     "name": "Airlink"
+    },
+    {
+     "code": "TU",
+     "name": "Tunisair"
+    }
+   ]
+  },
+  {
+   "region": "Middle East",
+   "codes": [
+    {
+     "code": "EK",
+     "name": "Emirates"
+    },
+    {
+     "code": "QR",
+     "name": "Qatar Airways"
+    },
+    {
+     "code": "EY",
+     "name": "Etihad Airways"
+    },
+    {
+     "code": "SV",
+     "name": "Saudia"
+    },
+    {
+     "code": "GF",
+     "name": "Gulf Air"
+    },
+    {
+     "code": "FZ",
+     "name": "flydubai"
+    },
+    {
+     "code": "WY",
+     "name": "Oman Air"
+    },
+    {
+     "code": "RJ",
+     "name": "Royal Jordanian"
+    },
+    {
+     "code": "ME",
+     "name": "Middle East Airlines"
+    },
+    {
+     "code": "IA",
+     "name": "Iraqi Airways"
+    }
+   ]
+  },
+  {
+   "region": "Oceania",
+   "codes": [
+    {
+     "code": "QF",
+     "name": "Qantas"
+    },
+    {
+     "code": "NZ",
+     "name": "Air New Zealand"
+    },
+    {
+     "code": "VA",
+     "name": "Virgin Australia"
+    },
+    {
+     "code": "JQ",
+     "name": "Jetstar Airways"
+    },
+    {
+     "code": "FJ",
+     "name": "Fiji Airways"
+    },
+    {
+     "code": "IE",
+     "name": "Solomon Airlines"
+    },
+    {
+     "code": "SB",
+     "name": "Aircalin"
+    }
+   ]
+  }
+ ],
+ "airportCodes": [
+  {
+   "region": "Europe",
+   "codes": [
+    {
+     "code": "AMS",
+     "name": "Amsterdam Airport Schiphol"
+    },
+    {
+     "code": "ANR",
+     "name": "Antwerp International Airport"
+    },
+    {
+     "code": "BRU",
+     "name": "Brussels Airport"
+    },
+    {
+     "code": "CPH",
+     "name": "Copenhagen Airport"
+    },
+    {
+     "code": "DUB",
+     "name": "Dublin Airport"
+    },
+    {
+     "code": "FRA",
+     "name": "Frankfurt Airport"
+    },
+    {
+     "code": "LHR",
+     "name": "London Heathrow Airport"
+    },
+    {
+     "code": "LGG",
+     "name": "Liège Airport"
+    },
+    {
+     "code": "MAD",
+     "name": "Madrid-Barajas Airport"
+    },
+    {
+     "code": "MUC",
+     "name": "Munich Airport"
+    },
+    {
+     "code": "OSL",
+     "name": "Oslo Airport Gardermoen"
+    },
+    {
+     "code": "CDG",
+     "name": "Paris Charles de Gaulle Airport"
+    },
+    {
+     "code": "BCN",
+     "name": "Barcelona-El Prat Airport"
+    },
+    {
+     "code": "FCO",
+     "name": "Rome Fiumicino Airport"
+    },
+    {
+     "code": "IST",
+     "name": "Istanbul Airport"
+    }
+   ]
+  },
+  {
+   "region": "Asia",
+   "codes": [
+    {
+     "code": "HKG",
+     "name": "Hong Kong International Airport"
+    },
+    {
+     "code": "PVG",
+     "name": "Shanghai Pudong International Airport"
+    },
+    {
+     "code": "PEK",
+     "name": "Beijing Capital International Airport"
+    },
+    {
+     "code": "CAN",
+     "name": "Guangzhou Baiyun International Airport"
+    },
+    {
+     "code": "KIX",
+     "name": "Kansai International Airport"
+    },
+    {
+     "code": "NRT",
+     "name": "Narita International Airport"
+    },
+    {
+     "code": "HND",
+     "name": "Haneda Airport"
+    },
+    {
+     "code": "ICN",
+     "name": "Incheon International Airport"
+    },
+    {
+     "code": "SIN",
+     "name": "Singapore Changi Airport"
+    },
+    {
+     "code": "BOM",
+     "name": "Chhatrapati Shivaji Maharaj International Airport"
+    },
+    {
+     "code": "DEL",
+     "name": "Indira Gandhi International Airport"
+    },
+    {
+     "code": "BKK",
+     "name": "Suvarnabhumi Airport"
+    },
+    {
+     "code": "KUL",
+     "name": "Kuala Lumpur International Airport"
+    },
+    {
+     "code": "CGK",
+     "name": "Soekarno-Hatta International Airport"
+    },
+    {
+     "code": "MNL",
+     "name": "Ninoy Aquino International Airport"
+    }
+   ]
+  },
+  {
+   "region": "North America",
+   "codes": [
+    {
+     "code": "ATL",
+     "name": "Hartsfield-Jackson Atlanta International Airport"
+    },
+    {
+     "code": "DFW",
+     "name": "Dallas Fort Worth International Airport"
+    },
+    {
+     "code": "LAX",
+     "name": "Los Angeles International Airport"
+    },
+    {
+     "code": "JFK",
+     "name": "John F. Kennedy International Airport"
+    },
+    {
+     "code": "ORD",
+     "name": "O'Hare International Airport"
+    },
+    {
+     "code": "MIA",
+     "name": "Miami International Airport"
+    },
+    {
+     "code": "IAH",
+     "name": "George Bush Intercontinental Airport"
+    },
+    {
+     "code": "YYZ",
+     "name": "Toronto Pearson International Airport"
+    },
+    {
+     "code": "YVR",
+     "name": "Vancouver International Airport"
+    },
+    {
+     "code": "SFO",
+     "name": "San Francisco International Airport"
+    }
+   ]
+  },
+  {
+   "region": "South America",
+   "codes": [
+    {
+     "code": "GRU",
+     "name": "São Paulo/Guarulhos International Airport"
+    },
+    {
+     "code": "EZE",
+     "name": "Ministro Pistarini International Airport"
+    },
+    {
+     "code": "SCL",
+     "name": "Santiago International Airport"
+    },
+    {
+     "code": "BOG",
+     "name": "El Dorado International Airport"
+    },
+    {
+     "code": "LIM",
+     "name": "Jorge Chávez International Airport"
+    },
+    {
+     "code": "GIG",
+     "name": "Rio de Janeiro/Galeão International Airport"
+    }
+   ]
+  },
+  {
+   "region": "Africa",
+   "codes": [
+    {
+     "code": "JNB",
+     "name": "O.R. Tambo International Airport"
+    },
+    {
+     "code": "CPT",
+     "name": "Cape Town International Airport"
+    },
+    {
+     "code": "CAI",
+     "name": "Cairo International Airport"
+    },
+    {
+     "code": "ADD",
+     "name": "Addis Ababa Bole International Airport"
+    },
+    {
+     "code": "NBO",
+     "name": "Jomo Kenyatta International Airport"
+    },
+    {
+     "code": "ACC",
+     "name": "Kotoka International Airport"
+    }
+   ]
+  },
+  {
+   "region": "Middle East",
+   "codes": [
+    {
+     "code": "DXB",
+     "name": "Dubai International Airport"
+    },
+    {
+     "code": "AUH",
+     "name": "Abu Dhabi International Airport"
+    },
+    {
+     "code": "DOH",
+     "name": "Hamad International Airport"
+    },
+    {
+     "code": "RUH",
+     "name": "King Khalid International Airport"
+    },
+    {
+     "code": "JED",
+     "name": "King Abdulaziz International Airport"
+    },
+    {
+     "code": "KWI",
+     "name": "Kuwait International Airport"
+    },
+    {
+     "code": "MCT",
+     "name": "Muscat International Airport"
+    }
+   ]
+  },
+  {
+   "region": "Oceania",
+   "codes": [
+    {
+     "code": "SYD",
+     "name": "Sydney Kingsford Smith Airport"
+    },
+    {
+     "code": "MEL",
+     "name": "Melbourne Airport"
+    },
+    {
+     "code": "BNE",
+     "name": "Brisbane Airport"
+    },
+    {
+     "code": "PER",
+     "name": "Perth Airport"
+    },
+    {
+     "code": "AKL",
+     "name": "Auckland International Airport"
+    },
+    {
+     "code": "CHC",
+     "name": "Christchurch International Airport"
+    }
+   ]
+  }
+ ],
+ "emergencyChecklist": [
+  {
+   "category": "Vessel Information",
+   "items": [
+    "Vessel name & voyage number",
+    "Berth / terminal",
+    "ETD & gate cut-off",
+    "Booking number confirmed"
+   ]
+  },
+  {
+   "category": "Cargo Information",
+   "items": [
+    "Pieces, weight & dimensions confirmed",
+    "Cargo physically ready",
+    "Packaging suitable for transport",
+    "Current cargo location known"
+   ]
+  },
+  {
+   "category": "Customs Status",
+   "items": [
+    "Commercial invoice & packing list ready",
+    "HS code confirmed",
+    "Any licenses/certificates attached",
+    "Customs broker informed"
+   ]
+  },
+  {
+   "category": "Transport Options",
+   "items": [
+    "Direct truck delivery checked",
+    "Air/courier alternative checked",
+    "Fastest viable option identified",
+    "Backup option identified"
+   ]
+  },
+  {
+   "category": "Required Documents",
+   "items": [
+    "Booking confirmation",
+    "Transport document (B/L / AWB / CMR)",
+    "DG documents (if applicable)",
+    "Delivery instructions issued"
+   ]
+  },
+  {
+   "category": "Backup Options",
+   "items": [
+    "Next vessel/port identified",
+    "Customer informed of contingency",
+    "Cost impact estimated",
+    "Decision owner assigned"
+   ]
+  }
+ ],
+ "premium": {
+  "emailCategory": {
+   "name": "Advanced Operator Templates",
+   "templates": [
+    {
+     "title": "Cargo Damage / Claims Report",
+     "subject": "Damage Report – Ref [Shipment Ref]",
+     "body": "Hi [Carrier / Insurer Contact],\n\nWe need to report damage identified on the shipment below:\n\nReference: [Shipment Ref]\nDamage noted at: [Location — e.g. delivery, terminal receipt]\nDescription of damage: [Description]\nPhotos attached: [Yes/No]\nEstimated value affected: [Amount]\n\nPlease advise the claims process and any documentation you require from our side (survey report, photos, packing list).\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Multi-Modal Routing Proposal",
+     "subject": "Routing Options – [Shipment Ref]",
+     "body": "Hi [Customer Name],\n\nBased on your shipment requirements, here are the routing options we'd recommend comparing:\n\nOption A – Sea: [Transit time] / [Approx. cost]\nOption B – Air: [Transit time] / [Approx. cost]\nOption C – Sea + final-mile air/truck: [Transit time] / [Approx. cost]\n\nGiven your deadline of [Date], we'd recommend Option [A/B/C] — happy to confirm booking as soon as you approve.\n\nBest regards,\n[Your Name]"
+    },
+    {
+     "title": "Customer Escalation Response",
+     "subject": "Re: [Shipment Ref] — Update and Next Steps",
+     "body": "Hi [Customer Name],\n\nI understand the repeated delays on [Shipment Ref] have been frustrating, and I want to make sure you have a clear picture of where things stand.\n\nCurrent status: [Status]\nWhat caused the delay: [Reason, in plain terms]\nWhat we're doing now: [Concrete action]\nWhen you'll hear from us next: [Specific date/time]\n\nI'm personally keeping an eye on this until it's resolved — please reach out directly if anything is unclear in the meantime.\n\nBest regards,\n[Your Name]"
+    },
+    {
+     "title": "Vessel Substitution Notice",
+     "subject": "Vessel Change Notice – [Shipment Ref]",
+     "body": "Hi [Customer / Agent],\n\nThe carrier has substituted the originally booked vessel. Updated details:\n\nOriginal vessel: [Name] — New vessel: [Name]\nReason (per carrier): [Reason]\nRevised ETD / ETA: [Dates]\nImpact on your booking: [None / minor delay / other]\n\nNo action is required on your end unless stated above — we'll continue monitoring and update you if anything changes further.\n\nBest regards,\n[Your Name]"
+    },
+    {
+     "title": "Long-Term Rate / Contract Request",
+     "subject": "Contract Rate Request – [Origin] to [Destination]",
+     "body": "Hi [Carrier Contact],\n\nWe'd like to request a contracted rate for a recurring lane:\n\nOrigin / Destination: [Origin] to [Destination]\nEstimated volume: [Shipments per month/quarter]\nTypical cargo profile: [Weight/dimensions/commodity type]\nContract period requested: [e.g. 6 / 12 months]\n\nCould you share your best contract rate and any minimum volume commitments required? Happy to discuss further by call if useful.\n\nThanks,\n[Your Name]"
+    },
+    {
+     "title": "Formal Force Majeure Declaration",
+     "subject": "Formal Force Majeure Declaration – Ref [Shipment Ref]",
+     "body": "Dear [Customer / Partner Name],\n\nThis letter serves as formal notice of a force majeure event affecting the performance of our obligations under [Contract / Booking Reference].\n\nEvent: [Description of the event — natural disaster, war-risk closure, strike, etc.]\nDate event began: [Date]\nSource confirming the event: [Carrier / port authority / government notice]\nObligations affected: [Which deliveries/deadlines are impacted]\nExpected duration: [Best estimate, or \"unknown at this time\"]\n\nWe will continue to perform all obligations not affected by this event and will notify you promptly once the situation is resolved or materially changes. Please contact us with any questions regarding this notice.\n\nRegards,\n[Your Name / Company]"
+    },
+    {
+     "title": "Volume RFQ to Multiple Carriers",
+     "subject": "Request for Quotation – [Origin] to [Destination] – [Annual Volume]",
+     "body": "Dear [Carrier Contact],\n\nWe are consolidating our freight spend on the lane below and would like to invite you to quote:\n\nOrigin / Destination: [Origin] to [Destination]\nMode: [Sea FCL / Sea LCL / Air / Road]\nEstimated annual volume: [Volume — TEU / kg / shipments]\nTypical cargo profile: [Weight, dimensions, DG status]\nRequired transit time: [Days]\nContract period: [e.g. 12 months]\n\nPlease submit your best all-in rate, transit time and any volume incentives by [Date]. We plan to award this lane by [Date].\n\nRegards,\n[Your Name]"
+    },
+    {
+     "title": "New Client Onboarding & Credit Terms",
+     "subject": "Onboarding — Account Setup for [Customer Name]",
+     "body": "Dear [Customer Contact],\n\nWelcome — to get your account fully set up, we'll need the following:\n\nCompany registration / VAT details: [Details]\nBilling contact and invoice email: [Details]\nRequested payment terms: [e.g. Net 30]\nStandard operating locations: [Origins/destinations you'll ship from/to]\nAny standing instructions: [e.g. always insure cargo, always use carrier X]\n\nOnce confirmed, I'll set up your account and send our standard booking process so your team knows exactly how to reach us for each shipment.\n\nBest regards,\n[Your Name]"
+    }
+   ]
+  },
+  "checklist": {
+   "name": "Claims & Damage Checklist",
+   "items": [
+    "Confirm and document the damage/loss with photos",
+    "Note exactly when and where the damage was discovered",
+    "Check the transport document for any exceptions noted at handover",
+    "Notify the carrier/insurer within their required claim window",
+    "Gather commercial invoice and value documentation",
+    "Confirm whether cargo insurance applies and policy details",
+    "Submit claim with all required documents to avoid delay",
+    "Track claim status and escalate if no response within agreed time"
+   ]
+  }
+ }
+}

@@ -20,6 +20,9 @@ export function createCheckoutUrl(tier: TierId, origin: string, idempotencyKey?:
     : createStripeCheckoutUrl(tier, origin, idempotencyKey);
 }
 
-export function verifyPurchase(id: string) {
-  return PROVIDER === "lemonsqueezy" ? verifyLemonSqueezyOrder(id) : verifyCheckoutSession(id);
+// allowExpired skips the 30-day link expiry. Only the online toolkit uses
+// it, and only for a key already stored in the buyer's own browser cookie —
+// a fresh link still stops granting access after 30 days.
+export function verifyPurchase(id: string, opts: { allowExpired?: boolean } = {}) {
+  return PROVIDER === "lemonsqueezy" ? verifyLemonSqueezyOrder(id, opts) : verifyCheckoutSession(id, opts);
 }

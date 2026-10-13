@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AlertTriangle, CheckCircle2, ShieldAlert } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Download, LayoutGrid, ShieldAlert } from "lucide-react";
 import Container from "@/components/ui/Container";
 import { verifyPurchase } from "@/lib/payments";
 import { siteConfig, tierHasToolkitFile, tierUnlocksDg, type TierId } from "@/config/site";
@@ -48,12 +48,24 @@ export default async function DownloadPage({
 
               <div className="mt-8 flex flex-col gap-3">
                 {tierHasToolkitFile(result.tier) && (
-                  <a
-                    href={`/api/download?session_id=${encodeURIComponent(sessionId)}`}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-ocean-400 to-ocean-600 px-6 py-3.5 text-sm font-semibold text-white shadow-glow transition-transform hover:scale-[1.02]"
-                  >
-                    {result.tier === "standard" ? "Download Toolkit (PDF)" : "Download Premium Bundle (.zip)"}
-                  </a>
+                  <>
+                    <a
+                      href={`/toolkit/access?key=${encodeURIComponent(sessionId)}`}
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-ocean-400 to-ocean-600 px-6 py-3.5 text-sm font-semibold text-white shadow-glow transition-transform hover:scale-[1.02]"
+                    >
+                      <LayoutGrid className="h-4 w-4" aria-hidden />
+                      Open your online toolkit
+                    </a>
+                    <a
+                      href={`/api/download?session_id=${encodeURIComponent(sessionId)}`}
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-mist-200 transition-colors hover:bg-white/5"
+                    >
+                      <Download className="h-4 w-4" aria-hidden />
+                      {result.tier === "standard"
+                        ? "Also download the PDF version"
+                        : "Also download PDF + Word + Excel (.zip)"}
+                    </a>
+                  </>
                 )}
                 {tierUnlocksDg(result.tier) && (
                   <a
@@ -66,6 +78,12 @@ export default async function DownloadPage({
                 )}
               </div>
 
+              {tierHasToolkitFile(result.tier) && (
+                <p className="mt-5 rounded-2xl bg-white/5 px-4 py-3 text-xs leading-relaxed text-mist-300">
+                  Tip: bookmark this page. Its link is your personal key to the online toolkit on any
+                  device — inside the toolkit you&apos;ll also find a link you can copy.
+                </p>
+              )}
               <p className="mt-4 text-xs text-mist-500">
                 Trouble accessing your order? Contact{" "}
                 <a className="underline" href={`mailto:${siteConfig.contactEmail}`}>
