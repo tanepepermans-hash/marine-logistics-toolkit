@@ -1568,53 +1568,65 @@ AIR_CARRIER_CODES = [
 # The carriers that come up most on marine spares airfreight, shown first.
 AIR_CARRIER_MOST_USED = ["KL", "CZ", "LH", "EK", "SQ", "QR", "TK", "SK", "AY", "UA", "KE", "VN"]
 
+# (IATA code, ISO country code, airport).
 AIRPORT_CODES = [
     ("Europe", [
-        ("AMS", "Amsterdam Airport Schiphol"), ("ANR", "Antwerp International Airport"),
-        ("BRU", "Brussels Airport"), ("CPH", "Copenhagen Airport"), ("DUB", "Dublin Airport"),
-        ("FRA", "Frankfurt Airport"), ("LHR", "London Heathrow Airport"), ("LGG", "Liège Airport"),
-        ("MAD", "Madrid-Barajas Airport"), ("MUC", "Munich Airport"), ("OSL", "Oslo Airport Gardermoen"),
-        ("CDG", "Paris Charles de Gaulle Airport"), ("BCN", "Barcelona-El Prat Airport"),
-        ("FCO", "Rome Fiumicino Airport"), ("IST", "Istanbul Airport"),
+        ("AMS", "NL", "Amsterdam Schiphol"), ("RTM", "NL", "Rotterdam The Hague"),
+        ("BRU", "BE", "Brussels"), ("LGG", "BE", "Liège"), ("ANR", "BE", "Antwerp"),
+        ("CPH", "DK", "Copenhagen"), ("FRA", "DE", "Frankfurt"), ("HAM", "DE", "Hamburg"),
+        ("MUC", "DE", "Munich"), ("LHR", "GB", "London Heathrow"), ("CDG", "FR", "Paris Charles de Gaulle"),
+        ("ATH", "GR", "Athens"), ("OSL", "NO", "Oslo Gardermoen"), ("BGO", "NO", "Bergen"),
+        ("SVG", "NO", "Stavanger"), ("GOT", "SE", "Gothenburg Landvetter"), ("HEL", "FI", "Helsinki"),
+        ("GDN", "PL", "Gdańsk"), ("RIX", "LV", "Riga"), ("MAD", "ES", "Madrid-Barajas"),
+        ("BCN", "ES", "Barcelona-El Prat"), ("LIS", "PT", "Lisbon"), ("MXP", "IT", "Milan Malpensa"),
+        ("FCO", "IT", "Rome Fiumicino"), ("IST", "TR", "Istanbul"),
     ]),
     ("Asia", [
-        ("HKG", "Hong Kong International Airport"), ("PVG", "Shanghai Pudong International Airport"),
-        ("PEK", "Beijing Capital International Airport"), ("CAN", "Guangzhou Baiyun International Airport"),
-        ("KIX", "Kansai International Airport"), ("NRT", "Narita International Airport"),
-        ("HND", "Haneda Airport"), ("ICN", "Incheon International Airport"),
-        ("SIN", "Singapore Changi Airport"), ("BOM", "Chhatrapati Shivaji Maharaj International Airport"),
-        ("DEL", "Indira Gandhi International Airport"), ("BKK", "Suvarnabhumi Airport"),
-        ("KUL", "Kuala Lumpur International Airport"), ("CGK", "Soekarno-Hatta International Airport"),
-        ("MNL", "Ninoy Aquino International Airport"),
-    ]),
-    ("North America", [
-        ("ATL", "Hartsfield-Jackson Atlanta International Airport"), ("DFW", "Dallas Fort Worth International Airport"),
-        ("LAX", "Los Angeles International Airport"), ("JFK", "John F. Kennedy International Airport"),
-        ("ORD", "O'Hare International Airport"), ("MIA", "Miami International Airport"),
-        ("IAH", "George Bush Intercontinental Airport"), ("YYZ", "Toronto Pearson International Airport"),
-        ("YVR", "Vancouver International Airport"), ("SFO", "San Francisco International Airport"),
-    ]),
-    ("South America", [
-        ("GRU", "São Paulo/Guarulhos International Airport"), ("EZE", "Ministro Pistarini International Airport"),
-        ("SCL", "Santiago International Airport"), ("BOG", "El Dorado International Airport"),
-        ("LIM", "Jorge Chávez International Airport"), ("GIG", "Rio de Janeiro/Galeão International Airport"),
-    ]),
-    ("Africa", [
-        ("JNB", "O.R. Tambo International Airport"), ("CPT", "Cape Town International Airport"),
-        ("CAI", "Cairo International Airport"), ("ADD", "Addis Ababa Bole International Airport"),
-        ("NBO", "Jomo Kenyatta International Airport"), ("ACC", "Kotoka International Airport"),
+        ("PVG", "CN", "Shanghai Pudong"), ("PEK", "CN", "Beijing Capital"), ("CAN", "CN", "Guangzhou Baiyun"),
+        ("SZX", "CN", "Shenzhen Bao'an"), ("TAO", "CN", "Qingdao Jiaodong"), ("DLC", "CN", "Dalian"),
+        ("HKG", "HK", "Hong Kong"), ("TPE", "TW", "Taipei Taoyuan"), ("KIX", "JP", "Osaka Kansai"),
+        ("NRT", "JP", "Tokyo Narita"), ("HND", "JP", "Tokyo Haneda"), ("ICN", "KR", "Seoul Incheon"),
+        ("PUS", "KR", "Busan Gimhae"), ("SIN", "SG", "Singapore Changi"), ("KUL", "MY", "Kuala Lumpur"),
+        ("BKK", "TH", "Bangkok Suvarnabhumi"), ("SGN", "VN", "Ho Chi Minh City Tan Son Nhat"),
+        ("HAN", "VN", "Hanoi Noi Bai"), ("MNL", "PH", "Manila Ninoy Aquino"), ("CGK", "ID", "Jakarta Soekarno-Hatta"),
+        ("BOM", "IN", "Mumbai"), ("DEL", "IN", "Delhi"), ("MAA", "IN", "Chennai"),
+        ("CMB", "LK", "Colombo"), ("DAC", "BD", "Dhaka"), ("CGP", "BD", "Chittagong"), ("KHI", "PK", "Karachi"),
     ]),
     ("Middle East", [
-        ("DXB", "Dubai International Airport"), ("AUH", "Abu Dhabi International Airport"),
-        ("DOH", "Hamad International Airport"), ("RUH", "King Khalid International Airport"),
-        ("JED", "King Abdulaziz International Airport"), ("KWI", "Kuwait International Airport"),
-        ("MCT", "Muscat International Airport"),
+        ("DXB", "AE", "Dubai International"), ("DWC", "AE", "Dubai World Central"), ("AUH", "AE", "Abu Dhabi"),
+        ("SHJ", "AE", "Sharjah"), ("DOH", "QA", "Doha Hamad"), ("BAH", "BH", "Bahrain"),
+        ("MCT", "OM", "Muscat"), ("KWI", "KW", "Kuwait"), ("DMM", "SA", "Dammam King Fahd"),
+        ("JED", "SA", "Jeddah King Abdulaziz"), ("RUH", "SA", "Riyadh King Khalid"),
+    ]),
+    ("Africa", [
+        ("CPT", "ZA", "Cape Town"), ("JNB", "ZA", "Johannesburg O.R. Tambo"), ("DUR", "ZA", "Durban King Shaka"),
+        ("CAI", "EG", "Cairo"), ("ADD", "ET", "Addis Ababa Bole"), ("NBO", "KE", "Nairobi Jomo Kenyatta"),
+        ("MBA", "KE", "Mombasa"), ("DAR", "TZ", "Dar es Salaam"), ("LOS", "NG", "Lagos"),
+        ("ACC", "GH", "Accra Kotoka"), ("ABJ", "CI", "Abidjan"), ("DSS", "SN", "Dakar Blaise Diagne"),
+        ("LAD", "AO", "Luanda"), ("CMN", "MA", "Casablanca Mohammed V"), ("MPM", "MZ", "Maputo"),
+    ]),
+    ("North America", [
+        ("IAH", "US", "Houston George Bush"), ("IAD", "US", "Washington Dulles"), ("JFK", "US", "New York JFK"),
+        ("EWR", "US", "Newark"), ("MIA", "US", "Miami"), ("ATL", "US", "Atlanta"),
+        ("ORD", "US", "Chicago O'Hare"), ("LAX", "US", "Los Angeles"), ("SFO", "US", "San Francisco"),
+        ("SEA", "US", "Seattle-Tacoma"), ("MSY", "US", "New Orleans"), ("YYZ", "CA", "Toronto Pearson"),
+        ("YVR", "CA", "Vancouver"), ("YUL", "CA", "Montréal-Trudeau"), ("MEX", "MX", "Mexico City"),
+        ("PTY", "PA", "Panama City Tocumen"),
+    ]),
+    ("South America", [
+        ("GRU", "BR", "São Paulo Guarulhos"), ("GIG", "BR", "Rio de Janeiro Galeão"), ("EZE", "AR", "Buenos Aires Ezeiza"),
+        ("SCL", "CL", "Santiago"), ("LIM", "PE", "Lima Jorge Chávez"), ("BOG", "CO", "Bogotá El Dorado"),
+        ("GYE", "EC", "Guayaquil"), ("MVD", "UY", "Montevideo"),
     ]),
     ("Oceania", [
-        ("SYD", "Sydney Kingsford Smith Airport"), ("MEL", "Melbourne Airport"), ("BNE", "Brisbane Airport"),
-        ("PER", "Perth Airport"), ("AKL", "Auckland International Airport"), ("CHC", "Christchurch International Airport"),
+        ("SYD", "AU", "Sydney"), ("MEL", "AU", "Melbourne"), ("BNE", "AU", "Brisbane"),
+        ("PER", "AU", "Perth"), ("AKL", "NZ", "Auckland"), ("CHC", "NZ", "Christchurch"),
+        ("POM", "PG", "Port Moresby"),
     ]),
 ]
+
+# The airports that come up most on marine spares airfreight, shown first.
+AIRPORT_MOST_USED = ["AMS", "PVG", "KIX", "SIN", "IAH", "CPT", "ATH", "ICN", "HND", "TAO", "SGN", "DXB"]
 
 BONUS_CHECKLIST = [
     {
@@ -2225,7 +2237,7 @@ def render_reference():
     body += f'<div class="cat-title" style="margin-top:26px;">{air_icon}Air Carrier Codes — IATA Code &amp; AWB Prefix</div>'
     body += render_code_table(AIR_CARRIER_CODES)
     airport_icon = icon_badge("map-pin", size=22, icon_size=11, tone="tint")
-    body += f'<div class="cat-title" style="margin-top:26px;">{airport_icon}Airport Codes — IATA Codes</div>'
+    body += f'<div class="cat-title" style="margin-top:26px;">{airport_icon}Airport Codes — IATA Code &amp; Country</div>'
     body += render_code_table(AIRPORT_CODES)
     return f'<div class="section-break">{body}</div>'
 

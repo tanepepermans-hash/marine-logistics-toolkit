@@ -43,15 +43,15 @@ def pairs(rows):
     return [{"term": t, "definition": d} for t, d in rows]
 
 
-def code_entry(e):
+def code_entry(e, extra):
     if len(e) == 3:
-        return {"code": e[0], "prefix": e[1], "name": e[2]}
+        return {"code": e[0], extra: e[1], "name": e[2]}
     return {"code": e[0], "name": e[1]}
 
 
-def regions(rows):
+def regions(rows, extra="prefix"):
     return [
-        {"region": region, "codes": [code_entry(e) for e in codes]}
+        {"region": region, "codes": [code_entry(e, extra) for e in codes]}
         for region, codes in rows
     ]
 
@@ -66,7 +66,8 @@ data = {
     "incoterms": pairs(b.INCOTERMS),
     "airCarrierCodes": regions(b.AIR_CARRIER_CODES),
     "airCarrierMostUsed": b.AIR_CARRIER_MOST_USED,
-    "airportCodes": regions(b.AIRPORT_CODES),
+    "airportCodes": regions(b.AIRPORT_CODES, "country"),
+    "airportMostUsed": b.AIRPORT_MOST_USED,
     "emergencyChecklist": b.BONUS_CHECKLIST,
     "premium": {
         "emailCategory": reflow_templates(b.PREMIUM_EMAIL_CATEGORY),

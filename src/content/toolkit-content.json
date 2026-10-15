@@ -1320,63 +1320,128 @@
    "codes": [
     {
      "code": "AMS",
-     "name": "Amsterdam Airport Schiphol"
+     "country": "NL",
+     "name": "Amsterdam Schiphol"
     },
     {
-     "code": "ANR",
-     "name": "Antwerp International Airport"
+     "code": "RTM",
+     "country": "NL",
+     "name": "Rotterdam The Hague"
     },
     {
      "code": "BRU",
-     "name": "Brussels Airport"
-    },
-    {
-     "code": "CPH",
-     "name": "Copenhagen Airport"
-    },
-    {
-     "code": "DUB",
-     "name": "Dublin Airport"
-    },
-    {
-     "code": "FRA",
-     "name": "Frankfurt Airport"
-    },
-    {
-     "code": "LHR",
-     "name": "London Heathrow Airport"
+     "country": "BE",
+     "name": "Brussels"
     },
     {
      "code": "LGG",
-     "name": "Liège Airport"
+     "country": "BE",
+     "name": "Liège"
     },
     {
-     "code": "MAD",
-     "name": "Madrid-Barajas Airport"
+     "code": "ANR",
+     "country": "BE",
+     "name": "Antwerp"
+    },
+    {
+     "code": "CPH",
+     "country": "DK",
+     "name": "Copenhagen"
+    },
+    {
+     "code": "FRA",
+     "country": "DE",
+     "name": "Frankfurt"
+    },
+    {
+     "code": "HAM",
+     "country": "DE",
+     "name": "Hamburg"
     },
     {
      "code": "MUC",
-     "name": "Munich Airport"
+     "country": "DE",
+     "name": "Munich"
     },
     {
-     "code": "OSL",
-     "name": "Oslo Airport Gardermoen"
+     "code": "LHR",
+     "country": "GB",
+     "name": "London Heathrow"
     },
     {
      "code": "CDG",
-     "name": "Paris Charles de Gaulle Airport"
+     "country": "FR",
+     "name": "Paris Charles de Gaulle"
+    },
+    {
+     "code": "ATH",
+     "country": "GR",
+     "name": "Athens"
+    },
+    {
+     "code": "OSL",
+     "country": "NO",
+     "name": "Oslo Gardermoen"
+    },
+    {
+     "code": "BGO",
+     "country": "NO",
+     "name": "Bergen"
+    },
+    {
+     "code": "SVG",
+     "country": "NO",
+     "name": "Stavanger"
+    },
+    {
+     "code": "GOT",
+     "country": "SE",
+     "name": "Gothenburg Landvetter"
+    },
+    {
+     "code": "HEL",
+     "country": "FI",
+     "name": "Helsinki"
+    },
+    {
+     "code": "GDN",
+     "country": "PL",
+     "name": "Gdańsk"
+    },
+    {
+     "code": "RIX",
+     "country": "LV",
+     "name": "Riga"
+    },
+    {
+     "code": "MAD",
+     "country": "ES",
+     "name": "Madrid-Barajas"
     },
     {
      "code": "BCN",
-     "name": "Barcelona-El Prat Airport"
+     "country": "ES",
+     "name": "Barcelona-El Prat"
+    },
+    {
+     "code": "LIS",
+     "country": "PT",
+     "name": "Lisbon"
+    },
+    {
+     "code": "MXP",
+     "country": "IT",
+     "name": "Milan Malpensa"
     },
     {
      "code": "FCO",
-     "name": "Rome Fiumicino Airport"
+     "country": "IT",
+     "name": "Rome Fiumicino"
     },
     {
      "code": "IST",
-     "name": "Istanbul Airport"
+     "country": "TR",
+     "name": "Istanbul"
     }
    ]
   },
@@ -1384,167 +1449,139 @@
    "region": "Asia",
    "codes": [
     {
-     "code": "HKG",
-     "name": "Hong Kong International Airport"
-    },
-    {
      "code": "PVG",
-     "name": "Shanghai Pudong International Airport"
+     "country": "CN",
+     "name": "Shanghai Pudong"
     },
     {
      "code": "PEK",
-     "name": "Beijing Capital International Airport"
+     "country": "CN",
+     "name": "Beijing Capital"
     },
     {
      "code": "CAN",
-     "name": "Guangzhou Baiyun International Airport"
+     "country": "CN",
+     "name": "Guangzhou Baiyun"
+    },
+    {
+     "code": "SZX",
+     "country": "CN",
+     "name": "Shenzhen Bao'an"
+    },
+    {
+     "code": "TAO",
+     "country": "CN",
+     "name": "Qingdao Jiaodong"
+    },
+    {
+     "code": "DLC",
+     "country": "CN",
+     "name": "Dalian"
+    },
+    {
+     "code": "HKG",
+     "country": "HK",
+     "name": "Hong Kong"
+    },
+    {
+     "code": "TPE",
+     "country": "TW",
+     "name": "Taipei Taoyuan"
     },
     {
      "code": "KIX",
-     "name": "Kansai International Airport"
+     "country": "JP",
+     "name": "Osaka Kansai"
     },
     {
      "code": "NRT",
-     "name": "Narita International Airport"
+     "country": "JP",
+     "name": "Tokyo Narita"
     },
     {
      "code": "HND",
-     "name": "Haneda Airport"
+     "country": "JP",
+     "name": "Tokyo Haneda"
     },
     {
      "code": "ICN",
-     "name": "Incheon International Airport"
+     "country": "KR",
+     "name": "Seoul Incheon"
+    },
+    {
+     "code": "PUS",
+     "country": "KR",
+     "name": "Busan Gimhae"
     },
     {
      "code": "SIN",
-     "name": "Singapore Changi Airport"
-    },
-    {
-     "code": "BOM",
-     "name": "Chhatrapati Shivaji Maharaj International Airport"
-    },
-    {
-     "code": "DEL",
-     "name": "Indira Gandhi International Airport"
-    },
-    {
-     "code": "BKK",
-     "name": "Suvarnabhumi Airport"
+     "country": "SG",
+     "name": "Singapore Changi"
     },
     {
      "code": "KUL",
-     "name": "Kuala Lumpur International Airport"
+     "country": "MY",
+     "name": "Kuala Lumpur"
     },
     {
-     "code": "CGK",
-     "name": "Soekarno-Hatta International Airport"
+     "code": "BKK",
+     "country": "TH",
+     "name": "Bangkok Suvarnabhumi"
+    },
+    {
+     "code": "SGN",
+     "country": "VN",
+     "name": "Ho Chi Minh City Tan Son Nhat"
+    },
+    {
+     "code": "HAN",
+     "country": "VN",
+     "name": "Hanoi Noi Bai"
     },
     {
      "code": "MNL",
-     "name": "Ninoy Aquino International Airport"
-    }
-   ]
-  },
-  {
-   "region": "North America",
-   "codes": [
-    {
-     "code": "ATL",
-     "name": "Hartsfield-Jackson Atlanta International Airport"
+     "country": "PH",
+     "name": "Manila Ninoy Aquino"
     },
     {
-     "code": "DFW",
-     "name": "Dallas Fort Worth International Airport"
+     "code": "CGK",
+     "country": "ID",
+     "name": "Jakarta Soekarno-Hatta"
     },
     {
-     "code": "LAX",
-     "name": "Los Angeles International Airport"
+     "code": "BOM",
+     "country": "IN",
+     "name": "Mumbai"
     },
     {
-     "code": "JFK",
-     "name": "John F. Kennedy International Airport"
+     "code": "DEL",
+     "country": "IN",
+     "name": "Delhi"
     },
     {
-     "code": "ORD",
-     "name": "O'Hare International Airport"
+     "code": "MAA",
+     "country": "IN",
+     "name": "Chennai"
     },
     {
-     "code": "MIA",
-     "name": "Miami International Airport"
+     "code": "CMB",
+     "country": "LK",
+     "name": "Colombo"
     },
     {
-     "code": "IAH",
-     "name": "George Bush Intercontinental Airport"
+     "code": "DAC",
+     "country": "BD",
+     "name": "Dhaka"
     },
     {
-     "code": "YYZ",
-     "name": "Toronto Pearson International Airport"
+     "code": "CGP",
+     "country": "BD",
+     "name": "Chittagong"
     },
     {
-     "code": "YVR",
-     "name": "Vancouver International Airport"
-    },
-    {
-     "code": "SFO",
-     "name": "San Francisco International Airport"
-    }
-   ]
-  },
-  {
-   "region": "South America",
-   "codes": [
-    {
-     "code": "GRU",
-     "name": "São Paulo/Guarulhos International Airport"
-    },
-    {
-     "code": "EZE",
-     "name": "Ministro Pistarini International Airport"
-    },
-    {
-     "code": "SCL",
-     "name": "Santiago International Airport"
-    },
-    {
-     "code": "BOG",
-     "name": "El Dorado International Airport"
-    },
-    {
-     "code": "LIM",
-     "name": "Jorge Chávez International Airport"
-    },
-    {
-     "code": "GIG",
-     "name": "Rio de Janeiro/Galeão International Airport"
-    }
-   ]
-  },
-  {
-   "region": "Africa",
-   "codes": [
-    {
-     "code": "JNB",
-     "name": "O.R. Tambo International Airport"
-    },
-    {
-     "code": "CPT",
-     "name": "Cape Town International Airport"
-    },
-    {
-     "code": "CAI",
-     "name": "Cairo International Airport"
-    },
-    {
-     "code": "ADD",
-     "name": "Addis Ababa Bole International Airport"
-    },
-    {
-     "code": "NBO",
-     "name": "Jomo Kenyatta International Airport"
-    },
-    {
-     "code": "ACC",
-     "name": "Kotoka International Airport"
+     "code": "KHI",
+     "country": "PK",
+     "name": "Karachi"
     }
    ]
   },
@@ -1553,31 +1590,268 @@
    "codes": [
     {
      "code": "DXB",
-     "name": "Dubai International Airport"
+     "country": "AE",
+     "name": "Dubai International"
+    },
+    {
+     "code": "DWC",
+     "country": "AE",
+     "name": "Dubai World Central"
     },
     {
      "code": "AUH",
-     "name": "Abu Dhabi International Airport"
+     "country": "AE",
+     "name": "Abu Dhabi"
+    },
+    {
+     "code": "SHJ",
+     "country": "AE",
+     "name": "Sharjah"
     },
     {
      "code": "DOH",
-     "name": "Hamad International Airport"
+     "country": "QA",
+     "name": "Doha Hamad"
     },
     {
-     "code": "RUH",
-     "name": "King Khalid International Airport"
-    },
-    {
-     "code": "JED",
-     "name": "King Abdulaziz International Airport"
-    },
-    {
-     "code": "KWI",
-     "name": "Kuwait International Airport"
+     "code": "BAH",
+     "country": "BH",
+     "name": "Bahrain"
     },
     {
      "code": "MCT",
-     "name": "Muscat International Airport"
+     "country": "OM",
+     "name": "Muscat"
+    },
+    {
+     "code": "KWI",
+     "country": "KW",
+     "name": "Kuwait"
+    },
+    {
+     "code": "DMM",
+     "country": "SA",
+     "name": "Dammam King Fahd"
+    },
+    {
+     "code": "JED",
+     "country": "SA",
+     "name": "Jeddah King Abdulaziz"
+    },
+    {
+     "code": "RUH",
+     "country": "SA",
+     "name": "Riyadh King Khalid"
+    }
+   ]
+  },
+  {
+   "region": "Africa",
+   "codes": [
+    {
+     "code": "CPT",
+     "country": "ZA",
+     "name": "Cape Town"
+    },
+    {
+     "code": "JNB",
+     "country": "ZA",
+     "name": "Johannesburg O.R. Tambo"
+    },
+    {
+     "code": "DUR",
+     "country": "ZA",
+     "name": "Durban King Shaka"
+    },
+    {
+     "code": "CAI",
+     "country": "EG",
+     "name": "Cairo"
+    },
+    {
+     "code": "ADD",
+     "country": "ET",
+     "name": "Addis Ababa Bole"
+    },
+    {
+     "code": "NBO",
+     "country": "KE",
+     "name": "Nairobi Jomo Kenyatta"
+    },
+    {
+     "code": "MBA",
+     "country": "KE",
+     "name": "Mombasa"
+    },
+    {
+     "code": "DAR",
+     "country": "TZ",
+     "name": "Dar es Salaam"
+    },
+    {
+     "code": "LOS",
+     "country": "NG",
+     "name": "Lagos"
+    },
+    {
+     "code": "ACC",
+     "country": "GH",
+     "name": "Accra Kotoka"
+    },
+    {
+     "code": "ABJ",
+     "country": "CI",
+     "name": "Abidjan"
+    },
+    {
+     "code": "DSS",
+     "country": "SN",
+     "name": "Dakar Blaise Diagne"
+    },
+    {
+     "code": "LAD",
+     "country": "AO",
+     "name": "Luanda"
+    },
+    {
+     "code": "CMN",
+     "country": "MA",
+     "name": "Casablanca Mohammed V"
+    },
+    {
+     "code": "MPM",
+     "country": "MZ",
+     "name": "Maputo"
+    }
+   ]
+  },
+  {
+   "region": "North America",
+   "codes": [
+    {
+     "code": "IAH",
+     "country": "US",
+     "name": "Houston George Bush"
+    },
+    {
+     "code": "IAD",
+     "country": "US",
+     "name": "Washington Dulles"
+    },
+    {
+     "code": "JFK",
+     "country": "US",
+     "name": "New York JFK"
+    },
+    {
+     "code": "EWR",
+     "country": "US",
+     "name": "Newark"
+    },
+    {
+     "code": "MIA",
+     "country": "US",
+     "name": "Miami"
+    },
+    {
+     "code": "ATL",
+     "country": "US",
+     "name": "Atlanta"
+    },
+    {
+     "code": "ORD",
+     "country": "US",
+     "name": "Chicago O'Hare"
+    },
+    {
+     "code": "LAX",
+     "country": "US",
+     "name": "Los Angeles"
+    },
+    {
+     "code": "SFO",
+     "country": "US",
+     "name": "San Francisco"
+    },
+    {
+     "code": "SEA",
+     "country": "US",
+     "name": "Seattle-Tacoma"
+    },
+    {
+     "code": "MSY",
+     "country": "US",
+     "name": "New Orleans"
+    },
+    {
+     "code": "YYZ",
+     "country": "CA",
+     "name": "Toronto Pearson"
+    },
+    {
+     "code": "YVR",
+     "country": "CA",
+     "name": "Vancouver"
+    },
+    {
+     "code": "YUL",
+     "country": "CA",
+     "name": "Montréal-Trudeau"
+    },
+    {
+     "code": "MEX",
+     "country": "MX",
+     "name": "Mexico City"
+    },
+    {
+     "code": "PTY",
+     "country": "PA",
+     "name": "Panama City Tocumen"
+    }
+   ]
+  },
+  {
+   "region": "South America",
+   "codes": [
+    {
+     "code": "GRU",
+     "country": "BR",
+     "name": "São Paulo Guarulhos"
+    },
+    {
+     "code": "GIG",
+     "country": "BR",
+     "name": "Rio de Janeiro Galeão"
+    },
+    {
+     "code": "EZE",
+     "country": "AR",
+     "name": "Buenos Aires Ezeiza"
+    },
+    {
+     "code": "SCL",
+     "country": "CL",
+     "name": "Santiago"
+    },
+    {
+     "code": "LIM",
+     "country": "PE",
+     "name": "Lima Jorge Chávez"
+    },
+    {
+     "code": "BOG",
+     "country": "CO",
+     "name": "Bogotá El Dorado"
+    },
+    {
+     "code": "GYE",
+     "country": "EC",
+     "name": "Guayaquil"
+    },
+    {
+     "code": "MVD",
+     "country": "UY",
+     "name": "Montevideo"
     }
    ]
   },
@@ -1586,30 +1860,55 @@
    "codes": [
     {
      "code": "SYD",
-     "name": "Sydney Kingsford Smith Airport"
+     "country": "AU",
+     "name": "Sydney"
     },
     {
      "code": "MEL",
-     "name": "Melbourne Airport"
+     "country": "AU",
+     "name": "Melbourne"
     },
     {
      "code": "BNE",
-     "name": "Brisbane Airport"
+     "country": "AU",
+     "name": "Brisbane"
     },
     {
      "code": "PER",
-     "name": "Perth Airport"
+     "country": "AU",
+     "name": "Perth"
     },
     {
      "code": "AKL",
-     "name": "Auckland International Airport"
+     "country": "NZ",
+     "name": "Auckland"
     },
     {
      "code": "CHC",
-     "name": "Christchurch International Airport"
+     "country": "NZ",
+     "name": "Christchurch"
+    },
+    {
+     "code": "POM",
+     "country": "PG",
+     "name": "Port Moresby"
     }
    ]
   }
+ ],
+ "airportMostUsed": [
+  "AMS",
+  "PVG",
+  "KIX",
+  "SIN",
+  "IAH",
+  "CPT",
+  "ATH",
+  "ICN",
+  "HND",
+  "TAO",
+  "SGN",
+  "DXB"
  ],
  "emergencyChecklist": [
   {

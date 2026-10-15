@@ -20,7 +20,7 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import type { Checklist, CodeRegion, EmailTemplate, Prompt, Term, ToolkitContent, Workflow } from "@/content/types";
+import type { Checklist, CodeEntry, CodeRegion, EmailTemplate, Prompt, Term, ToolkitContent, Workflow } from "@/content/types";
 import ShipmentPanel from "./ShipmentPanel";
 import { FIELDS, buildLookup, fillText, filledCount, formatDate, segments, type Values } from "./shipment";
 
@@ -386,44 +386,39 @@ function TermList({ title, terms }: { title: string; terms: Term[] }) {
   );
 }
 
-function CodeTable({ title, regions }: { title: string; regions: CodeRegion[] }) {
-  if (!regions.length) return null;
-  return (
-    <Card>
-      <h4 className="font-semibold text-navy-900">{title}</h4>
-      <div className="mt-3 space-y-5">
-        {regions.map((r) => (
-          <div key={r.region}>
-            <div className="text-xs font-semibold uppercase tracking-wider text-navy-500">{r.region}</div>
-            <div className="mt-2 grid gap-x-6 gap-y-1 sm:grid-cols-2">
-              {r.codes.map((c) => (
-                <div key={c.code + c.name} className="flex gap-3 py-1 text-sm">
-                  <span className="w-10 shrink-0 font-mono font-semibold text-ocean-700">{c.code}</span>
-                  <span className="text-navy-700">{c.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </Card>
-  );
-}
+const MostUsedDot = () => (
+  <span className="inline-block h-2 w-2 rounded-full bg-ocean-500 align-middle" aria-hidden="true" />
+);
 
-// Airline codes with the 3-digit AWB prefix, so a pre-alert's AWB can be
-// matched to its airline at a glance. The most-used carriers come first.
-function CarrierTable({ regions, mostUsed, showTop }: { regions: CodeRegion[]; mostUsed: string[]; showTop: boolean }) {
+// Airline and airport codes, laid out the same way: a "Most used" strip
+// first, then one three-column table per region (code · extra · name).
+function CodeReference({
+  title,
+  hint,
+  subLabel,
+  sub,
+  regions,
+  mostUsed,
+  showTop,
+}: {
+  title: string;
+  hint: ReactNode;
+  subLabel: string;
+  sub: (c: CodeEntry) => string | undefined;
+  regions: CodeRegion[];
+  mostUsed: string[];
+  showTop: boolean;
+}) {
   if (!regions.length) return null;
   const all = regions.flatMap((r) => r.codes);
-  const top = mostUsed.map((c) => all.find((e) => e.code === c)).filter((e): e is NonNullable<typeof e> => !!e);
+  const top = mostUsed.map((c) => all.find((e) => e.code === c)).filter((e): e is CodeEntry => !!e);
   const isTop = (code: string) => mostUsed.includes(code);
   return (
     <Card>
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <h4 className="font-semibold text-navy-900">Air carrier codes &amp; AWB prefixes</h4>
+        <h4 className="font-semibold text-navy-900">{title}</h4>
         <p className="text-xs text-navy-500">
-          An AWB number is the prefix + 8 digits, e.g. <span className="font-mono text-navy-700">074-46522965</span> = KLM ·{" "}
-          <span className="inline-block h-2 w-2 rounded-full bg-ocean-500 align-middle" aria-hidden="true" /> most used
+          {hint} · <MostUsedDot /> most used
         </p>
       </div>
 
@@ -435,7 +430,7 @@ function CarrierTable({ regions, mostUsed, showTop }: { regions: CodeRegion[]; m
               <li key={c.code} className="rounded-lg border border-navy-900/5 bg-white px-3 py-2">
                 <div className="flex items-baseline justify-between gap-2 font-mono">
                   <span className="text-lg font-semibold text-navy-900">{c.code}</span>
-                  <span className="text-ocean-700">{c.prefix}</span>
+                  <span className="text-ocean-700">{sub(c)}</span>
                 </div>
                 <div className="truncate text-xs text-navy-600">{c.name}</div>
               </li>
@@ -454,15 +449,15 @@ function CarrierTable({ regions, mostUsed, showTop }: { regions: CodeRegion[]; m
               <thead className="sr-only">
                 <tr>
                   <th scope="col">Code</th>
-                  <th scope="col">AWB prefix</th>
-                  <th scope="col">Airline</th>
+                  <th scope="col">{subLabel}</th>
+                  <th scope="col">Name</th>
                 </tr>
               </thead>
               <tbody>
                 {r.codes.map((c) => (
                   <tr key={c.code + c.name} className="border-b border-navy-900/5 last:border-0">
-                    <td className="w-12 py-1.5 font-mono font-semibold text-navy-900">{c.code}</td>
-                    <td className="w-14 py-1.5 font-mono text-ocean-700">{c.prefix ?? "—"}</td>
+                    <td className="w-14 py-1.5 font-mono font-semibold text-navy-900">{c.code}</td>
+                    <td className="w-14 py-1.5 font-mono text-ocean-700">{sub(c) ?? "—"}</td>
                     <td className="py-1.5 text-navy-700">
                       {c.name}
                       {isTop(c.code) && (
@@ -634,7 +629,7 @@ export default function ToolkitApp({
     const incoterms = content.incoterms.filter((t) => !q || matches(q, t.term, t.definition));
     const codes = (rs: CodeRegion[]) =>
       rs
-        .map((r) => ({ ...r, codes: r.codes.filter((c) => !q || matches(q, c.code, c.prefix ?? "", c.name)) }))
+        .map((r) => ({ ...r, codes: r.codes.filter((c) => !q || matches(q, c.code, c.prefix ?? "", c.country ?? "", c.name)) }))
         .filter((r) => r.codes.length);
     return {
       emails,
@@ -1029,8 +1024,24 @@ export default function ToolkitApp({
                 <div className="space-y-4">
                   <TermList title="Glossary" terms={filtered.glossary} />
                   <TermList title="Incoterms® 2020 at a glance" terms={filtered.incoterms} />
-                  <CarrierTable regions={filtered.carriers} mostUsed={content.airCarrierMostUsed ?? []} showTop={!searching} />
-                  <CodeTable title="Airport codes (IATA)" regions={filtered.airports} />
+                  <CodeReference
+                    title="Air carrier codes & AWB prefixes"
+                    hint={<>AWB = prefix + 8 digits, e.g. <span className="font-mono text-navy-700">074-46522965</span> = KLM</>}
+                    subLabel="AWB prefix"
+                    sub={(c) => c.prefix}
+                    regions={filtered.carriers}
+                    mostUsed={content.airCarrierMostUsed ?? []}
+                    showTop={!searching}
+                  />
+                  <CodeReference
+                    title="Airport codes & countries"
+                    hint={<>3-letter IATA airport code with its ISO country code</>}
+                    subLabel="Country"
+                    sub={(c) => c.country}
+                    regions={filtered.airports}
+                    mostUsed={content.airportMostUsed ?? []}
+                    showTop={!searching}
+                  />
                 </div>
               </section>
             )}

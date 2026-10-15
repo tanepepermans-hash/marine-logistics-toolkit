@@ -8,7 +8,7 @@ export type Workflow = { trigger: string; steps: string[] };
 export type Prompt = { title: string; prompt: string };
 export type Phase = { phase: string; steps: string[] };
 export type Term = { term: string; definition: string };
-export type CodeEntry = { code: string; name: string; prefix?: string };
+export type CodeEntry = { code: string; name: string; prefix?: string; country?: string };
 export type CodeRegion = { region: string; codes: CodeEntry[] };
 export type GroupedChecklist = { category: string; items: string[] };
 
@@ -23,6 +23,7 @@ export type RawToolkitContent = {
   airCarrierCodes: CodeRegion[];
   airCarrierMostUsed: string[];
   airportCodes: CodeRegion[];
+  airportMostUsed: string[];
   emergencyChecklist: GroupedChecklist[];
   premium: { emailCategory: EmailCategory; checklist: Checklist };
 };
