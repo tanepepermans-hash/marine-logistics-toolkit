@@ -12,7 +12,7 @@ const features = [
     title: "Fill in once, every template is done",
     text: "Enter reference, parties, cargo, dates and times one time — all 57 emails and AI prompts fill themselves in.",
   },
-  { icon: Search, title: "Find anything in seconds", text: "One search across templates, checklists, workflows, Incoterms and IATA codes." },
+  { icon: Search, title: "Find anything in seconds", text: "One search across templates, checklists, workflows, Incoterms, airline AWB prefixes and airport codes." },
   { icon: Star, title: "Your daily set, one tap away", text: "Star the templates and checklists you use most and keep them together." },
   { icon: ClipboardCheck, title: "Checklists that tick", text: "Track progress per shipment, then reset for the next one." },
 ];
