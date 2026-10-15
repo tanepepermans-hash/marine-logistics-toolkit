@@ -410,6 +410,78 @@ function CodeTable({ title, regions }: { title: string; regions: CodeRegion[] })
   );
 }
 
+// Airline codes with the 3-digit AWB prefix, so a pre-alert's AWB can be
+// matched to its airline at a glance. The most-used carriers come first.
+function CarrierTable({ regions, mostUsed, showTop }: { regions: CodeRegion[]; mostUsed: string[]; showTop: boolean }) {
+  if (!regions.length) return null;
+  const all = regions.flatMap((r) => r.codes);
+  const top = mostUsed.map((c) => all.find((e) => e.code === c)).filter((e): e is NonNullable<typeof e> => !!e);
+  const isTop = (code: string) => mostUsed.includes(code);
+  return (
+    <Card>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <h4 className="font-semibold text-navy-900">Air carrier codes &amp; AWB prefixes</h4>
+        <p className="text-xs text-navy-500">
+          An AWB number is the prefix + 8 digits, e.g. <span className="font-mono text-navy-700">074-46522965</span> = KLM ·{" "}
+          <span className="inline-block h-2 w-2 rounded-full bg-ocean-500 align-middle" aria-hidden="true" /> most used
+        </p>
+      </div>
+
+      {showTop && top.length > 0 && (
+        <div className="mt-4 rounded-xl bg-ocean-500/5 p-4">
+          <div className="text-xs font-semibold uppercase tracking-wider text-ocean-700">Most used</div>
+          <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
+            {top.map((c) => (
+              <li key={c.code} className="rounded-lg border border-navy-900/5 bg-white px-3 py-2">
+                <div className="flex items-baseline justify-between gap-2 font-mono">
+                  <span className="text-lg font-semibold text-navy-900">{c.code}</span>
+                  <span className="text-ocean-700">{c.prefix}</span>
+                </div>
+                <div className="truncate text-xs text-navy-600">{c.name}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="mt-5 grid gap-x-8 gap-y-6 md:grid-cols-2">
+        {regions.map((r) => (
+          <div key={r.region} className="min-w-0">
+            <table className="w-full text-sm">
+              <caption className="border-b border-navy-900/15 pb-2 text-left text-xs font-semibold uppercase tracking-wider text-navy-500">
+                {r.region}
+              </caption>
+              <thead className="sr-only">
+                <tr>
+                  <th scope="col">Code</th>
+                  <th scope="col">AWB prefix</th>
+                  <th scope="col">Airline</th>
+                </tr>
+              </thead>
+              <tbody>
+                {r.codes.map((c) => (
+                  <tr key={c.code + c.name} className="border-b border-navy-900/5 last:border-0">
+                    <td className="w-12 py-1.5 font-mono font-semibold text-navy-900">{c.code}</td>
+                    <td className="w-14 py-1.5 font-mono text-ocean-700">{c.prefix ?? "—"}</td>
+                    <td className="py-1.5 text-navy-700">
+                      {c.name}
+                      {isTop(c.code) && (
+                        <span className="ml-2 inline-block h-2 w-2 rounded-full bg-ocean-500 align-middle" title="Most used">
+                          <span className="sr-only">(most used)</span>
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ))}
+      </div>
+    </Card>
+  );
+}
+
 function readJson<T>(key: string, fallback: T): T {
   try {
     const v = window.localStorage.getItem(key);
@@ -562,7 +634,7 @@ export default function ToolkitApp({
     const incoterms = content.incoterms.filter((t) => !q || matches(q, t.term, t.definition));
     const codes = (rs: CodeRegion[]) =>
       rs
-        .map((r) => ({ ...r, codes: r.codes.filter((c) => !q || matches(q, c.code, c.name)) }))
+        .map((r) => ({ ...r, codes: r.codes.filter((c) => !q || matches(q, c.code, c.prefix ?? "", c.name)) }))
         .filter((r) => r.codes.length);
     return {
       emails,
@@ -957,7 +1029,7 @@ export default function ToolkitApp({
                 <div className="space-y-4">
                   <TermList title="Glossary" terms={filtered.glossary} />
                   <TermList title="Incoterms® 2020 at a glance" terms={filtered.incoterms} />
-                  <CodeTable title="Air carrier codes (IATA)" regions={filtered.carriers} />
+                  <CarrierTable regions={filtered.carriers} mostUsed={content.airCarrierMostUsed ?? []} showTop={!searching} />
                   <CodeTable title="Airport codes (IATA)" regions={filtered.airports} />
                 </div>
               </section>

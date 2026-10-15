@@ -43,9 +43,15 @@ def pairs(rows):
     return [{"term": t, "definition": d} for t, d in rows]
 
 
+def code_entry(e):
+    if len(e) == 3:
+        return {"code": e[0], "prefix": e[1], "name": e[2]}
+    return {"code": e[0], "name": e[1]}
+
+
 def regions(rows):
     return [
-        {"region": region, "codes": [{"code": c, "name": n} for c, n in codes]}
+        {"region": region, "codes": [code_entry(e) for e in codes]}
         for region, codes in rows
     ]
 
@@ -59,6 +65,7 @@ data = {
     "glossary": pairs(b.GLOSSARY),
     "incoterms": pairs(b.INCOTERMS),
     "airCarrierCodes": regions(b.AIR_CARRIER_CODES),
+    "airCarrierMostUsed": b.AIR_CARRIER_MOST_USED,
     "airportCodes": regions(b.AIRPORT_CODES),
     "emergencyChecklist": b.BONUS_CHECKLIST,
     "premium": {

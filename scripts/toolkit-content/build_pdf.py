@@ -1506,47 +1506,67 @@ INCOTERMS = [
     ("DDP — Delivered Duty Paid", "Seller delivers the goods cleared for import at the named destination — the maximum obligation for a seller."),
 ]
 
+# (IATA code, 3-digit AWB prefix, airline). Low-cost airlines without a
+# cargo product are left out on purpose.
 AIR_CARRIER_CODES = [
     ("Europe", [
-        ("BA", "British Airways"), ("LH", "Lufthansa"), ("KL", "KLM Royal Dutch Airlines"),
-        ("AF", "Air France"), ("IB", "Iberia"), ("LX", "Swiss International Air Lines"),
-        ("AZ", "ITA Airways"), ("AY", "Finnair"), ("SK", "Scandinavian Airlines (SAS)"),
-        ("LO", "LOT Polish Airlines"), ("SN", "Brussels Airlines"), ("TK", "Turkish Airlines"),
-        ("EI", "Aer Lingus"), ("FR", "Ryanair"), ("U2", "easyJet"), ("W6", "Wizz Air"),
+        ("KL", "074", "KLM Royal Dutch Airlines"), ("LH", "020", "Lufthansa / Lufthansa Cargo"),
+        ("AF", "057", "Air France"), ("BA", "125", "British Airways"),
+        ("SK", "117", "Scandinavian Airlines (SAS)"), ("AY", "105", "Finnair"),
+        ("TK", "235", "Turkish Airlines"), ("LX", "724", "Swiss International Air Lines"),
+        ("SN", "082", "Brussels Airlines"), ("OS", "257", "Austrian Airlines"),
+        ("AZ", "055", "ITA Airways"), ("IB", "075", "Iberia"),
+        ("TP", "047", "TAP Air Portugal"), ("LO", "080", "LOT Polish Airlines"),
+        ("EI", "053", "Aer Lingus"), ("CV", "172", "Cargolux"),
     ]),
     ("Asia", [
-        ("SQ", "Singapore Airlines"), ("CX", "Cathay Pacific"), ("NH", "All Nippon Airways (ANA)"),
-        ("JL", "Japan Airlines"), ("KE", "Korean Air"), ("OZ", "Asiana Airlines"),
-        ("CA", "Air China"), ("MU", "China Eastern Airlines"), ("CZ", "China Southern Airlines"),
-        ("HU", "Hainan Airlines"), ("TG", "Thai Airways"), ("VN", "Vietnam Airlines"),
-        ("GA", "Garuda Indonesia"), ("MH", "Malaysia Airlines"), ("5J", "Cebu Pacific"), ("AI", "Air India"),
-    ]),
-    ("North America", [
-        ("AA", "American Airlines"), ("UA", "United Airlines"), ("DL", "Delta Air Lines"),
-        ("WN", "Southwest Airlines"), ("B6", "JetBlue Airways"), ("AS", "Alaska Airlines"),
-        ("AC", "Air Canada"), ("WS", "WestJet"), ("NK", "Spirit Airlines"),
-        ("F9", "Frontier Airlines"), ("HA", "Hawaiian Airlines"),
-    ]),
-    ("South America", [
-        ("LA", "LATAM Airlines"), ("AR", "Aerolíneas Argentinas"), ("G3", "GOL Linhas Aéreas"),
-        ("AV", "Avianca"), ("CM", "Copa Airlines"), ("H2", "Sky Airline"),
-        ("OB", "Boliviana de Aviación"), ("AD", "Azul Brazilian Airlines"), ("ZP", "Paranair"),
-    ]),
-    ("Africa", [
-        ("ET", "Ethiopian Airlines"), ("SA", "South African Airways"), ("KQ", "Kenya Airways"),
-        ("MS", "EgyptAir"), ("AT", "Royal Air Maroc"), ("DT", "TAAG Angola Airlines"),
-        ("TC", "Air Tanzania"), ("WB", "RwandAir"), ("4Z", "Airlink"), ("TU", "Tunisair"),
+        ("CZ", "784", "China Southern Airlines"), ("CK", "112", "China Cargo Airlines"),
+        ("MU", "781", "China Eastern Airlines"), ("CA", "999", "Air China"),
+        ("HU", "880", "Hainan Airlines"), ("3U", "876", "Sichuan Airlines"),
+        ("ZH", "479", "Shenzhen Airlines"), ("MF", "731", "Xiamen Airlines"),
+        ("CX", "160", "Cathay Pacific"), ("BR", "695", "EVA Air"),
+        ("CI", "297", "China Airlines"), ("KE", "180", "Korean Air"),
+        ("OZ", "988", "Asiana Airlines"), ("NH", "205", "All Nippon Airways (ANA)"),
+        ("JL", "131", "Japan Airlines"), ("SQ", "618", "Singapore Airlines"),
+        ("MH", "232", "Malaysia Airlines"), ("TG", "217", "Thai Airways"),
+        ("VN", "738", "Vietnam Airlines"), ("GA", "126", "Garuda Indonesia"),
+        ("PR", "079", "Philippine Airlines"), ("5J", "203", "Cebu Pacific"),
+        ("AI", "098", "Air India"), ("6E", "312", "IndiGo"),
+        ("UL", "603", "SriLankan Airlines"), ("BG", "997", "Biman Bangladesh Airlines"),
+        ("PK", "214", "Pakistan International Airlines"),
     ]),
     ("Middle East", [
-        ("EK", "Emirates"), ("QR", "Qatar Airways"), ("EY", "Etihad Airways"),
-        ("SV", "Saudia"), ("GF", "Gulf Air"), ("FZ", "flydubai"), ("WY", "Oman Air"),
-        ("RJ", "Royal Jordanian"), ("ME", "Middle East Airlines"), ("IA", "Iraqi Airways"),
+        ("EK", "176", "Emirates"), ("QR", "157", "Qatar Airways"), ("EY", "607", "Etihad Airways"),
+        ("SV", "065", "Saudia"), ("GF", "072", "Gulf Air"), ("WY", "910", "Oman Air"),
+        ("KU", "229", "Kuwait Airways"), ("RJ", "512", "Royal Jordanian"),
+        ("ME", "076", "Middle East Airlines"), ("FZ", "141", "flydubai"),
+    ]),
+    ("Africa", [
+        ("ET", "071", "Ethiopian Airlines"), ("SA", "083", "South African Airways"),
+        ("KQ", "706", "Kenya Airways"), ("MS", "077", "EgyptAir"),
+        ("AT", "147", "Royal Air Maroc"), ("DT", "118", "TAAG Angola Airlines"),
+        ("WB", "459", "RwandAir"),
+    ]),
+    ("North America", [
+        ("UA", "016", "United Airlines"), ("AA", "001", "American Airlines"),
+        ("DL", "006", "Delta Air Lines"), ("AC", "014", "Air Canada"),
+        ("AS", "027", "Alaska Airlines"), ("WS", "838", "WestJet"),
+        ("FX", "023", "FedEx Express"), ("5X", "406", "UPS Airlines"),
+        ("K4", "272", "Kalitta Air"), ("PO", "403", "Polar Air Cargo"),
+    ]),
+    ("South America", [
+        ("LA", "045", "LATAM Airlines"), ("AR", "044", "Aerolíneas Argentinas"),
+        ("AV", "134", "Avianca"), ("CM", "230", "Copa Airlines"),
+        ("G3", "127", "GOL Linhas Aéreas"), ("AD", "577", "Azul Brazilian Airlines"),
     ]),
     ("Oceania", [
-        ("QF", "Qantas"), ("NZ", "Air New Zealand"), ("VA", "Virgin Australia"),
-        ("JQ", "Jetstar Airways"), ("FJ", "Fiji Airways"), ("IE", "Solomon Airlines"), ("SB", "Aircalin"),
+        ("QF", "081", "Qantas"), ("NZ", "086", "Air New Zealand"),
+        ("VA", "795", "Virgin Australia"), ("FJ", "260", "Fiji Airways"),
     ]),
 ]
+
+# The carriers that come up most on marine spares airfreight, shown first.
+AIR_CARRIER_MOST_USED = ["KL", "CZ", "LH", "EK", "SQ", "QR", "TK", "SK", "AY", "UA", "KE", "VN"]
 
 AIRPORT_CODES = [
     ("Europe", [
@@ -2178,8 +2198,10 @@ def render_code_table(regions):
     cols = "".join(
         f'<div class="code-region"><h4>{esc(region)}</h4>'
         + "".join(
-            f'<div class="code-row"><div class="code">{esc(code)}</div><div class="name">{esc(name)}</div></div>'
-            for code, name in entries
+            f'<div class="code-row"><div class="code">{esc(e[0])}</div>'
+            + (f'<div class="code">{esc(e[1])}</div>' if len(e) == 3 else "")
+            + f'<div class="name">{esc(e[-1])}</div></div>'
+            for e in entries
         )
         + "</div>"
         for region, entries in regions
@@ -2200,7 +2222,7 @@ def render_reference():
     )
     body += f'<div class="cat-title" style="margin-top:26px;">Incoterms 2020 — Quick Reference</div><div class="toc">{incoterms_rows}</div>'
     air_icon = icon_badge("plane", size=22, icon_size=11, tone="tint")
-    body += f'<div class="cat-title" style="margin-top:26px;">{air_icon}Air Carrier Codes — IATA 2-Letter Codes</div>'
+    body += f'<div class="cat-title" style="margin-top:26px;">{air_icon}Air Carrier Codes — IATA Code &amp; AWB Prefix</div>'
     body += render_code_table(AIR_CARRIER_CODES)
     airport_icon = icon_badge("map-pin", size=22, icon_size=11, tone="tint")
     body += f'<div class="cat-title" style="margin-top:26px;">{airport_icon}Airport Codes — IATA Codes</div>'

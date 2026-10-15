@@ -868,68 +868,84 @@
    "region": "Europe",
    "codes": [
     {
-     "code": "BA",
-     "name": "British Airways"
-    },
-    {
-     "code": "LH",
-     "name": "Lufthansa"
-    },
-    {
      "code": "KL",
+     "prefix": "074",
      "name": "KLM Royal Dutch Airlines"
     },
     {
+     "code": "LH",
+     "prefix": "020",
+     "name": "Lufthansa / Lufthansa Cargo"
+    },
+    {
      "code": "AF",
+     "prefix": "057",
      "name": "Air France"
     },
     {
-     "code": "IB",
-     "name": "Iberia"
-    },
-    {
-     "code": "LX",
-     "name": "Swiss International Air Lines"
-    },
-    {
-     "code": "AZ",
-     "name": "ITA Airways"
-    },
-    {
-     "code": "AY",
-     "name": "Finnair"
+     "code": "BA",
+     "prefix": "125",
+     "name": "British Airways"
     },
     {
      "code": "SK",
+     "prefix": "117",
      "name": "Scandinavian Airlines (SAS)"
     },
     {
-     "code": "LO",
-     "name": "LOT Polish Airlines"
-    },
-    {
-     "code": "SN",
-     "name": "Brussels Airlines"
+     "code": "AY",
+     "prefix": "105",
+     "name": "Finnair"
     },
     {
      "code": "TK",
+     "prefix": "235",
      "name": "Turkish Airlines"
     },
     {
+     "code": "LX",
+     "prefix": "724",
+     "name": "Swiss International Air Lines"
+    },
+    {
+     "code": "SN",
+     "prefix": "082",
+     "name": "Brussels Airlines"
+    },
+    {
+     "code": "OS",
+     "prefix": "257",
+     "name": "Austrian Airlines"
+    },
+    {
+     "code": "AZ",
+     "prefix": "055",
+     "name": "ITA Airways"
+    },
+    {
+     "code": "IB",
+     "prefix": "075",
+     "name": "Iberia"
+    },
+    {
+     "code": "TP",
+     "prefix": "047",
+     "name": "TAP Air Portugal"
+    },
+    {
+     "code": "LO",
+     "prefix": "080",
+     "name": "LOT Polish Airlines"
+    },
+    {
      "code": "EI",
+     "prefix": "053",
      "name": "Aer Lingus"
     },
     {
-     "code": "FR",
-     "name": "Ryanair"
-    },
-    {
-     "code": "U2",
-     "name": "easyJet"
-    },
-    {
-     "code": "W6",
-     "name": "Wizz Air"
+     "code": "CV",
+     "prefix": "172",
+     "name": "Cargolux"
     }
    ]
   },
@@ -937,203 +953,139 @@
    "region": "Asia",
    "codes": [
     {
-     "code": "SQ",
-     "name": "Singapore Airlines"
+     "code": "CZ",
+     "prefix": "784",
+     "name": "China Southern Airlines"
+    },
+    {
+     "code": "CK",
+     "prefix": "112",
+     "name": "China Cargo Airlines"
+    },
+    {
+     "code": "MU",
+     "prefix": "781",
+     "name": "China Eastern Airlines"
+    },
+    {
+     "code": "CA",
+     "prefix": "999",
+     "name": "Air China"
+    },
+    {
+     "code": "HU",
+     "prefix": "880",
+     "name": "Hainan Airlines"
+    },
+    {
+     "code": "3U",
+     "prefix": "876",
+     "name": "Sichuan Airlines"
+    },
+    {
+     "code": "ZH",
+     "prefix": "479",
+     "name": "Shenzhen Airlines"
+    },
+    {
+     "code": "MF",
+     "prefix": "731",
+     "name": "Xiamen Airlines"
     },
     {
      "code": "CX",
+     "prefix": "160",
      "name": "Cathay Pacific"
     },
     {
-     "code": "NH",
-     "name": "All Nippon Airways (ANA)"
+     "code": "BR",
+     "prefix": "695",
+     "name": "EVA Air"
     },
     {
-     "code": "JL",
-     "name": "Japan Airlines"
+     "code": "CI",
+     "prefix": "297",
+     "name": "China Airlines"
     },
     {
      "code": "KE",
+     "prefix": "180",
      "name": "Korean Air"
     },
     {
      "code": "OZ",
+     "prefix": "988",
      "name": "Asiana Airlines"
     },
     {
-     "code": "CA",
-     "name": "Air China"
+     "code": "NH",
+     "prefix": "205",
+     "name": "All Nippon Airways (ANA)"
     },
     {
-     "code": "MU",
-     "name": "China Eastern Airlines"
+     "code": "JL",
+     "prefix": "131",
+     "name": "Japan Airlines"
     },
     {
-     "code": "CZ",
-     "name": "China Southern Airlines"
+     "code": "SQ",
+     "prefix": "618",
+     "name": "Singapore Airlines"
     },
     {
-     "code": "HU",
-     "name": "Hainan Airlines"
+     "code": "MH",
+     "prefix": "232",
+     "name": "Malaysia Airlines"
     },
     {
      "code": "TG",
+     "prefix": "217",
      "name": "Thai Airways"
     },
     {
      "code": "VN",
+     "prefix": "738",
      "name": "Vietnam Airlines"
     },
     {
      "code": "GA",
+     "prefix": "126",
      "name": "Garuda Indonesia"
     },
     {
-     "code": "MH",
-     "name": "Malaysia Airlines"
+     "code": "PR",
+     "prefix": "079",
+     "name": "Philippine Airlines"
     },
     {
      "code": "5J",
+     "prefix": "203",
      "name": "Cebu Pacific"
     },
     {
      "code": "AI",
+     "prefix": "098",
      "name": "Air India"
-    }
-   ]
-  },
-  {
-   "region": "North America",
-   "codes": [
-    {
-     "code": "AA",
-     "name": "American Airlines"
     },
     {
-     "code": "UA",
-     "name": "United Airlines"
+     "code": "6E",
+     "prefix": "312",
+     "name": "IndiGo"
     },
     {
-     "code": "DL",
-     "name": "Delta Air Lines"
+     "code": "UL",
+     "prefix": "603",
+     "name": "SriLankan Airlines"
     },
     {
-     "code": "WN",
-     "name": "Southwest Airlines"
+     "code": "BG",
+     "prefix": "997",
+     "name": "Biman Bangladesh Airlines"
     },
     {
-     "code": "B6",
-     "name": "JetBlue Airways"
-    },
-    {
-     "code": "AS",
-     "name": "Alaska Airlines"
-    },
-    {
-     "code": "AC",
-     "name": "Air Canada"
-    },
-    {
-     "code": "WS",
-     "name": "WestJet"
-    },
-    {
-     "code": "NK",
-     "name": "Spirit Airlines"
-    },
-    {
-     "code": "F9",
-     "name": "Frontier Airlines"
-    },
-    {
-     "code": "HA",
-     "name": "Hawaiian Airlines"
-    }
-   ]
-  },
-  {
-   "region": "South America",
-   "codes": [
-    {
-     "code": "LA",
-     "name": "LATAM Airlines"
-    },
-    {
-     "code": "AR",
-     "name": "Aerolíneas Argentinas"
-    },
-    {
-     "code": "G3",
-     "name": "GOL Linhas Aéreas"
-    },
-    {
-     "code": "AV",
-     "name": "Avianca"
-    },
-    {
-     "code": "CM",
-     "name": "Copa Airlines"
-    },
-    {
-     "code": "H2",
-     "name": "Sky Airline"
-    },
-    {
-     "code": "OB",
-     "name": "Boliviana de Aviación"
-    },
-    {
-     "code": "AD",
-     "name": "Azul Brazilian Airlines"
-    },
-    {
-     "code": "ZP",
-     "name": "Paranair"
-    }
-   ]
-  },
-  {
-   "region": "Africa",
-   "codes": [
-    {
-     "code": "ET",
-     "name": "Ethiopian Airlines"
-    },
-    {
-     "code": "SA",
-     "name": "South African Airways"
-    },
-    {
-     "code": "KQ",
-     "name": "Kenya Airways"
-    },
-    {
-     "code": "MS",
-     "name": "EgyptAir"
-    },
-    {
-     "code": "AT",
-     "name": "Royal Air Maroc"
-    },
-    {
-     "code": "DT",
-     "name": "TAAG Angola Airlines"
-    },
-    {
-     "code": "TC",
-     "name": "Air Tanzania"
-    },
-    {
-     "code": "WB",
-     "name": "RwandAir"
-    },
-    {
-     "code": "4Z",
-     "name": "Airlink"
-    },
-    {
-     "code": "TU",
-     "name": "Tunisair"
+     "code": "PK",
+     "prefix": "214",
+     "name": "Pakistan International Airlines"
     }
    ]
   },
@@ -1142,43 +1094,183 @@
    "codes": [
     {
      "code": "EK",
+     "prefix": "176",
      "name": "Emirates"
     },
     {
      "code": "QR",
+     "prefix": "157",
      "name": "Qatar Airways"
     },
     {
      "code": "EY",
+     "prefix": "607",
      "name": "Etihad Airways"
     },
     {
      "code": "SV",
+     "prefix": "065",
      "name": "Saudia"
     },
     {
      "code": "GF",
+     "prefix": "072",
      "name": "Gulf Air"
     },
     {
-     "code": "FZ",
-     "name": "flydubai"
-    },
-    {
      "code": "WY",
+     "prefix": "910",
      "name": "Oman Air"
     },
     {
+     "code": "KU",
+     "prefix": "229",
+     "name": "Kuwait Airways"
+    },
+    {
      "code": "RJ",
+     "prefix": "512",
      "name": "Royal Jordanian"
     },
     {
      "code": "ME",
+     "prefix": "076",
      "name": "Middle East Airlines"
     },
     {
-     "code": "IA",
-     "name": "Iraqi Airways"
+     "code": "FZ",
+     "prefix": "141",
+     "name": "flydubai"
+    }
+   ]
+  },
+  {
+   "region": "Africa",
+   "codes": [
+    {
+     "code": "ET",
+     "prefix": "071",
+     "name": "Ethiopian Airlines"
+    },
+    {
+     "code": "SA",
+     "prefix": "083",
+     "name": "South African Airways"
+    },
+    {
+     "code": "KQ",
+     "prefix": "706",
+     "name": "Kenya Airways"
+    },
+    {
+     "code": "MS",
+     "prefix": "077",
+     "name": "EgyptAir"
+    },
+    {
+     "code": "AT",
+     "prefix": "147",
+     "name": "Royal Air Maroc"
+    },
+    {
+     "code": "DT",
+     "prefix": "118",
+     "name": "TAAG Angola Airlines"
+    },
+    {
+     "code": "WB",
+     "prefix": "459",
+     "name": "RwandAir"
+    }
+   ]
+  },
+  {
+   "region": "North America",
+   "codes": [
+    {
+     "code": "UA",
+     "prefix": "016",
+     "name": "United Airlines"
+    },
+    {
+     "code": "AA",
+     "prefix": "001",
+     "name": "American Airlines"
+    },
+    {
+     "code": "DL",
+     "prefix": "006",
+     "name": "Delta Air Lines"
+    },
+    {
+     "code": "AC",
+     "prefix": "014",
+     "name": "Air Canada"
+    },
+    {
+     "code": "AS",
+     "prefix": "027",
+     "name": "Alaska Airlines"
+    },
+    {
+     "code": "WS",
+     "prefix": "838",
+     "name": "WestJet"
+    },
+    {
+     "code": "FX",
+     "prefix": "023",
+     "name": "FedEx Express"
+    },
+    {
+     "code": "5X",
+     "prefix": "406",
+     "name": "UPS Airlines"
+    },
+    {
+     "code": "K4",
+     "prefix": "272",
+     "name": "Kalitta Air"
+    },
+    {
+     "code": "PO",
+     "prefix": "403",
+     "name": "Polar Air Cargo"
+    }
+   ]
+  },
+  {
+   "region": "South America",
+   "codes": [
+    {
+     "code": "LA",
+     "prefix": "045",
+     "name": "LATAM Airlines"
+    },
+    {
+     "code": "AR",
+     "prefix": "044",
+     "name": "Aerolíneas Argentinas"
+    },
+    {
+     "code": "AV",
+     "prefix": "134",
+     "name": "Avianca"
+    },
+    {
+     "code": "CM",
+     "prefix": "230",
+     "name": "Copa Airlines"
+    },
+    {
+     "code": "G3",
+     "prefix": "127",
+     "name": "GOL Linhas Aéreas"
+    },
+    {
+     "code": "AD",
+     "prefix": "577",
+     "name": "Azul Brazilian Airlines"
     }
    ]
   },
@@ -1187,34 +1279,40 @@
    "codes": [
     {
      "code": "QF",
+     "prefix": "081",
      "name": "Qantas"
     },
     {
      "code": "NZ",
+     "prefix": "086",
      "name": "Air New Zealand"
     },
     {
      "code": "VA",
+     "prefix": "795",
      "name": "Virgin Australia"
     },
     {
-     "code": "JQ",
-     "name": "Jetstar Airways"
-    },
-    {
      "code": "FJ",
+     "prefix": "260",
      "name": "Fiji Airways"
-    },
-    {
-     "code": "IE",
-     "name": "Solomon Airlines"
-    },
-    {
-     "code": "SB",
-     "name": "Aircalin"
     }
    ]
   }
+ ],
+ "airCarrierMostUsed": [
+  "KL",
+  "CZ",
+  "LH",
+  "EK",
+  "SQ",
+  "QR",
+  "TK",
+  "SK",
+  "AY",
+  "UA",
+  "KE",
+  "VN"
  ],
  "airportCodes": [
   {
